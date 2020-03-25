@@ -3,7 +3,7 @@ import React from "react";
 
 function Al(props){
     return(
-        <View><Text>7Version+{props.text}</Text></View>
+        <View><Text>8Version+{props.text}</Text></View>
     )
 }
 export {
