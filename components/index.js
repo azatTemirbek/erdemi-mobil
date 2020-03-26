@@ -9,6 +9,7 @@ import MapArray from "./MapArray";
 import FlattenObject from "./FlattenObject";
 import Item from "./Item";
 import RadioGroup, { Radio } from "./RadioGroup";
+import XForm from "./XForm";
 
 export {
   Table,
@@ -22,6 +23,7 @@ export {
   FlattenObject,
   Radio,
   Item,
-  RadioGroup
+  RadioGroup,
+  XForm
 };
 export default {};
