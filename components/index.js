@@ -13,6 +13,8 @@ import XForm from "./XForm";
 import TextInput from "./TextInput";
 import Divider from "./Divider";
 import Popup from "./Popup";
+import XCard from "./XCard";
+import CheckBox from "./CheckBox";
 
 export {
   Table,
@@ -30,6 +32,8 @@ export {
   XForm,
   TextInput,
   Divider,
-  Popup
+  Popup,
+  XCard,
+  CheckBox
 };
 export default {};
