@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { Text, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
-import { BaseColor, Typography, FontWeight, generateColors } from "@config";
-import * as Utils from "@utils";
+import { BaseColor, Typography, FontWeight, generateColors } from "../../config";
+import * as Utils from "../../utils";
 
 const styles = StyleSheet.create({
   ...generateColors(undefined, "color", "color"),
   ...generateColors()
 });
 
-export default class Text extends Component {
+export default class index extends Component {
   constructor(props) {
     super(props);
   }
