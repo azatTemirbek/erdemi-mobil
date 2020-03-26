@@ -54,11 +54,11 @@ const Icon = ({ type = "font-awesome-5", ...rest }) => {
   return <IconComponent {...rest} />;
 };
 
-index.propTypes = {
+Icon.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 
-index.defaultProps = {
+Icon.defaultProps = {
   style: {}
 };
 export default Icon;
