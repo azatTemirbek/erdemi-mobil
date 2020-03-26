@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prepush": "git add ./ && git commit -m \"commitprepush\"",
     "push": "np --yolo --no-release-draft"
   },
   "author": "",

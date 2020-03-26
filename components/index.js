@@ -1,5 +1,5 @@
-export { default } from "./Table";
-export { default } from "./Text";
-export { default } from "./Image";
-export { default } from "./Card"
+export * from "./Table";
+export * from "./Text";
+export * from "./Image";
+export * from "./Card"
 export default {};
