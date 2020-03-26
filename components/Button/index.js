@@ -24,7 +24,6 @@ export default class Button extends Component {
       children,
       ...rest
     } = this.props;
-
     return (
       <TouchableOpacity
         {...rest}
