@@ -10,6 +10,8 @@ import FlattenObject from "./FlattenObject";
 import Item from "./Item";
 import RadioGroup, { Radio } from "./RadioGroup";
 import XForm from "./XForm";
+import TextInput from "./TextInput";
+import Divider from "./Divider";
 
 export {
   Table,
@@ -24,6 +26,8 @@ export {
   Radio,
   Item,
   RadioGroup,
-  XForm
+  XForm,
+  TextInput,
+  Divider
 };
 export default {};
