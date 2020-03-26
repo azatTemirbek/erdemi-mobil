@@ -1,4 +1,4 @@
-import Table from "./components/Table";
-import Text from "./components/Text";
-export { Table, Text };
+export * as components from "./components";
+export * as Utils from "./utils";
+export * as Config from "./config";
 export default {};
