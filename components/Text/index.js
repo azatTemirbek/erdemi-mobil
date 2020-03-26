@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
   ...generateColors()
 });
 
-export default class index extends Component {
+export default class Index extends Component {
+  
   constructor(props) {
     super(props);
   }
