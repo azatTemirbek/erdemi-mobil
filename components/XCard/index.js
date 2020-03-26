@@ -100,7 +100,7 @@ XCard.propTypes = {
   styleContent: PropTypes.object,
   touchable: PropTypes.bool,
   onPress: PropTypes.func,
-  //custon for text color
+  //custom for text color
   primaryColor: PropTypes.bool,
   darkPrimaryColor: PropTypes.bool,
   lightPrimaryColor: PropTypes.bool,
@@ -122,7 +122,7 @@ XCard.defaultProps = {
   styleContent: {},
   touchable: false,
   onPress: () => {},
-  //custon for text color
+  //custom for text color
   primaryColor: false,
   darkPrimaryColor: false,
   lightPrimaryColor: false,
