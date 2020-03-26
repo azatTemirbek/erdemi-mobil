@@ -4,5 +4,7 @@ import Image from "./Image";
 import Card from "./Card"
 import Icon from "./Icon"
 import Button from "./Button"
-export { Table, Text, Image, Card, Icon, Button };
+import Block from "./Block"
+
+export { Table, Text, Image, Card, Icon, Button, Block };
 export default {}; 
