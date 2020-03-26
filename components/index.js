@@ -1,5 +1,5 @@
-export * as Table from "./Table";
-export * as Text from "./Text";
-export * as Image from "./Image";
-export * as Card from "./Card"
+export { default } from "./Table";
+export { default } from "./Text";
+export { default } from "./Image";
+export { default } from "./Card"
 export default {};
