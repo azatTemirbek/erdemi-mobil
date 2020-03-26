@@ -7,7 +7,7 @@ import {
   View
 } from "react-native";
 import { generateStyles } from "./styles";
-import { Text } from "@components";
+import Text from "../Text";
 import PropTypes from "prop-types";
 
 export default class Table extends React.Component {
