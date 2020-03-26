@@ -15,6 +15,7 @@ import Divider from "./Divider";
 import Popup from "./Popup";
 import XCard from "./XCard";
 import CheckBox from "./CheckBox";
+import Selector from "./Selector";
 
 export {
   Table,
@@ -34,6 +35,7 @@ export {
   Divider,
   Popup,
   XCard,
-  CheckBox
+  CheckBox,
+  Selector
 };
 export default {};
