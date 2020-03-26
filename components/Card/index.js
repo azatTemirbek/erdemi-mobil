@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { View, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import PropTypes from "prop-types";
-import Image from "../";
+import { Image } from "../";
 
 const Card = ({ style, children, styleContent, image, onPress }) => {
   return (
