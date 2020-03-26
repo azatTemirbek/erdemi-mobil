@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { BaseColor } from "@config";
+import { BaseColor } from "../../config";
 
 const DEF_CELL_WIDTH = 200;
 const DEF_CELL_HEIGHT = 50;
