@@ -12,6 +12,7 @@ import RadioGroup, { Radio } from "./RadioGroup";
 import XForm from "./XForm";
 import TextInput from "./TextInput";
 import Divider from "./Divider";
+import Popup from "./Popup";
 
 export {
   Table,
@@ -28,6 +29,7 @@ export {
   RadioGroup,
   XForm,
   TextInput,
-  Divider
+  Divider,
+  Popup
 };
 export default {};
