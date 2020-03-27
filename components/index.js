@@ -24,6 +24,8 @@ import DropDown from "./XForm/DropDown";
 import DropDownMulti from "./XForm/DropDownMulti";
 import DatePickerInput from "./DatePickerInput";
 import RadioGroup, { Radio } from "./XForm/RadioGroup";
+import ImageInput from "./XForm/ImageInput";
+/** other */
 import CompanyMenu from "./CompanyMenu";
 import Header from "./Header";
 import Filter from "./Filter";
@@ -39,6 +41,7 @@ export {
   TextInput,
   RadioGroup,
   Radio,
+  ImageInput,
   Table,
   Text,
   Image,
