@@ -16,6 +16,7 @@ import Popup from "./Popup";
 import XCard from "./XCard";
 import CheckBox from "./CheckBox";
 import Selector from "./Selector";
+import PolicyButton from "./PolicyButton";
 
 export {
   Table,
@@ -36,6 +37,7 @@ export {
   Popup,
   XCard,
   CheckBox,
-  Selector
+  Selector,
+  PolicyButton
 };
 export default {};
