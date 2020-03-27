@@ -3,7 +3,6 @@ import {
   generateColors,
   RedColor,
   ExtraColors,
-  BaseColor,
   BlueColor,
   PinkColor,
   GreenColor,
