@@ -1,4 +1,5 @@
 import React from "react";
+import {StyleSheet} from "react-native";
 import {
   BaseColor,
   Typography,
@@ -16,6 +17,10 @@ export const withFont = ({
   baseColor = BaseColor,
   typography = Typography,
   fontWeight = FontWeight
+} = {
+  baseColor : BaseColor,
+  typography : Typography,
+  fontWeight : FontWeight
 }) => Component => {
   const displayName = `withFont(${Component.displayName || Component.name})`;
   const C = ({

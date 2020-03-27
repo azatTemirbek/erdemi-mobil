@@ -8,7 +8,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 4,
-    paddingHorizontal: 20,
+    // paddingHorizontal: 5,
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.1)"
   },
@@ -29,7 +29,7 @@ export default StyleSheet.create({
   },
   baseInput: {
     height: 46,
-    backgroundColor: BaseColor.fieldColor,
+    // backgroundColor: BaseColor.fieldColor,
     borderRadius: 5,
     color: "#333333",
     padding: 10,
