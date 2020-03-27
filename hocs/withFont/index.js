@@ -1,5 +1,4 @@
 import React from "react";
-import * as Utils from "../../utils";
 import {
   BaseColor,
   Typography,
