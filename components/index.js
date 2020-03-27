@@ -16,6 +16,12 @@ import Popup from "./Popup";
 import XCard from "./XCard";
 import CheckBox from "./CheckBox";
 import Selector from "./Selector";
+import CompanyMenu from "./CompanyMenu";
+import Header from "./Header";
+import Filter from "./Filter";
+import FilterSort from "./FilterSort";
+import PdfModal from "./PdfModal";
+
 
 export {
   Table,
@@ -36,6 +42,11 @@ export {
   Popup,
   XCard,
   CheckBox,
-  Selector
+  Selector,
+  CompanyMenu,
+  Header,
+  Filter,
+  FilterSort,
+  PdfModal,
 };
 export default {};
