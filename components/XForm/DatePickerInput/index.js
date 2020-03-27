@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { Text, Icon, TextInput } from "../../";
 import styles from "./styles";
 import Modal from "react-native-modal";
-import { Calendar } from "react-native-calendars";
+import { Calendar } from "react-native-calendars"; 
 /** calendar theme */
 const theme = {
   textSectionTitleColor: BaseColor.textPrimaryColor,
