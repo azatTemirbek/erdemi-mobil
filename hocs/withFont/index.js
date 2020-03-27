@@ -1,5 +1,6 @@
 import React from "react";
 import {StyleSheet} from "react-native";
+import hoistStatics from "hoist-non-react-statics";
 import {
   BaseColor,
   Typography,
@@ -11,7 +12,6 @@ const styles = StyleSheet.create({
   ...generateColors(undefined, "color", "color"),
   ...generateColors()
 });
-import hoistStatics from "hoist-non-react-statics";
 
 export const withFont = ({
   baseColor = BaseColor,
@@ -68,11 +68,14 @@ export const withFont = ({
     bgColor,
     margin,
     padding,
-    //custom
+    //custom,
+    left,
+    right,
     style,
     ...remainingProps
   }) => {
     const blockStyles = StyleSheet.flatten([
+      /** Defined typo */
       header && typography.header,
       title1 && typography.title1,
       title2 && typography.title2,
@@ -86,7 +89,7 @@ export const withFont = ({
       caption1 && typography.caption1,
       caption2 && typography.caption2,
       overline && typography.overline,
-      //custom for font
+      /** custom for font */
       thin && StyleSheet.flatten({ fontWeight: fontWeight.thin }),
       ultraLight &&
         StyleSheet.flatten({
@@ -99,11 +102,11 @@ export const withFont = ({
       bold && StyleSheet.flatten({ fontWeight: fontWeight.bold }),
       heavy && StyleSheet.flatten({ fontWeight: fontWeight.heavy }),
       black && StyleSheet.flatten({ fontWeight: fontWeight.black }),
-      // default color
+      /** default color */
       StyleSheet.flatten({
         color: baseColor.textPrimaryColor
       }),
-      //custom for color
+      /** applying colors directly */
       primaryColor && StyleSheet.flatten({ color: baseColor.primaryColor }),
       darkPrimaryColor &&
         StyleSheet.flatten({
@@ -126,15 +129,22 @@ export const withFont = ({
       whiteColor && StyleSheet.flatten({ color: baseColor.whiteColor }),
       fieldColor && StyleSheet.flatten({ color: baseColor.fieldColor }),
       navyBlue && StyleSheet.flatten({ color: baseColor.navyBlue }),
+      /** text alignment */
+      StyleSheet.flatten({ textAlign: "auto" }),
       center && StyleSheet.flatten({ textAlign: "center" }),
-      color && styles[`color-${color}`], // predefined styles colors for TextColor
+      left && StyleSheet.flatten({ textAlign: "left" }),
+      right && StyleSheet.flatten({ textAlign: "right" }),
+      justify && StyleSheet.flatten({ textAlign: "justify" }),
+      /** Text Color */
+      color && styles[`color-${color}`],
       color &&
         !styles[`color-${color}`] &&
-        StyleSheet.flatten({ color: color }), // custom TextColor
-      bgColor && styles[`${bgColor}`], // predefined styles colors for TextColor
+        StyleSheet.flatten({ color: color }),
+      /** background Color */
+      bgColor && styles[`${bgColor}`],
       bgColor &&
         !styles[`${bgColor}`] &&
-        StyleSheet.flatten({ backgroundColor: bgColor }), // custom TextColor
+        StyleSheet.flatten({ backgroundColor: bgColor }),
       margin && StyleSheet.flatten(Utils.handleMargins(margin)),
       padding && StyleSheet.flatten(Utils.handlePaddings(padding)),
       style && style

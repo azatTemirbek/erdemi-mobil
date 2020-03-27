@@ -306,115 +306,60 @@ export function flipX(duration = 300) {
     }
   };
 }
-
-export const memo = fn => {
-  let cache = {};
-  return (...args) => {
-    let n = args[0]; // just taking one argument here
-    if (n in cache) {
-      console.log("Fetching from cache");
-      return cache[n];
-    } else {
-      console.log("Calculating result");
-      let result = fn(n);
-      cache[n] = result;
-      return result;
-    }
-  };
-};
 /**
- * ui helper function
- * @param {any} margin
+ * top right bottom left
+ * @param {String} key Key to generate trbl
  */
-export const handleMargins = margin => {
-  if (typeof margin === "number") {
+export const TRBLFactory = (key = "padding") => value => {
+  if (typeof value === "number") {
     return {
-      marginTop: margin,
-      marginRight: margin,
-      marginBottom: margin,
-      marginLeft: margin
+      [`${key}Top`]: value,
+      [`${key}Right`]: value,
+      [`${key}Bottom`]: value,
+      [`${key}Left`]: value
     };
   }
-
-  if (typeof margin === "object") {
-    const marginSize = Object.keys(margin).length;
-    switch (marginSize) {
-      case 1:
-        return {
-          marginTop: margin[0],
-          marginRight: margin[0],
-          marginBottom: margin[0],
-          marginLeft: margin[0]
-        };
-      case 2:
-        return {
-          marginTop: margin[0],
-          marginRight: margin[1],
-          marginBottom: margin[0],
-          marginLeft: margin[1]
-        };
-      case 3:
-        return {
-          marginTop: margin[0],
-          marginRight: margin[1],
-          marginBottom: margin[2],
-          marginLeft: margin[1]
-        };
-      default:
-        return {
-          marginTop: margin[0],
-          marginRight: margin[1],
-          marginBottom: margin[2],
-          marginLeft: margin[3]
-        };
-    }
-  }
-};
-/**
- * Ui helper Function
- * @param {any} padding
- */
-export const handlePaddings = padding => {
-  if (typeof padding === "number") {
-    return {
-      paddingTop: padding,
-      paddingRight: padding,
-      paddingBottom: padding,
-      paddingLeft: padding
-    };
-  }
-
-  if (typeof padding === "object") {
-    const paddingSize = Object.keys(padding).length;
+  if (typeof value === "object") {
+    const paddingSize = Object.keys(value).length;
     switch (paddingSize) {
       case 1:
         return {
-          paddingTop: padding[0],
-          paddingRight: padding[0],
-          paddingBottom: padding[0],
-          paddingLeft: padding[0]
+          [`${key}Top`]: value[0],
+          [`${key}Right`]: value[0],
+          [`${key}Bottom`]: value[0],
+          [`${key}Left`]: value[0]
         };
       case 2:
         return {
-          paddingTop: padding[0],
-          paddingRight: padding[1],
-          paddingBottom: padding[0],
-          paddingLeft: padding[1]
+          [`${key}Top`]: value[0],
+          [`${key}Right`]: value[1],
+          [`${key}Bottom`]: value[0],
+          [`${key}Left`]: value[1]
         };
       case 3:
         return {
-          paddingTop: padding[0],
-          paddingRight: padding[1],
-          paddingBottom: padding[2],
-          paddingLeft: padding[1]
+          [`${key}Top`]: value[0],
+          [`${key}Right`]: value[1],
+          [`${key}Bottom`]: value[2],
+          [`${key}Left`]: value[1]
         };
       default:
         return {
-          paddingTop: padding[0],
-          paddingRight: padding[1],
-          paddingBottom: padding[2],
-          paddingLeft: padding[3]
+          [`${key}Top`]: value[0],
+          [`${key}Right`]: value[1],
+          [`${key}Bottom`]: value[2],
+          [`${key}Left`]: value[3]
         };
     }
   }
 };
+/**
+ * ui helper function
+ * @param {number|number[]} margin
+ */
+export const handleMargins = TRBLFactory("margin");
+/**
+ * Ui helper Function
+ * @param {number|number[]} padding
+ */
+export const handlePaddings = TRBLFactory("padding");
