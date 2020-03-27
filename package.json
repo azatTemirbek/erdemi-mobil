@@ -64,5 +64,8 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
+  },
+  "dependencies": {
+    "hoist-non-react-statics": "^3.3.2"
   }
 }

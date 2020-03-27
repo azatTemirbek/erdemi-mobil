@@ -125,11 +125,11 @@ export default class Index extends Component {
           navyBlue && StyleSheet.flatten({ color: BaseColor.navyBlue }),
           center && StyleSheet.flatten({ textAlign: "center" }),
           color && styles[`color-${color}`], // predefined styles colors for TextColor
-          color && !styles[`color-${color}`] && { color: color }, // custom TextColor
+          color && !styles[`color-${color}`] && StyleSheet.flatten({ color: color }), // custom TextColor
           bgColor && styles[`${bgColor}`], // predefined styles colors for TextColor
-          bgColor && !styles[`${bgColor}`] && { backgroundColor: bgColor }, // custom TextColor
-          margin && Utils.handleMargins(margin),
-          padding && Utils.handlePaddings(padding),
+          bgColor && !styles[`${bgColor}`] && StyleSheet.flatten({ backgroundColor: bgColor }), // custom TextColor
+          margin && StyleSheet.flatten(Utils.handleMargins(margin)),
+          padding && StyleSheet.flatten(Utils.handlePaddings(padding)),
           style && style
         ])}
         numberOfLines={numberOfLines}
