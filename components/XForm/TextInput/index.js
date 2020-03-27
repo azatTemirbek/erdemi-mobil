@@ -6,7 +6,7 @@ import {
   TextInput as Input
 } from "react-native";
 import PropTypes from "prop-types";
-import { BaseColor, BaseStyle } from "../../../config";
+import { BaseColor } from "../../../config";
 import { Text, Icon } from "../..";
 import styles from "./styles";
 
@@ -67,7 +67,6 @@ export default class TextInput extends Component {
             }}
             {...rest}
             style={[
-              BaseStyle.TextInput,
               styles.baseInput,
               renderRight && { width: "90%" },
               renderLeft && { width: "90%" },

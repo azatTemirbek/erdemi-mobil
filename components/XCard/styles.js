@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
-import { BaseColor, BaseStyle, generateColors } from "../../config";
-
+import { generateColors } from "../../config";
+import { elevationShadowStyle } from "../../utils";
 export default StyleSheet.create({
   container: {
-    ...BaseStyle.shadow,
+    ...elevationShadowStyle(4),
     borderRadius: 10,
     borderWidth: 0.02,
     borderColor: "transparent",

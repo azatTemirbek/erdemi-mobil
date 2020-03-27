@@ -27,6 +27,13 @@ export default StyleSheet.create({
     minWidth: "10%"
   },
   baseInput: {
+    height: 46,
+    backgroundColor: BaseColor.fieldColor,
+    borderRadius: 5,
+    color: "#333333",
+    padding: 10,
+    width: "100%",
+    justifyContent: "center",
     width: "100%",
     minHeight: 35
   },

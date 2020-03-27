@@ -1,6 +1,6 @@
 import React, { Component, cloneElement, Children } from "react";
 import { TouchableOpacity, View } from "react-native";
-import { BaseColor, BaseStyle } from "../../../config";
+import { BaseColor } from "../../../config";
 import PropTypes from "prop-types";
 import { Text, Icon, Card, MapArray, Selector } from "../../";
 import styles from "./styles";
@@ -144,7 +144,6 @@ export default class ImageInput extends Component {
           )}
           <View
             style={[
-              BaseStyle.ImageInputContainer,
               styles.ImageInputContainer,
               renderRight && { width: "90%" },
               renderLeft && { width: "90%" },
@@ -158,7 +157,6 @@ export default class ImageInput extends Component {
                 <View
                   key={"no-img"}
                   style={[
-                    BaseStyle.ImageInputContainer,
                     styles.ImageInputContainer,
                     renderRight && { width: "90%" },
                     renderLeft && { width: "90%" },

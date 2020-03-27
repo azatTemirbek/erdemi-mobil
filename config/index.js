@@ -1,8 +1,25 @@
-import { BaseColor, generateColors } from "./color";
+import {
+  BaseColor as baseColor,
+  generateColors,
+  RedColor,
+  ExtraColors,
+  BaseColor,
+  BlueColor,
+  PinkColor,
+  GreenColor,
+  YellowColor,
+  OrangeColor
+} from "./color";
 import { Typography, FontWeight, FontFamily } from "./typography";
 import { BaseSetting } from "./setting";
 import { BaseStyle } from "./theme";
 import { ScreenSize } from "./sizes";
+
+const BaseColor = {
+  ...RedColor,
+  ...ExtraColors,
+  ...baseColor,
+};
 
 export {
   BaseColor,
@@ -12,5 +29,10 @@ export {
   FontFamily,
   BaseSetting,
   BaseStyle,
-  ScreenSize
+  ScreenSize,
+  BlueColor,
+  PinkColor,
+  GreenColor,
+  YellowColor,
+  OrangeColor
 };
