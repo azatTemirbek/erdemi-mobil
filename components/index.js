@@ -17,6 +17,7 @@ import XCard from "./XCard";
 import CheckBox from "./CheckBox";
 import Selector from "./Selector";
 import PolicyButton from "./PolicyButton";
+import DatePickerInput from "./DatePickerInput";
 
 export {
   Table,
@@ -38,6 +39,7 @@ export {
   XCard,
   CheckBox,
   Selector,
-  PolicyButton
+  PolicyButton,
+  DatePickerInput
 };
 export default {};

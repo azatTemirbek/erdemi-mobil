@@ -93,6 +93,7 @@ export default class XForm extends Component {
     value: ctx.state.values[key],
     error: ctx.state.errors[key],
     label: ctx.props.translate(key),
+    translate: ctx.props.translate,
     name: key
   });
   /** RadioGroup with normal keyboard */

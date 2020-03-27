@@ -156,7 +156,8 @@ RadioGroup.propTypes = {
       text: PropTypes.string
     })
   ),
-  reverseLabel: PropTypes.bool
+  reverseLabel: PropTypes.bool,
+  translate: PropTypes.func
 };
 RadioGroup.defaultProps = {
   style: {},
@@ -179,5 +180,6 @@ RadioGroup.defaultProps = {
   ),
   checkedIcon: <Radio />,
   unCheckedIcon: <Radio />,
-  reverseLabel: false
+  reverseLabel: false,
+  translate: key=>key
 };

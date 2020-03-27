@@ -109,7 +109,8 @@ TextInput.propTypes = {
     PropTypes.func,
     PropTypes.node,
     PropTypes.element
-  ])
+  ]),
+  translate: PropTypes.func
 };
 
 TextInput.defaultProps = {
@@ -128,7 +129,8 @@ TextInput.defaultProps = {
         <Icon name="edit" size={22} color={BaseColor.accentColor} />
       </TouchableOpacity>
     );
-  }
+  },
+  translate: key => key
   // renderLeft: ({ props }) => {
   //   return (
   //     <TouchableOpacity onPress={() => props.focusInput()}>
