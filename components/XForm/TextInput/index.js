@@ -6,8 +6,8 @@ import {
   TextInput as Input
 } from "react-native";
 import PropTypes from "prop-types";
-import { BaseColor, BaseStyle } from "../../config";
-import { Text, Icon } from "../";
+import { BaseColor, BaseStyle } from "../../../config";
+import { Text, Icon } from "../..";
 import styles from "./styles";
 
 export default class TextInput extends Component {

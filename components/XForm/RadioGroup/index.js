@@ -1,7 +1,7 @@
 import React, { Component, Children, cloneElement } from "react";
 import { View, TouchableOpacity } from "react-native";
 import PropTypes from "prop-types";
-import { Text, Block, MapArray } from "../";
+import { Text, Block, MapArray } from "../../";
 import styles from "./styles";
 /**
  * transform array with checked
