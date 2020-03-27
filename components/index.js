@@ -21,6 +21,7 @@ import PolicyButton from "./PolicyButton";
 import XForm from "./XForm";
 import TextInput from "./XForm/TextInput";
 import DropDown from "./XForm/DropDown";
+import DropDownMulti from "./XForm/DropDownMulti";
 import DatePickerInput from "./DatePickerInput";
 import RadioGroup, { Radio } from "./XForm/RadioGroup";
 
@@ -28,6 +29,7 @@ export {
   XForm,
   DatePickerInput,
   DropDown,
+  DropDownMulti,
   TextInput,
   RadioGroup,
   Radio,
