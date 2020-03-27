@@ -22,7 +22,7 @@ import XForm from "./XForm";
 import TextInput from "./XForm/TextInput";
 import DropDown from "./XForm/DropDown";
 import DropDownMulti from "./XForm/DropDownMulti";
-import DatePickerInput from "./DatePickerInput";
+import DatePickerInput from "./XForm/DatePickerInput";
 import RadioGroup, { Radio } from "./XForm/RadioGroup";
 import ImageInput from "./XForm/ImageInput";
 /** other */
