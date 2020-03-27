@@ -58,7 +58,6 @@ export {
   Divider,
   Button,
   PolicyButton,
-  Selector,
   CompanyMenu,
   Header,
   Filter,
