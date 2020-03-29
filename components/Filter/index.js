@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity } from "react-native";
 import styles from "./styles";
-import { Icon, Text, Button } from "@components";
+import { Icon, Text, Button } from "../";
 import PropTypes from "prop-types";
-import { BaseColor } from "@config";
+import { BaseColor } from "../../config";
 import Modal from "react-native-modal";
-import translate from "@lang";
 
 export default class Filter extends Component {
   constructor(props) {
@@ -106,7 +105,7 @@ export default class Filter extends Component {
               style={{ marginTop: 10, marginBottom: 20 }}
               onPress={() => this.onApply()}
             >
-              {translate("apply")}
+              {this.props.translate("apply")}
             </Button>
           </View>
         </Modal>
@@ -116,7 +115,7 @@ export default class Filter extends Component {
         >
           <Icon name="filter" size={16} color={BaseColor.primaryColor} solid />
           <Text headline primaryColor style={{ marginLeft: 5 }}>
-            {translate("filter")}
+            {this.props.translate("filter")}
           </Text>
         </TouchableOpacity>
       </View>
@@ -131,7 +130,8 @@ Filter.propTypes = {
   modeView: PropTypes.string,
   labelCustom: PropTypes.string,
   onChangeFilter: PropTypes.func,
-  onChangeView: PropTypes.func
+  onChangeView: PropTypes.func,
+  translate: PropTypes.func,
 };
 
 Filter.defaultProps = {
@@ -166,5 +166,6 @@ Filter.defaultProps = {
   modeView: "",
   labelCustom: "",
   onChangeFilter: () => {},
-  onChangeView: () => {}
+  onChangeView: () => {},
+  translate: key=>key,
 };

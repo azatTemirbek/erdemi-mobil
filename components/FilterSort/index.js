@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity } from "react-native";
 import styles from "./styles";
-import { Icon, Text, Button } from "@components";
+import { Icon, Text, Button } from "../";
 import PropTypes from "prop-types";
-import { BaseColor } from "@config";
+import { BaseColor } from "../../config";
 import Modal from "react-native-modal";
-import translate from "@lang";
 
 export default class FilterSort extends Component {
   constructor(props) {
@@ -68,7 +67,7 @@ export default class FilterSort extends Component {
   }
 
   render() {
-    const { style, modeView, onFilter, onChangeView, labelCustom } = this.props;
+    const { style, onFilter } = this.props;
     const { sortOption, modalVisible, sortSelected } = this.state;
     return (
       <View style={[styles.contain, style]}>
@@ -106,7 +105,7 @@ export default class FilterSort extends Component {
               style={{ marginTop: 10, marginBottom: 20 }}
               onPress={() => this.onApply()}
             >
-              {translate("apply")}
+              {this.props.translate("apply")}
             </Button>
           </View>
         </Modal>
@@ -121,7 +120,7 @@ export default class FilterSort extends Component {
             solid
           />
           <Text headline primaryColor style={{ marginLeft: 5 }}>
-            {translate("sort")}
+            {this.props.translate("sort")}
           </Text>
         </TouchableOpacity>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -133,7 +132,7 @@ export default class FilterSort extends Component {
               solid
             />
             <Text headline primaryColor style={{ marginLeft: 5 }}>
-              {translate("filter")}
+              {this.props.translate("filter")}
             </Text>
           </TouchableOpacity>
         </View>
@@ -150,7 +149,8 @@ FilterSort.propTypes = {
   labelCustom: PropTypes.string,
   onChangeSort: PropTypes.func,
   onChangeView: PropTypes.func,
-  onFilter: PropTypes.func
+  onFilter: PropTypes.func,
+  translate: PropTypes.func,
 };
 
 FilterSort.defaultProps = {
@@ -186,5 +186,6 @@ FilterSort.defaultProps = {
   labelCustom: "",
   onChangeSort: () => {},
   onChangeView: () => {},
-  onFilter: () => {}
+  onFilter: () => {},
+  translate: key=>key,
 };

@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { BaseColor } from "@config";
+import { BaseColor } from "../../config";
 export default StyleSheet.create({
   container: {
     flex: 1,
