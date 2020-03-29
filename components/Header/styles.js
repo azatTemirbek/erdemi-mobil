@@ -1,5 +1,5 @@
 import { StyleSheet, Platform } from "react-native";
-import * as Utils from "@utils";
+import { heightHeader } from "../../utils";
 
 export default StyleSheet.create({
   contain: {
@@ -41,7 +41,7 @@ export default StyleSheet.create({
 
   bgImage: {
     width: "100%",
-    height: Utils.heightHeader()
+    height: heightHeader()
   },
   logo: {
     height: Platform.OS === "android" ? "70%" : "90%",

@@ -26,7 +26,6 @@ import DatePickerInput from "./XForm/DatePickerInput";
 import RadioGroup, { Radio } from "./XForm/RadioGroup";
 import ImageInput from "./XForm/ImageInput";
 /** other */
-import CompanyMenu from "./CompanyMenu";
 import Header from "./Header";
 import Filter from "./Filter";
 import FilterSort from "./FilterSort";
@@ -58,7 +57,6 @@ export {
   Divider,
   Button,
   PolicyButton,
-  CompanyMenu,
   Header,
   Filter,
   FilterSort,
