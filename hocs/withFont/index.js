@@ -71,6 +71,7 @@ export const withFont = ({
     //custom,
     left,
     right,
+    justify,
     style,
     ...remainingProps
   }) => {
