@@ -31,6 +31,7 @@ import Filter from "./Filter";
 import FilterSort from "./FilterSort";
 import PdfModal from "./PdfModal";
 import CompanyMenuView from "./CompanyMenuView";
+import LanguageDropDownView from "./LanguageDropDownView";
 
 export {
   XForm,
@@ -61,6 +62,7 @@ export {
   Filter,
   FilterSort,
   PdfModal,
-  CompanyMenuView
+  CompanyMenuView,
+  LanguageDropDownView
 };
 export default {};
