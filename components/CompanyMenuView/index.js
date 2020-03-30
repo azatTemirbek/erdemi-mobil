@@ -70,25 +70,25 @@ export const CompanyMenuView = ({
 export default CompanyMenuView;
 
 CompanyMenuView.defaultProps = {
-  open: false,
-  selectedName: "",
+  companyMenuBg: null,
+  logoBg: null,
   Visible: false,
+  selectedName: "",
+  companyList: [],
+  open: ()=>{},
   close: () => {},
   closeAndSelect: () => {},
-  companyList: [],
-  logoBg: null,
-  companyMenuBg: null,
-  translate: () => {}
+  translate: () => {},
 };
 
 CompanyMenuView.propTypes = {
-  open: PropTypes.bool,
-  selectedName: PropTypes.string,
+  companyMenuBg: PropTypes.any,
+  logoBg: PropTypes.any,
   Visible: PropTypes.bool,
+  selectedName: PropTypes.string,
+  companyList: PropTypes.array,
+  open: PropTypes.func,
   close: PropTypes.func,
   closeAndSelect: PropTypes.func,
-  companyList: PropTypes.array,
-  logoBg: PropTypes.any,
-  companyMenuBg: PropTypes.any,
   translate: PropTypes.func
 };
