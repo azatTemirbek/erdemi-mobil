@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prepush": "git pull && git add ./ && git commit -m \"commitprepush\"",
-    "push": "np --yolo --no-release-draft --tag "
+    "premerge": "git pull && git add ./ && git commit -m \"commitpremerge\"",
+    "merge": "np --yolo --no-release-draft --tag "
   },
   "author": "",
   "license": "ISC",
