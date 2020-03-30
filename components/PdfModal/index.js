@@ -1,7 +1,7 @@
 import React from "react";
-import { TouchableOpacity, View, ScrollView, SafeAreaView } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import styles from "./styles";
-import { Icon, Text, Button } from "@components";
+import { Text } from "../";
 import PropTypes from "prop-types";
 import Modal from "react-native-modal";
 import Pdf from 'react-native-pdf';
