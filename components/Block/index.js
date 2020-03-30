@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Animated } from "react-native";
-import withStyles from "../../hocs";
+import { withStyles } from "../../hocs";
 import PropTypes from "prop-types";
 
 export const Block = withStyles(({ animated, style, ...props }) =>
