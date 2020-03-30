@@ -2,7 +2,7 @@ import React from "react";
 import translate from "./index";
 import hoistStatics from "hoist-non-react-statics";
 /** used to add translate props with HOC */
-export const withHooksFactory = (Hooks) =>(key, args = {}) => Component => {
+export const withHooksFactory = Hooks => (key, args = {}) => Component => {
   const displayName = `withHooks(${Component.displayName || Component.name})`;
   const C = ({ wrappedComponentRef, ...remainingProps }) => {
     let func = () => {
