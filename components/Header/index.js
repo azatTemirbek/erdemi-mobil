@@ -110,7 +110,7 @@ Header.propTypes = {
   renderRight: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   onPressLeft: PropTypes.func,
   onPressRight: PropTypes.func,
-  title: PropTypes.string,
+  title: PropTypes.any,
   titleStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   type: PropTypes.number, //1 Dashboard screen header, 2 with back icon(default), 3 white header
   white: PropTypes.bool,
