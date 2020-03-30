@@ -1,7 +1,7 @@
 import React from "react";
 import { Text as Txt } from "react-native";
 import PropTypes from "prop-types";
-import withFont from "../../hocs/withFont";
+import { withFont } from "../../hocs";
 export const Text = withFont()(Txt)
 export default Text
 // Define typechecking
