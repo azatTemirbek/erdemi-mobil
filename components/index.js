@@ -30,7 +30,7 @@ import Header from "./Header";
 import Filter from "./Filter";
 import FilterSort from "./FilterSort";
 import PdfModal from "./PdfModal";
-
+import CompanyMenuView from "./CompanyMenuView";
 
 export {
   XForm,
@@ -61,5 +61,6 @@ export {
   Filter,
   FilterSort,
   PdfModal,
+  CompanyMenuView
 };
 export default {};
