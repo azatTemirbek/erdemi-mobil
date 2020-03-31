@@ -5,14 +5,14 @@ import createElement from "./utils/createElement";
 export const withHooksFactory = Hooks => (key, args = {}) => Component => {
   const displayName = `withHooks(${Component.displayName || Component.name})`;
   const C = remainingProps => {
-    let func = () => {
+    let useTemp = () => {
       console.error(`withHooks at ${displayName}`);
       return {};
     };
     if (Hooks[key]) {
-      func = Hooks[key];
+      useTemp = Hooks[key];
     }
-    const { ...rest } = func(args);
+    const { ...rest } = useTemp(args);
     return createElement(Component, {
       ...remainingProps,
       ...rest
