@@ -15,6 +15,7 @@ export const Tag = ({
   gray,
   rate,
   sale,
+  children,
   ...rest
 }) => {
   return (
@@ -47,7 +48,7 @@ export const Tag = ({
           ])}
           numberOfLines={1}
         >
-          {this.props.children || "Tag"}
+          {children || "Tag"}
         </Text>
       </View>
     </TouchableOpacity>
