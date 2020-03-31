@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import PropTypes from "prop-types";
 import FastImage from "react-native-fast-image";
 
-export const Image = (style, resizeMode, ...rest) => {
+export const Image = ({style, resizeMode, ...rest}) => {
   let resize = FastImage.resizeMode.cover;
   switch (resizeMode) {
     case "contain":
