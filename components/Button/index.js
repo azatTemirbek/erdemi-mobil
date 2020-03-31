@@ -6,23 +6,22 @@ import { Text } from "../";
 import styles from "./styles";
 import * as Utils from "../../utils";
 
-export const Button = () => {
-  const {
-    style,
-    styleText,
-    icon,
-    outline,
-    full,
-    round,
-    loading,
-    margin,
-    padding,
-    opacity,
-    color,
-    shadow,
-    children,
-    ...rest
-  } = this.props;
+export const Button = ({
+  style,
+  styleText,
+  icon,
+  outline,
+  full,
+  round,
+  loading,
+  margin,
+  padding,
+  opacity,
+  color,
+  shadow,
+  children,
+  ...rest
+}) => {
   return (
     <TouchableOpacity
       {...rest}
