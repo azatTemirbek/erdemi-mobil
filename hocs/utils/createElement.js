@@ -1,15 +1,12 @@
-import isClassComponent from "./isClassComponent";
+import React from "react";
 /**
  * used to merge the dom view
  * @param {Symbol} Component
  */
 export const createElement = (Component, props) => {
   props.ref = props.wrappedComponentRef ? props.wrappedComponentRef : props.ref;
-  return isClassComponent(Component) ? (
-    <Component {...props} />
-  ) : (
-    Component(props)
-  );
+  delete props.wrappedComponentRef;
+  return (typeof Component === "function")?Component(props):(<Component {...props} />)
 };
 
 export default createElement;
