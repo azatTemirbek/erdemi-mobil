@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { BaseColor, Typography, FontWeight } from "@config";
+import { BaseColor } from "../../config";
 
 export default StyleSheet.create({
   item: {

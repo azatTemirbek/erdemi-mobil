@@ -33,5 +33,6 @@ export { PdfModal } from "./PdfModal";
 export { CompanyMenuView } from "./CompanyMenuView";
 export { LanguageDropDownView } from "./LanguageDropDownView";
 export { MenuItem } from "./MenuItem";
+export { CheckboxFilter } from "./CheckboxFilter";
 
 export default {};
