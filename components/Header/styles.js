@@ -1,16 +1,15 @@
 import { StyleSheet, Platform } from "react-native";
-import { heightHeader } from "../../utils";
 
 export default StyleSheet.create({
-  contain: {
-    height: 45,
+  container: {
     flexDirection: "row",
-    paddingBottom: Platform.OS === "android" ? 0 : 10
+    paddingBottom: Platform.OS === "android" ? 0 : 10,
+    height: 45,
+    paddingHorizontal: 20,
   },
   contentLeft: {
     flex: 1,
     justifyContent: "center",
-    paddingLeft: 20,
     width: 60
   },
   contentCenter: {
@@ -21,15 +20,6 @@ export default StyleSheet.create({
   contentRight: {
     justifyContent: "center",
     alignItems: "flex-end",
-    paddingLeft: 10,
-    paddingRight: 20,
-    height: "100%"
-  },
-  contentRightSecond: {
-    justifyContent: "center",
-    alignItems: "flex-end",
-    paddingLeft: 10,
-    paddingRight: 10,
     height: "100%"
   },
   right: {
@@ -40,8 +30,6 @@ export default StyleSheet.create({
   },
 
   bgImage: {
-    width: "100%",
-    height: heightHeader()
   },
   logo: {
     height: Platform.OS === "android" ? "70%" : "90%",

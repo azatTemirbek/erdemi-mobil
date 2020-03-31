@@ -8,7 +8,8 @@ import {
 import { Text, Image, Icon } from "../";
 import styles from "./styles";
 import PropTypes from "prop-types";
-import { BaseColor, BaseStyle } from "../../config";
+import { BaseColor } from "../../config";
+import { heightHeader } from "../../utils";
 
 export default class Header extends Component {
   renderLeft = type => {
@@ -27,7 +28,7 @@ export default class Header extends Component {
         />
       </View>
     ) : (
-      <Icon name="arrow-left" size={20} color={this.props.type===3 ?BaseColor.primaryColor: BaseColor.whiteColor} />
+      <Icon name="angle-left" type="fontisto" size={22} color={this.props.type===3 ?BaseColor.primaryColor: BaseColor.whiteColor} />
     );
   };
   renderRight = type => {
@@ -57,12 +58,12 @@ export default class Header extends Component {
       <ImageBackground
         source={type===3 ? null : require('./bgImage.png')}
         style={styles.bgImage}
+        resizeMode="cover"
       >
         <SafeAreaView
-          style={BaseStyle.safeAreaView}
           forceInset={{ top: "always" }}
         >
-          <View style={[styles.contain, style]}>
+          <View style={[styles.container, style, {height:type===1?heightHeader():45}]}>
             <View style={{ flex: 1 }}>
               <TouchableOpacity
                 style={[styles.contentLeft, styleLeft]}
