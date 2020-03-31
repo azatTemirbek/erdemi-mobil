@@ -3,11 +3,11 @@ import styles from "./styles";
 import * as Utils from "../../utils";
 // import PropTypes from "prop-types";
 import hoistStatics from "hoist-non-react-statics";
+import createElement from "../utils/createElement";
 
 export function withStyles(Component) {
   const displayName = `withStyles(${Component.displayName || Component.name})`;
   const C = ({
-    wrappedComponentRef,
     flex,
     row,
     column,
@@ -53,24 +53,21 @@ export function withStyles(Component) {
       color && !styles[color] && { backgroundColor: color }, // custom backgroundColor
       style // rewrite predefined styles
     ];
-    return (
-      <Component
-        style={blockStyles}
-        {...remainingProps}
-        ref={wrappedComponentRef}
-      />
-    );
+    return createElement(Component, {
+      style: blockStyles,
+      ...remainingProps
+    });
   };
   C.displayName = displayName;
   C.WrappedComponent = Component;
   /** used to set ref type not mandatory */
-//   C.propTypes = {
-//     wrappedComponentRef: PropTypes.oneOfType([
-//       PropTypes.string,
-//       PropTypes.func,
-//       PropTypes.object
-//     ])
-//   };
+  //   C.propTypes = {
+  //     wrappedComponentRef: PropTypes.oneOfType([
+  //       PropTypes.string,
+  //       PropTypes.func,
+  //       PropTypes.object
+  //     ])
+  //   };
   /** used to copy static methods */
   return hoistStatics(C, Component);
 }

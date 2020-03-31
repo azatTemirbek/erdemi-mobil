@@ -1,3 +1,5 @@
+export { createElement } from "./utils/createElement";
+export {isClassComponent } from "./utils/isClassComponent";
 export { withFont } from "./withFont";
 export { withStyles } from "./withStyles";
 export { withProps } from "./withProps";

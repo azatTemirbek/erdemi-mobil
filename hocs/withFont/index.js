@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 import hoistStatics from "hoist-non-react-statics";
 import {
   BaseColor,
@@ -8,23 +8,25 @@ import {
   generateColors
 } from "../../config";
 import * as Utils from "../../utils";
+import createElement from "../utils/createElement";
 const styles = StyleSheet.create({
   ...generateColors(undefined, "color", "color"),
   ...generateColors()
 });
 
-export const withFont = ({
-  baseColor = BaseColor,
-  typography = Typography,
-  fontWeight = FontWeight
-} = {
-  baseColor : BaseColor,
-  typography : Typography,
-  fontWeight : FontWeight
-}) => Component => {
+export const withFont = (
+  {
+    baseColor = BaseColor,
+    typography = Typography,
+    fontWeight = FontWeight
+  } = {
+    baseColor: BaseColor,
+    typography: Typography,
+    fontWeight: FontWeight
+  }
+) => Component => {
   const displayName = `withFont(${Component.displayName || Component.name})`;
   const C = ({
-    wrappedComponentRef,
     //props style
     header,
     title1,
@@ -150,13 +152,10 @@ export const withFont = ({
       padding && StyleSheet.flatten(Utils.handlePaddings(padding)),
       style && style
     ]);
-    return (
-      <Component
-        style={blockStyles}
-        {...remainingProps}
-        ref={wrappedComponentRef}
-      />
-    );
+    return createElement(Component, {
+      ...remainingProps,
+      style: blockStyles
+    });
   };
   C.displayName = displayName;
   C.WrappedComponent = Component;
