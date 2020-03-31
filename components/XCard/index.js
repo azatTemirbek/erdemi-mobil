@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { Image } from "../";
 import { BaseColor } from "../../config";
 import * as Utils from "../../utils";
-const XCard = ({
+export const XCard = ({
   style,
   children,
   styleContent,
@@ -135,3 +135,5 @@ XCard.defaultProps = {
   fieldColor: false,
   lightPink: false
 };
+
+export default XCard;

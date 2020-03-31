@@ -10,7 +10,7 @@ import { generateStyles } from "./styles";
 import { Text } from "../";
 import PropTypes from "prop-types";
 
-export default class Table extends React.Component {
+export class Table extends React.Component {
   /** generic props renderer */
   renderer = (object = {}, keyVal = "") => {
     let component = this.props[keyVal];
@@ -616,3 +616,4 @@ Table.defaultProps = {
   footerCellTextProps: {},
   footerCell: false,
 };
+export default Table;

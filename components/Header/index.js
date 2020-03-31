@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 import { BaseColor } from "../../config";
 import { heightHeader } from "../../utils";
 
-export default class Header extends Component {
+export class Header extends Component {
   renderLeft = type => {
     return type === 1 ? (
       <View style={styles.centered}>
@@ -34,7 +34,12 @@ export default class Header extends Component {
   renderRight = type => {
     return type === 1 ? (
       <View style={{ alignItems: "center" }}>
-        <Icon type="entypo" name="home" size={30} color={BaseColor.whiteColor} />
+        <Icon
+          type="entypo"
+          name="home"
+          size={30}
+          color={BaseColor.whiteColor}
+        />
         <Text whiteColor semiBold>
           {this.props.translate("home")}
         </Text>
@@ -52,11 +57,11 @@ export default class Header extends Component {
       title,
       titleStyle,
       onPressLeft,
-      onPressRight,
+      onPressRight
     } = this.props;
     return (
       <ImageBackground
-        source={type===3 ? null : require('./bgImage.png')}
+        source={type === 3 ? null : require("./bgImage.png")}
         style={styles.bgImage}
         resizeMode="cover"
       >
@@ -76,8 +81,8 @@ export default class Header extends Component {
             </View>
             <View style={[styles.contentCenter, titleContainerStyle]}>
               <Text
-                  whiteColor={type!==3}
-              primaryColor={type===3}
+                whiteColor={type !== 3}
+                primaryColor={type === 3}
                 bold
                 headline={title.length < 20}
                 style={titleStyle}
@@ -116,7 +121,7 @@ Header.propTypes = {
   type: PropTypes.number, //1 Dashboard screen header, 2 with back icon(default), 3 white header
   white: PropTypes.bool,
   translate: PropTypes.func,
-  companyLogo: PropTypes.any,
+  companyLogo: PropTypes.any
 };
 
 Header.defaultProps = {
@@ -132,5 +137,7 @@ Header.defaultProps = {
   titleStyle: {},
   type: 2,
   translate: key => key,
-  companyLogo: null,
+  companyLogo: null
 };
+
+export default Header;

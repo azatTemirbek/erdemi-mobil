@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
  * used to flatten object and provide data to child
  * @param {Object} props - react Props
  */
-const FlattenObject = ({ object = {}, children, ...rest }) => (
+export const FlattenObject = React.memo(({ object = {}, children, ...rest }) => (
   <>
     {Object.entries(object).map(([key, value], k, array) =>
       typeof children === "function"
@@ -26,9 +26,9 @@ const FlattenObject = ({ object = {}, children, ...rest }) => (
           )
     )}
   </>
-);
+));
 
-export default React.memo(FlattenObject);
+export default FlattenObject;
 
 FlattenObject.propTypes = {
   object: PropTypes.object.isRequired,

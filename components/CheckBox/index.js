@@ -5,7 +5,7 @@ import { Icon } from "../";
 import PropTypes from "prop-types";
 import styles from "./styles";
 
-const CheckBox = ({ onChange, value, sm, md, lg, xl, style }) => {
+export const CheckBox = ({ onChange, value, sm, md, lg, xl, style }) => {
   const onPress = useCallback(() => {
     onChange(!value);
   }, [onChange, value]);

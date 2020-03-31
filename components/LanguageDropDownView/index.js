@@ -3,7 +3,7 @@ import { Icon, DropDown } from "../";
 import styles from "./styles";
 import { BaseColor, FontWeight } from "../../config";
 import PropTypes from "prop-types";
-const LanguageDropDownView = ({
+export const LanguageDropDownView = ({
   language,
   languageList,
   languageListShortened,

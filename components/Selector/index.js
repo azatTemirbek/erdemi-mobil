@@ -5,7 +5,7 @@ import { Text } from "../";
 import PropTypes from "prop-types";
 import Modal from "react-native-modal";
 
-const Selector = ({ onCloseModal, isVisible, title, list, translate }) => (
+export const Selector = ({ onCloseModal, isVisible, title, list, translate }) => (
   <Modal
     isVisible={isVisible}
     onBackdropPress={onCloseModal}

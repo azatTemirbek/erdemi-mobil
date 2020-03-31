@@ -13,7 +13,7 @@ import Modal from "react-native-modal";
 import { BaseColor } from "../../../config";
 const { height } = Dimensions.get("screen");
 
-export default class DropDownMulti extends Component {
+export class DropDownMulti extends Component {
   /** add selected to the ordered list */
   orderedList = [];
   oldOrderedList = [];
@@ -442,5 +442,6 @@ DropDownMulti.defaultProps = {
   onRemoveItem: (item, items) => console.warn("onRemoveItem"),
   onSelectionItemChange: (selectedItem, orderedItems) =>
     console.warn("onSelectionItemChange"),
-  translate:key=>key
+  translate: key => key
 };
+export default DropDownMulti;

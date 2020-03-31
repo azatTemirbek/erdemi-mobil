@@ -4,7 +4,7 @@ import { BaseColor } from "../../config";
 import { Icon } from "../";
 import PropTypes from "prop-types";
 
-export default class XForm extends Component {
+export class XForm extends Component {
   constructor(props) {
     super(props);
     this.state = { values: {}, options: {}, errors: {}, isVisible: false };
@@ -216,3 +216,5 @@ XForm.propTypes = {
 XForm.defaultProps = {
   translate: key => key
 };
+
+export default XForm;

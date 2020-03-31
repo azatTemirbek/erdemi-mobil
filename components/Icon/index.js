@@ -49,7 +49,7 @@ const getIconType = type => {
       return MaterialIcon;
   }
 };
-const Icon = ({ type = "font-awesome-5", ...rest }) => {
+export const Icon = ({ type = "font-awesome-5", ...rest }) => {
   const IconComponent = getIconType(type);
   return <IconComponent {...rest} />;
 };

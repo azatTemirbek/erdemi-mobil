@@ -7,7 +7,7 @@ import styles from "./styles";
 import Pdf from "react-native-pdf";
 import Modal from "react-native-modal";
 
-export default class PolicyButton extends Component {
+export class PolicyButton extends Component {
   constructor(props) {
     super(props);
     /** Copy all data from props and add checked to every item */
@@ -122,7 +122,7 @@ PolicyButton.propTypes = {
 };
 
 PolicyButton.defaultProps = {
-  translate:key=>key,
+  translate: key => key,
   buttonText: "confirm",
   iHaveReadAndAcceptedText: "iHaveReadAndAccepted",
   children: "Provide policy text as a children",
@@ -131,3 +131,4 @@ PolicyButton.defaultProps = {
   // eslint-disable-next-line no-alert
   onFinish: () => alert("Provide onFinish as a completion callback")
 };
+export default PolicyButton;

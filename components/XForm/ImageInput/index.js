@@ -6,7 +6,7 @@ import { Text, Icon, Card, MapArray, Selector } from "../../";
 import styles from "./styles";
 import ImagePicker from "react-native-image-crop-picker";
 
-export default class ImageInput extends Component {
+export class ImageInput extends Component {
   options = {
     mediaType: "photo",
     multiple: true,
@@ -268,3 +268,5 @@ ImageInput.defaultProps = {
   },
   translate: key => key
 };
+
+export default ImageInput;

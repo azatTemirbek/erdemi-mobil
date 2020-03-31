@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { Text, Icon, TextInput } from "../../";
 import styles from "./styles";
 import Modal from "react-native-modal";
-import { Calendar } from "react-native-calendars"; 
+import { Calendar } from "react-native-calendars";
 /** calendar theme */
 const theme = {
   textSectionTitleColor: BaseColor.textPrimaryColor,
@@ -26,7 +26,7 @@ const theme = {
   textMonthFontSize: 16,
   textDayHeaderFontSize: 14
 };
-export default class DatePickerInput extends Component {
+export class DatePickerInput extends Component {
   selected = "";
   constructor(props) {
     super(props);
@@ -102,9 +102,7 @@ export default class DatePickerInput extends Component {
               />
               <View style={styles.contentActionCalendar}>
                 <TouchableOpacity onPress={this.onCancel}>
-                  <Text body1>
-                    {this.props.translate(this.props.denyText)}
-                  </Text>
+                  <Text body1>{this.props.translate(this.props.denyText)}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this._applyPress}>
                   <Text body1 primaryColor>
@@ -159,6 +157,8 @@ DatePickerInput.defaultProps = {
   calendarProps: {},
   modalProps: {},
   denyText: "Vazgeç",
-  translate: key=>key,
-  confirmText: "Tamam",
+  translate: key => key,
+  confirmText: "Tamam"
 };
+
+export default DatePickerInput;

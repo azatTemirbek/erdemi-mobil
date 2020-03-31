@@ -4,9 +4,9 @@ import styles from "./styles";
 import { Text } from "../";
 import PropTypes from "prop-types";
 import Modal from "react-native-modal";
-import Pdf from 'react-native-pdf';
+import Pdf from "react-native-pdf";
 
-export default class PdfModal extends React.Component {
+export class PdfModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +24,9 @@ export default class PdfModal extends React.Component {
         animationOut="slideOutDown"
         propagateSwipe
         onModalHide={() => {
-          this.pressedButtons[this.pressedButtons.length-1] ? this.props.onSuccess() : this.props.onDismiss();
+          this.pressedButtons[this.pressedButtons.length - 1]
+            ? this.props.onSuccess()
+            : this.props.onDismiss();
         }}
       >
         <View style={[styles.content, this.props.contentStyle]}>
@@ -33,21 +35,32 @@ export default class PdfModal extends React.Component {
             onLoadComplete={(numberOfPages, filePath) => {
               console.log(`number of pages: ${numberOfPages}`);
             }}
-            style={[styles.pdf, this.props.style]} />
+            style={[styles.pdf, this.props.style]}
+          />
           <View style={[styles.footer, this.props.footerStyle]}>
             {this.props.children}
-            {this.props.renderLeft && <TouchableOpacity style={{flex:1}} onPress={() => {
-              this.props.onPressLeft();
-              this.pressedButtons.push(false)
-            }}>
-              {this.props.renderLeft()}
-            </TouchableOpacity>}
-            {this.props.renderRight && <TouchableOpacity style={{flex:1}} onPress={() => {
-              this.props.onPressRight();
-              this.pressedButtons.push(true)
-            }}>
-              {this.props.renderRight()}
-            </TouchableOpacity>}
+            {this.props.renderLeft && (
+              <TouchableOpacity
+                style={{ flex: 1 }}
+                onPress={() => {
+                  this.props.onPressLeft();
+                  this.pressedButtons.push(false);
+                }}
+              >
+                {this.props.renderLeft()}
+              </TouchableOpacity>
+            )}
+            {this.props.renderRight && (
+              <TouchableOpacity
+                style={{ flex: 1 }}
+                onPress={() => {
+                  this.props.onPressRight();
+                  this.pressedButtons.push(true);
+                }}
+              >
+                {this.props.renderRight()}
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </Modal>
@@ -80,17 +93,21 @@ PdfModal.defaultProps = {
   footerStyle: {},
   containerStyle: {},
   contentStyle: {},
-  source: { uri: 'http://samples.leanpub.com/thereactnativebook-sample.pdf', cache: true },
+  source: {
+    uri: "http://samples.leanpub.com/thereactnativebook-sample.pdf",
+    cache: true
+  },
   isVisible: false,
   iconProps: null,
   title: "",
   titleTag: Text,
   titleProps: {},
-  onCloseModal: () => { },
+  onCloseModal: () => {},
   renderLeft: false,
   renderRight: false,
-  onPressLeft: () => { },
-  onPressRight: () => { },
-  onSuccess: () => { },
-  onDismiss: () => { }
+  onPressLeft: () => {},
+  onPressRight: () => {},
+  onSuccess: () => {},
+  onDismiss: () => {}
 };
+export default PdfModal;
