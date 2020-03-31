@@ -6,64 +6,62 @@ import { Text } from "../";
 import styles from "./styles";
 import * as Utils from "../../utils";
 
-export default class Button extends Component {
-  render() {
-    const {
-      style,
-      styleText,
-      icon,
-      outline,
-      full,
-      round,
-      loading,
-      margin,
-      padding,
-      opacity,
-      color,
-      shadow,
-      children,
-      ...rest
-    } = this.props;
-    return (
-      <TouchableOpacity
-        {...rest}
+export const Button = () => {
+  const {
+    style,
+    styleText,
+    icon,
+    outline,
+    full,
+    round,
+    loading,
+    margin,
+    padding,
+    opacity,
+    color,
+    shadow,
+    children,
+    ...rest
+  } = this.props;
+  return (
+    <TouchableOpacity
+      {...rest}
+      style={StyleSheet.flatten([
+        styles.default,
+        full && styles.full,
+        round && styles.round,
+        !!shadow &&
+          Utils.elevationShadowStyle(shadow === true ? undefined : shadow),
+        color && styles[color], // predefined styles colors for backgroundColor
+        color && !styles[color] && { backgroundColor: color }, // custom backgroundColor
+        outline && styles.outline,
+        margin && Utils.handleMargins(margin),
+        padding && Utils.handlePaddings(padding),
+        style
+      ])}
+      activeOpacity={opacity}
+    >
+      {icon ? icon : null}
+      <Text
         style={StyleSheet.flatten([
-          styles.default,
-          full && styles.full,
-          round && styles.round,
-          !!shadow &&
-            Utils.elevationShadowStyle(shadow === true ? undefined : shadow),
-          color && styles[color], // predefined styles colors for backgroundColor
-          color && !styles[color] && { backgroundColor: color }, // custom backgroundColor
-          outline && styles.outline,
-          margin && Utils.handleMargins(margin),
-          padding && Utils.handlePaddings(padding),
-          style
+          styles.textDefault,
+          outline && styles.textOuline,
+          styleText
         ])}
-        activeOpacity={opacity}
+        numberOfLines={1}
       >
-        {icon ? icon : null}
-        <Text
-          style={StyleSheet.flatten([
-            styles.textDefault,
-            outline && styles.textOuline,
-            styleText
-          ])}
-          numberOfLines={1}
-        >
-          {children || "Button"}
-        </Text>
-        {loading ? (
-          <ActivityIndicator
-            size="small"
-            color={outline ? BaseColor.primaryColor : BaseColor.whiteColor}
-            style={{ paddingLeft: 5 }}
-          />
-        ) : null}
-      </TouchableOpacity>
-    );
-  }
-}
+        {children || "Button"}
+      </Text>
+      {loading ? (
+        <ActivityIndicator
+          size="small"
+          color={outline ? BaseColor.primaryColor : BaseColor.whiteColor}
+          style={{ paddingLeft: 5 }}
+        />
+      ) : null}
+    </TouchableOpacity>
+  );
+};
 
 Button.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
@@ -90,3 +88,4 @@ Button.defaultProps = {
   opacity: 0.8,
   color: BaseColor.primaryColor
 };
+export default Button;

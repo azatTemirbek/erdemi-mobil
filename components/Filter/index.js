@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { BaseColor } from "../../config";
 import Modal from "react-native-modal";
 
-export default class Filter extends Component {
+export class Filter extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -131,7 +131,7 @@ Filter.propTypes = {
   labelCustom: PropTypes.string,
   onChangeFilter: PropTypes.func,
   onChangeView: PropTypes.func,
-  translate: PropTypes.func,
+  translate: PropTypes.func
 };
 
 Filter.defaultProps = {
@@ -167,5 +167,7 @@ Filter.defaultProps = {
   labelCustom: "",
   onChangeFilter: () => {},
   onChangeView: () => {},
-  translate: key=>key,
+  translate: key => key
 };
+
+export default Filter;

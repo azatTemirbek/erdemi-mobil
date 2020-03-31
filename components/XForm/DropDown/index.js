@@ -19,7 +19,7 @@ const transForm = (options, value) =>
     checked: item.value === value
   }));
 
-export default class DropDown extends Component {
+export class DropDown extends Component {
   static getDerivedStateFromProps(props, state) {
     if (
       (props.value !== "" && state.value !== props.value) ||
@@ -339,3 +339,5 @@ DropDown.defaultProps = {
   required: false,
   translate: key => key
 };
+
+export default DropDown;

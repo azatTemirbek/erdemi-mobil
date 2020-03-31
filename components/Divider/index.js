@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Block } from "../";
 import styles from "./styles";
 
-const Divider = ({
+export const Divider = ({
   color = BaseColor.dividerColor,
   style,
   children,

@@ -11,7 +11,7 @@ import styles from "./styles";
 import { Icon, Text } from "../";
 import PropTypes from "prop-types";
 
-const Popup = ({
+export const Popup = ({
   onCloseModal,
   titleTag,
   isVisible,

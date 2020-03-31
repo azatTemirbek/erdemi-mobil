@@ -28,7 +28,7 @@ export const Radio = ({ checked }) => {
   );
 };
 
-export default class RadioGroup extends Component {
+export class RadioGroup extends Component {
   static getDerivedStateFromProps(props, state) {
     if (
       (props.value !== "" && state.value !== props.value) ||
@@ -181,5 +181,6 @@ RadioGroup.defaultProps = {
   checkedIcon: <Radio />,
   unCheckedIcon: <Radio />,
   reverseLabel: false,
-  translate: key=>key
+  translate: key => key
 };
+export default RadioGroup;

@@ -10,7 +10,7 @@ import { BaseColor } from "../../../config";
 import { Text, Icon } from "../..";
 import styles from "./styles";
 
-export default class TextInput extends Component {
+export class TextInput extends Component {
   /** renders right side of the listItem */
   renderer = (
     keyVal = "",
@@ -138,3 +138,5 @@ TextInput.defaultProps = {
   //   );
   // }
 };
+
+export default TextInput;

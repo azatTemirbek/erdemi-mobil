@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { BaseColor } from "../../config";
 import Modal from "react-native-modal";
 
-export default class FilterSort extends Component {
+export class FilterSort extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -150,7 +150,7 @@ FilterSort.propTypes = {
   onChangeSort: PropTypes.func,
   onChangeView: PropTypes.func,
   onFilter: PropTypes.func,
-  translate: PropTypes.func,
+  translate: PropTypes.func
 };
 
 FilterSort.defaultProps = {
@@ -187,5 +187,7 @@ FilterSort.defaultProps = {
   onChangeSort: () => {},
   onChangeView: () => {},
   onFilter: () => {},
-  translate: key=>key,
+  translate: key => key
 };
+
+export default FilterSort;
