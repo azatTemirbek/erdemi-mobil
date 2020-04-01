@@ -1,6 +1,4 @@
 import { StyleSheet } from "react-native";
-import { BaseColor, generateColors } from "../../config";
-
 export default StyleSheet.create({
   block: {
     flex: 1
@@ -37,13 +35,5 @@ export default StyleSheet.create({
   },
   bottom: {
     justifyContent: "flex-end"
-  },
-  shadow: {
-    shadowColor: BaseColor.blackColor,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 13,
-    elevation: 2
-  },
-  ...generateColors()
+  }
 });

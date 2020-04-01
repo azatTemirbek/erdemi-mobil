@@ -1,33 +1,21 @@
-import React from "react";
 import { StyleSheet } from "react-native";
 import hoistStatics from "hoist-non-react-statics";
-import {
-  BaseColor,
-  Typography,
-  FontWeight,
-  generateColors
-} from "../../config";
-import * as Utils from "../../utils";
+import { Typography, FontWeight, generateColors } from "../../config";
 import createElement from "../utils/createElement";
+/** will generate bgColors */
 const styles = StyleSheet.create({
-  ...generateColors(undefined, "color", "color"),
   ...generateColors()
 });
 
 export const withFont = (
-  {
-    baseColor = BaseColor,
-    typography = Typography,
-    fontWeight = FontWeight
-  } = {
-    baseColor: BaseColor,
+  { typography = Typography, fontWeight = FontWeight } = {
     typography: Typography,
     fontWeight: FontWeight
   }
 ) => Component => {
   const displayName = `withFont(${Component.displayName || Component.name})`;
   const C = ({
-    //props style
+    /** Defined typo */
     header,
     title1,
     title2,
@@ -41,7 +29,7 @@ export const withFont = (
     caption1,
     caption2,
     overline,
-    // props font
+    /** custom for font */
     thin,
     ultraLight,
     light,
@@ -51,29 +39,11 @@ export const withFont = (
     bold,
     heavy,
     black,
-    //custom color
-    primaryColor,
-    darkPrimaryColor,
-    lightPrimaryColor,
-    accentColor,
-    textSecondaryColor,
-    lightGrayColor,
-    grayColor,
-    darkGrayColor,
-    darkBlueColor,
-    dividerColor,
-    whiteColor,
-    fieldColor,
-    navyBlue,
     center,
-    color,
-    bgColor,
-    margin,
-    padding,
-    //custom,
     left,
     right,
     justify,
+    bgColor,
     style,
     ...remainingProps
   }) => {
@@ -105,51 +75,15 @@ export const withFont = (
       bold && StyleSheet.flatten({ fontWeight: fontWeight.bold }),
       heavy && StyleSheet.flatten({ fontWeight: fontWeight.heavy }),
       black && StyleSheet.flatten({ fontWeight: fontWeight.black }),
-      /** default color */
-      StyleSheet.flatten({
-        color: baseColor.textPrimaryColor
-      }),
-      /** applying colors directly */
-      primaryColor && StyleSheet.flatten({ color: baseColor.primaryColor }),
-      darkPrimaryColor &&
-        StyleSheet.flatten({
-          color: baseColor.darkPrimaryColor
-        }),
-      lightPrimaryColor &&
-        StyleSheet.flatten({
-          color: baseColor.lightPrimaryColor
-        }),
-      accentColor && StyleSheet.flatten({ color: baseColor.accentColor }),
-      textSecondaryColor &&
-        StyleSheet.flatten({
-          color: baseColor.textSecondaryColor
-        }),
-      lightGrayColor && StyleSheet.flatten({ color: baseColor.lightGrayColor }),
-      grayColor && StyleSheet.flatten({ color: baseColor.grayColor }),
-      darkGrayColor && StyleSheet.flatten({ color: baseColor.darkGrayColor }),
-      darkBlueColor && StyleSheet.flatten({ color: baseColor.darkBlueColor }),
-      dividerColor && StyleSheet.flatten({ color: baseColor.dividerColor }),
-      whiteColor && StyleSheet.flatten({ color: baseColor.whiteColor }),
-      fieldColor && StyleSheet.flatten({ color: baseColor.fieldColor }),
-      navyBlue && StyleSheet.flatten({ color: baseColor.navyBlue }),
       /** text alignment */
-      StyleSheet.flatten({ textAlign: "auto" }),
-      center && StyleSheet.flatten({ textAlign: "center" }),
-      left && StyleSheet.flatten({ textAlign: "left" }),
-      right && StyleSheet.flatten({ textAlign: "right" }),
-      justify && StyleSheet.flatten({ textAlign: "justify" }),
-      /** Text Color */
-      color && styles[`color-${color}`],
-      color &&
-        !styles[`color-${color}`] &&
-        StyleSheet.flatten({ color: color }),
-      /** background Color */
-      bgColor && styles[`${bgColor}`],
-      bgColor &&
-        !styles[`${bgColor}`] &&
-        StyleSheet.flatten({ backgroundColor: bgColor }),
-      margin && StyleSheet.flatten(Utils.handleMargins(margin)),
-      padding && StyleSheet.flatten(Utils.handlePaddings(padding)),
+      { textAlign: "auto" },
+      center && { textAlign: "center" },
+      left && { textAlign: "left" },
+      right && { textAlign: "right" },
+      justify && { textAlign: "justify" },
+      /** bg colors */ 
+      bgColor && styles[bgColor],
+      bgColor && !styles[bgColor] && { backgroundColor: bgColor },
       style && style
     ]);
     return createElement(Component, {

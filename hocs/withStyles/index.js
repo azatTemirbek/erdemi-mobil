@@ -1,10 +1,7 @@
-import React from "react";
 import styles from "./styles";
-import * as Utils from "../../utils";
-// import PropTypes from "prop-types";
 import hoistStatics from "hoist-non-react-statics";
 import createElement from "../utils/createElement";
-
+/** mostly used to simple css */
 export function withStyles(Component) {
   const displayName = `withStyles(${Component.displayName || Component.name})`;
   const C = ({
@@ -41,16 +38,12 @@ export function withStyles(Component) {
       right && styles.right,
       top && styles.top,
       bottom && styles.bottom,
-      margin && Utils.handleMargins(margin),
-      padding && Utils.handlePaddings(padding),
+      space && { justifyContent: `space-${space}` },
+      wrap && { flexWrap: "wrap" },
+      /** borderRadius */
       smallCard && styles.smallCard,
       card && styles.card,
       bigCard && styles.bigCard,
-      shadow && styles.shadow,
-      space && { justifyContent: `space-${space}` },
-      wrap && { flexWrap: "wrap" },
-      color && styles[color], // predefined styles colors for backgroundColor
-      color && !styles[color] && { backgroundColor: color }, // custom backgroundColor
       style // rewrite predefined styles
     ];
     return createElement(Component, {
@@ -60,15 +53,6 @@ export function withStyles(Component) {
   };
   C.displayName = displayName;
   C.WrappedComponent = Component;
-  /** used to set ref type not mandatory */
-  //   C.propTypes = {
-  //     wrappedComponentRef: PropTypes.oneOfType([
-  //       PropTypes.string,
-  //       PropTypes.func,
-  //       PropTypes.object
-  //     ])
-  //   };
-  /** used to copy static methods */
   return hoistStatics(C, Component);
 }
 

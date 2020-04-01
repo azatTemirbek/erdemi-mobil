@@ -1,9 +1,13 @@
 import React from "react";
 import { Text as Txt } from "react-native";
 import PropTypes from "prop-types";
-import { withFont } from "../../hocs";
-export const Text = withFont()(Txt)
-export default Text
+import { withFont, compose, withMarginPaddings, withColors } from "../../hocs";
+export const Text = compose(
+  withFont(),
+  withMarginPaddings,
+  withColors("color", BaseColor.textPrimaryColor)
+)(Txt);
+export default Text;
 // Define typechecking
 Text.propTypes = {
   //define style

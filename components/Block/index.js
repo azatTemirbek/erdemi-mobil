@@ -1,9 +1,16 @@
 import React from "react";
 import { View, Animated } from "react-native";
-import { withStyles } from "../../hocs";
+import { withStyles, compose, withColors, withShadows, withMarginPaddings } from "../../hocs";
 import PropTypes from "prop-types";
-
-export const Block = withStyles(({ animated, style, ...props }) =>
+/**
+ * used to easy css
+ */
+export const Block = compose(
+  withColors(),
+  withStyles,
+  withShadows,
+  withMarginPaddings
+)(({ animated, style, ...props }) =>
   animated ? (
     <Animated.View style={style} {...props} />
   ) : (

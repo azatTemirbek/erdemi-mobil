@@ -1,98 +1,35 @@
 import React from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import PropTypes from "prop-types";
 import { Image } from "../";
-import { BaseColor } from "../../config";
-import * as Utils from "../../utils";
-export const XCard = ({
-  style,
-  children,
-  styleContent,
-  image,
-  onPress,
-  primaryColor,
-  darkPrimaryColor,
-  lightPrimaryColor,
-  accentColor,
-  textSecondaryColor,
-  lightGrayColor,
-  grayColor,
-  darkGrayColor,
-  darkBlueColor,
-  dividerColor,
-  whiteColor,
-  fieldColor,
-  navyBlue,
-  lightPink,
-  touchable,
-  color,
-  margin,
-  padding
-}) => {
+import {
+  withColors,
+  compose,
+  withStyles,
+  withMarginPaddings
+} from "../../hocs";
+import withShadows from "../../hocs/withShadows";
+
+export const XCard = compose(
+  withColors(),
+  withStyles,
+  withShadows,
+  withMarginPaddings
+)(({ style, children, styleContent, image, onPress, touchable, ...rest }) => {
   let Tag = View;
   let params = {};
-  /** will render touchable if params provided */
   if (touchable) {
     Tag = TouchableOpacity;
     params.onPress = onPress;
-    // params.activeOpacity = onPress;
   }
   return (
-    <Tag
-      style={StyleSheet.flatten([
-        // default color
-        StyleSheet.flatten({
-          backgroundColor: BaseColor.whiteColor
-        }),
-        //custom for color
-        primaryColor &&
-          StyleSheet.flatten({ backgroundColor: BaseColor.primaryColor }),
-        darkPrimaryColor &&
-          StyleSheet.flatten({
-            backgroundColor: BaseColor.darkPrimaryColor
-          }),
-        lightPrimaryColor &&
-          StyleSheet.flatten({
-            backgroundColor: BaseColor.lightPrimaryColor
-          }),
-        accentColor &&
-          StyleSheet.flatten({ backgroundColor: BaseColor.accentColor }),
-        textSecondaryColor &&
-          StyleSheet.flatten({
-            backgroundColor: BaseColor.textSecondaryColor
-          }),
-        lightGrayColor &&
-          StyleSheet.flatten({ backgroundColor: BaseColor.lightGrayColor }),
-        grayColor &&
-          StyleSheet.flatten({ backgroundColor: BaseColor.grayColor }),
-        darkGrayColor &&
-          StyleSheet.flatten({ backgroundColor: BaseColor.darkGrayColor }),
-        darkBlueColor &&
-          StyleSheet.flatten({ backgroundColor: BaseColor.darkBlueColor }),
-        dividerColor &&
-          StyleSheet.flatten({ backgroundColor: BaseColor.dividerColor }),
-        whiteColor &&
-          StyleSheet.flatten({ backgroundColor: BaseColor.whiteColor }),
-        fieldColor &&
-          StyleSheet.flatten({ backgroundColor: BaseColor.fieldColor }),
-        navyBlue && StyleSheet.flatten({ backgroundColor: BaseColor.navyBlue }),
-        lightPink &&
-          StyleSheet.flatten({ backgroundColor: BaseColor.lightPink }),
-        color && styles[color], // predefined styles colors for bg color
-        color && !styles[color] && { backgroundColor: color }, // custom bg color
-        margin && Utils.handleMargins(margin),
-        padding && Utils.handlePaddings(padding),
-        styles.container,
-        style && style
-      ])}
-      {...params}
-    >
+    <Tag style={[styles.container, style]} {...params}>
       {!!image && <Image source={image} style={styles.imageBanner} />}
       <View style={[styles.styleContent, styleContent]}>{children}</View>
     </Tag>
   );
-};
+});
 
 XCard.propTypes = {
   image: PropTypes.node.isRequired,
@@ -113,7 +50,8 @@ XCard.propTypes = {
   dividerColor: PropTypes.bool,
   whiteColor: PropTypes.bool,
   fieldColor: PropTypes.bool,
-  lightPink: PropTypes.bool
+  lightPink: PropTypes.bool,
+  shadows: PropTypes.bool
 };
 
 XCard.defaultProps = {
@@ -133,7 +71,8 @@ XCard.defaultProps = {
   dividerColor: false,
   whiteColor: false,
   fieldColor: false,
-  lightPink: false
+  lightPink: false,
+  shadows: true
 };
 
 export default XCard;
