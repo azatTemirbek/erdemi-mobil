@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, SafeAreaView } from "react-native";
 import { BaseStyle, BaseColor } from "../../config";
-import { Header, SafeAreaView, Icon, Text, CheckBox } from "../";
+import { Header, Icon, Text, CheckBox } from "../";
 import * as Utils from "../../utils";
 import styles from "./styles";
 import PropTypes from "prop-types";
@@ -93,7 +93,7 @@ export class CheckboxFilter extends Component {
     this.props.onClosePress();
   };
   render() {
-    const { navigation } = this.props;
+    const { translate } = this.props;
     const { scrollEnabled } = this.state;
     return (
       <SafeAreaView
@@ -101,6 +101,7 @@ export class CheckboxFilter extends Component {
         forceInset={{ top: "always" }}
       >
         <Header
+          style={{ backgroundColor: "white" }}
           title={translate("filters")}
           renderLeft={() => {
             return (
