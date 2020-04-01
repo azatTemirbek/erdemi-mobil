@@ -13,20 +13,22 @@ import PropTypes from "prop-types";
 
 export const Popup = ({
   onCloseModal,
-  titleTag,
   isVisible,
-  containerStyle,
-  topStyle,
-  top,
+  titleTag,
   titleProps,
-  bottom,
-  contentStyle,
-  iconProps,
   title,
-  children,
+  top,
+  topStyle,
+  bottom,
   bottomStyle,
+  iconProps,
+  disableCloseBtn = false,
+  closeIconProps = {},
+  withScroll = true,
+  containerStyle,
+  contentStyle,
   duration = 500,
-  disableCloseBtn = false
+  children
 }) => {
   const [SlideIn, setSlideIn] = useState(new Animated.Value(0));
   const _closeAndGoBack = useCallback(() => {
@@ -88,12 +90,14 @@ export const Popup = ({
             <Tag {...titleProps}>{title}</Tag>
             {!disableCloseBtn && (
               <TouchableOpacity onPress={_closeAndGoBack}>
-                <Icon type="antdesign" name="close" size={28} />
+                <Icon type="antdesign" name="close" size={28} {...closeIconProps} />
               </TouchableOpacity>
             )}
           </View>
           {iconProps && <Icon {...iconProps} />}
-          <ScrollView style={{ width: "100%" }}>{children}</ScrollView>
+          {withScroll?(<ScrollView style={{ width: "100%" }}>{children}</ScrollView>):(
+            children
+          )}
         </Animated.View>
         {bottom && (
           <TouchableOpacity
@@ -121,7 +125,9 @@ Popup.propTypes = {
   top: PropTypes.bool,
   topStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   duration: PropTypes.number,
-  disableCloseBtn: PropTypes.bool
+  disableCloseBtn: PropTypes.bool,
+  withScroll: PropTypes.bool,
+  closeIconProps: PropTypes.object
 };
 
 Popup.defaultProps = {
@@ -139,7 +145,9 @@ Popup.defaultProps = {
   top: true,
   topStyle: {},
   duration: 500,
-  disableCloseBtn: false
+  disableCloseBtn: false,
+  withScroll: true,
+  closeIconProps:{}
 };
 
 export default Popup;
