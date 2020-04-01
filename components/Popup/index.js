@@ -116,7 +116,7 @@ Popup.propTypes = {
   isVisible: PropTypes.bool,
   iconProps: PropTypes.object,
   title: PropTypes.string,
-  titleTag: PropTypes.func,
+  titleTag: PropTypes.any,
   titleProps: PropTypes.object,
   onCloseModal: PropTypes.func,
   children: PropTypes.node.isRequired,
