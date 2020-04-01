@@ -1,6 +1,6 @@
 import hoistStatics from "hoist-non-react-statics";
-import createElement from "../utils/createElement";
-import { BaseColor, generateColors } from "../../config";
+import { BaseColor, generateColors } from "../config";
+import createElement from "./utils/createElement";
 /**
  * You can generate background or textColor using this hook
  * also supports for primaryColor:True

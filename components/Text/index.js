@@ -1,7 +1,7 @@
-import React from "react";
 import { Text as Txt } from "react-native";
 import PropTypes from "prop-types";
 import { withFont, compose, withMarginPaddings, withColors } from "../../hocs";
+import { BaseColor } from "../../config";
 export const Text = compose(
   withFont(),
   withMarginPaddings,
