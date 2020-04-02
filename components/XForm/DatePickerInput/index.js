@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 import { BaseColor, FontFamily } from "../../../config";
 import PropTypes from "prop-types";
-import { Text, Icon, TextInput } from "../../";
+import { Text, Icon, TextInput, TouchableOpacity } from "../../";
 import styles from "./styles";
 import Modal from "react-native-modal";
 import { Calendar } from "react-native-calendars";
