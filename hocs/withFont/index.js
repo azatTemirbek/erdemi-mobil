@@ -40,6 +40,8 @@ export const withFont = (
     right,
     justify,
     bgColor,
+    underline,
+    textDecorationLine,
     style,
     ...remainingProps
   }) => {
@@ -76,8 +78,10 @@ export const withFont = (
       left && { textAlign: "left" },
       right && { textAlign: "right" },
       justify && { textAlign: "justify" },
+      /** textDecorationLine */
+      underline && { textDecorationLine: "underline" },
+      textDecorationLine && { textDecorationLine: textDecorationLine },
       /** bg colors */
-
       bgColor && styles[bgColor],
       bgColor && !styles[bgColor] && { backgroundColor: bgColor },
       style && style
