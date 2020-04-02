@@ -54,10 +54,10 @@ export function withMarginPaddings(Component) {
       /***######## paddings */
       padding && handlePaddings(padding),
 
-      rest.pm1 && handlePaddings(c1),
-      rest.pm2 && handlePaddings(c2),
-      rest.pm3 && handlePaddings(c3),
-      rest.pm4 && handlePaddings(c4),
+      rest.p1 && handlePaddings(c1),
+      rest.p2 && handlePaddings(c2),
+      rest.p3 && handlePaddings(c3),
+      rest.p4 && handlePaddings(c4),
       /** mtopX */
       rest.pt1 && handlePaddings([c1, 0, 0, 0]),
       rest.pt2 && handlePaddings([c2, 0, 0, 0]),
