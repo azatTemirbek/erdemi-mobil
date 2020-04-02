@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { TouchableOpacity } from "react-native";
 import { BaseColor } from "../../config";
-import { Icon } from "../";
+import { Icon, TouchableOpacity } from "../";
 import PropTypes from "prop-types";
 
 export class XForm extends Component {
