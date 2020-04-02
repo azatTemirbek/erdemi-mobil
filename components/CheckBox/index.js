@@ -37,17 +37,11 @@ CheckBox.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object]),
   value: PropTypes.bool,
   onChange: PropTypes.func,
-  sm: PropTypes.bool,
   m2: PropTypes.bool,
-  lg: PropTypes.bool,
-  xl: PropTypes.bool
 };
 
 CheckBox.defaultProps = {
-  sm: false,
-  md: true,
-  lg: false,
-  xl: false,
+  m2: true,
   value: true,
   onChange: () => {},
   style: {}
