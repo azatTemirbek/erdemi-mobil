@@ -37,4 +37,6 @@ export { Tag } from "./Tag";
 /** common views */
 export { CompanyMenuView } from "./CompanyMenuView";
 export { LanguageDropDownView } from "./LanguageDropDownView";
+/** Native Extend */
+export { TouchableOpacity } from "./TouchableOpacity";
 export default {};

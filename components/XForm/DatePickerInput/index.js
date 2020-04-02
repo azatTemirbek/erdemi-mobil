@@ -48,7 +48,7 @@ export class DatePickerInput extends Component {
   };
   renderRight = ({ props }) => {
     return (
-      <TouchableOpacity onPress={this.openModal}>
+      <TouchableOpacity center middle onPress={this.openModal}>
         <Icon name="calendar" size={22} color={BaseColor.accentColor} />
       </TouchableOpacity>
     );

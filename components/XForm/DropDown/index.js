@@ -1,13 +1,12 @@
 import React, { Component, Children, cloneElement } from "react";
 import {
   View,
-  TouchableOpacity,
   ActivityIndicator,
   ScrollView,
   Dimensions
 } from "react-native";
 import PropTypes from "prop-types";
-import { Block, MapArray, Text, Button, Icon } from "../../";
+import { Block, MapArray, Text, Button, Icon, TextInput, TouchableOpacity } from "../../";
 import styles from "./styles";
 import Modal from "react-native-modal";
 import { BaseColor } from "../../../config";
@@ -125,6 +124,7 @@ export class DropDown extends Component {
   /** renders Modal */
   renderModal = () => {
     const { modalVisible, options } = this.state;
+    const { modalContentActionStyle, translate, btnLabel } = this.props;
     return (
       <Modal
         isVisible={modalVisible}
@@ -140,8 +140,11 @@ export class DropDown extends Component {
             this.props.modalContentContainerStyle
           ]}
         >
-          <View
-            style={[styles.contentSwipeDown, this.props.contentSwipeDownStyle]}
+          <Block
+            pt4
+            center
+            flex={false}
+            style={this.props.contentSwipeDownStyle}
           >
             <View
               style={[styles.lineSwipeDown, this.props.lineSwipeDownStyle]}
@@ -150,7 +153,7 @@ export class DropDown extends Component {
               styles.modalLabelStyle,
               this.props.modalLabelStyle
             )}
-          </View>
+          </Block>
           <ScrollView
             style={[{ height: height * 0.6 }, this.props.scrollListStyle]}
             showsHorizontalScrollIndicator={false}
@@ -159,7 +162,7 @@ export class DropDown extends Component {
               array={options}
               fallback={({ object }) => {
                 return object.length === 0 ? (
-                  <Text>Empty</Text>
+                  <Text center>{translate("empty")}</Text>
                 ) : (
                   <ActivityIndicator
                     size="small"
@@ -170,10 +173,12 @@ export class DropDown extends Component {
             >
               {({ key, object, ...rest }, index) => (
                 <TouchableOpacity
-                  style={[
-                    styles.ModalContentAction,
-                    this.props.modalContentActionStyle
-                  ]}
+                  style={[styles.ModalContentAction, modalContentActionStyle]}
+                  row
+                  px4
+                  mb2
+                  pb2
+                  space="between"
                   key={object.value + key + index}
                   onPress={() => this._onSelect(object)}
                 >
@@ -188,7 +193,7 @@ export class DropDown extends Component {
             style={{ marginTop: 10, marginBottom: 20 }}
             onPress={this._onApply}
           >
-            {this.props.translate(this.props.btnLabel)}
+            {translate(btnLabel)}
           </Button>
         </View>
       </Modal>
@@ -205,68 +210,47 @@ export class DropDown extends Component {
 
   render() {
     const {
-      style,
-      label,
-      placeholder,
-      error,
-      contentStyle,
-      errorStyle,
-      required
+      onChange,
+      onTextChange,
+      loading,
+      icon,
+      renderRightTouch,
+      ...rest
     } = this.props;
+    // delete rest.value;
     const { options, value } = this.state;
     const filtered = options.filter(item => item.value === value);
     let selected = filtered.length && filtered[0].text;
     return (
-      <View style={style}>
-        <Block flex={false} row>
-          {!!label && (
-            <Text style={[styles.labelStyle, this.props.labelStyle]}>
-              {label}
-              {required && <Text primaryColor>*</Text>}
-            </Text>
-          )}
-        </Block>
+      <>
+        <TextInput
+          editable={false}
+          {...rest}
+          renderRight={
+            <TouchableOpacity
+              p4
+              flex={1}
+              middle
+              center
+              onPress={() => this._openModal()}
+              {...renderRightTouch}
+            >
+              {loading ? (
+                <ActivityIndicator
+                  animating={loading}
+                  size="small"
+                  color={BaseColor.primaryColor}
+                />
+              ) : (
+                this.renderer({}, "icon")
+              )}
+            </TouchableOpacity>
+          }
+          value={selected}
+          onTextChange={() => {}}
+        />
         {this.renderModal()}
-        <TouchableOpacity
-          style={[
-            styles.contentForm,
-            error && { borderColor: "red" },
-            contentStyle
-          ]}
-          onPress={() => this._openModal()}
-        >
-          <Text
-            style={[
-              styles.textDefault,
-              this.props.valueStyle,
-              !selected ? { color: BaseColor.grayColor } : {}
-            ]}
-            {...this.props.valueProps}
-          >
-            {!selected ? placeholder : selected}
-          </Text>
-          {this.props.loading ? (
-            <ActivityIndicator
-              animating={this.props.loading}
-              size="small"
-              color={BaseColor.primaryColor}
-            />
-          ) : (
-            this.props.icon
-          )}
-        </TouchableOpacity>
-        {!!error && (
-          <Text
-            style={[
-              styles.errorStyle,
-              errorStyle,
-              { color: "red", padding: 5 }
-            ]}
-          >
-            {error}
-          </Text>
-        )}
-      </View>
+      </>
     );
   }
 }
@@ -278,11 +262,8 @@ DropDown.propTypes = {
   placeholder: PropTypes.string,
 
   error: PropTypes.string,
-  contentStyle: PropTypes.object,
   errorStyle: PropTypes.object,
 
-  valueStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  valueProps: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   value: PropTypes.string,
 
   label: PropTypes.string,
@@ -313,31 +294,33 @@ DropDown.propTypes = {
 
 DropDown.defaultProps = {
   style: {},
-  icon: (
-    <Icon name="chevron-down" size={12} color={BaseColor.textPrimaryColor} />
-  ),
-  placeholder: "",
-  valueStyle: {},
-  error: "",
-  contentStyle: {},
-  errorStyle: {},
-  valueProps: {},
-  value: "",
-  label: "Label",
-  btnLabel: "Uygula",
   labelStyle: {},
+  renderLeftStyle: {},
+  inputStyle: {},
+  renderRightStyle: {},
+  error: "",
+  errorStyle: {},
+  label: "Label",
+  renderLeft: false,
+  renderCenter: false,
+  renderCenterStyle: {},
+  icon: <Icon name="chevron-down" size={22} color={BaseColor.accentColor} />,
+  value: "",
+  btnLabel: "Uygula",
   options: [],
+
   onCancel: () => {},
   onChange: () => {},
   loading: false,
   renderItem: ({ object }) => (
-    <Text body2 semibold primaryColor={object.checked}>
+    <Text headline semibold primaryColor={object.checked}>
       {object.text}
     </Text>
   ),
-  checkedIcon: <Icon name="check" size={14} color={BaseColor.primaryColor} />,
+  checkedIcon: <Icon name="check" size={22} color={BaseColor.primaryColor} />,
   required: false,
-  translate: key => key
+  translate: key => key,
+  renderRightTouch: {}
 };
 
 export default DropDown;

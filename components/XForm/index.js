@@ -143,6 +143,8 @@ export class XForm extends Component {
       };
       return (
         <TouchableOpacity
+          center
+          middle
           onPress={() => ctx.props.navigation.navigate("QRCode", { callback })}
         >
           <Icon name="qrcode" size={22} color={BaseColor.accentColor} />
@@ -169,6 +171,8 @@ export class XForm extends Component {
       };
       return (
         <TouchableOpacity
+          center
+          middle
           onPress={() => ctx.props.navigation.navigate("QRCode", { callback })}
         >
           <Icon
