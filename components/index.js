@@ -25,15 +25,16 @@ export { DropDownMulti } from "./XForm/DropDownMulti";
 export { DatePickerInput } from "./XForm/DatePickerInput";
 export { Radio, RadioGroup } from "./XForm/RadioGroup";
 export { ImageInput } from "./XForm/ImageInput";
-/** other */
-export { Header } from "./Header";
+/** need to merge */
 export { Filter } from "./Filter";
 export { FilterSort } from "./FilterSort";
+export { CheckboxFilter } from "./CheckboxFilter";
+/** others */
+export { Header } from "./Header";
 export { PdfModal } from "./PdfModal";
+export { MenuItem } from "./MenuItem";
+export { Tag } from "./Tag";
+/** common views */
 export { CompanyMenuView } from "./CompanyMenuView";
 export { LanguageDropDownView } from "./LanguageDropDownView";
-export { MenuItem } from "./MenuItem";
-export { CheckboxFilter } from "./CheckboxFilter";
-export { Tag } from "./Tag";
-
 export default {};
