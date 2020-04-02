@@ -1,12 +1,8 @@
-import { StyleSheet } from "react-native";
 import hoistStatics from "hoist-non-react-statics";
 import { Typography, FontWeight, generateColors } from "../../config";
 import createElement from "../utils/createElement";
 /** will generate bgColors */
-const styles = StyleSheet.create({
-  ...generateColors()
-});
-
+const styles = generateColors();
 export const withFont = (
   { typography = Typography, fontWeight = FontWeight } = {
     typography: Typography,
@@ -47,7 +43,7 @@ export const withFont = (
     style,
     ...remainingProps
   }) => {
-    const blockStyles = StyleSheet.flatten([
+    const blockStyles = [
       /** Defined typo */
       header && typography.header,
       title1 && typography.title1,
@@ -63,29 +59,29 @@ export const withFont = (
       caption2 && typography.caption2,
       overline && typography.overline,
       /** custom for font */
-      thin && StyleSheet.flatten({ fontWeight: fontWeight.thin }),
-      ultraLight &&
-        StyleSheet.flatten({
-          fontWeight: fontWeight.ultraLight
-        }),
-      light && StyleSheet.flatten({ fontWeight: fontWeight.light }),
-      regular && StyleSheet.flatten({ fontWeight: fontWeight.regular }),
-      medium && StyleSheet.flatten({ fontWeight: fontWeight.medium }),
-      semibold && StyleSheet.flatten({ fontWeight: fontWeight.semibold }),
-      bold && StyleSheet.flatten({ fontWeight: fontWeight.bold }),
-      heavy && StyleSheet.flatten({ fontWeight: fontWeight.heavy }),
-      black && StyleSheet.flatten({ fontWeight: fontWeight.black }),
+      thin && { fontWeight: fontWeight.thin },
+      ultraLight && {
+        fontWeight: fontWeight.ultraLight
+      },
+      light && { fontWeight: fontWeight.light },
+      regular && { fontWeight: fontWeight.regular },
+      medium && { fontWeight: fontWeight.medium },
+      semibold && { fontWeight: fontWeight.semibold },
+      bold && { fontWeight: fontWeight.bold },
+      heavy && { fontWeight: fontWeight.heavy },
+      black && { fontWeight: fontWeight.black },
       /** text alignment */
       { textAlign: "auto" },
       center && { textAlign: "center" },
       left && { textAlign: "left" },
       right && { textAlign: "right" },
       justify && { textAlign: "justify" },
-      /** bg colors */ 
+      /** bg colors */
+
       bgColor && styles[bgColor],
       bgColor && !styles[bgColor] && { backgroundColor: bgColor },
       style && style
-    ]);
+    ];
     return createElement(Component, {
       ...remainingProps,
       style: blockStyles

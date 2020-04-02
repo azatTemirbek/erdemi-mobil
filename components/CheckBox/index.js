@@ -1,28 +1,22 @@
-import React, { useCallback } from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import React, { useCallback, memo } from "react";
+import { TouchableOpacity } from "react-native";
 import { BaseColor } from "../../config";
 import { Icon } from "../";
 import PropTypes from "prop-types";
 import styles from "./styles";
-
-export const CheckBox = ({ onChange, value, sm, md, lg, xl, style }) => {
+import { withMarginPaddings, compose } from "erdemir-mobil/hocs";
+/** Check box optimized */
+export const CheckBox = memo(compose(withMarginPaddings)(({ onChange, value, style }) => {
   const onPress = useCallback(() => {
     onChange(!value);
   }, [onChange, value]);
   return (
     <TouchableOpacity
-      style={StyleSheet.flatten([
+      style={[
         styles.container,
-        {
-          backgroundColor: value ? BaseColor.primaryColor : BaseColor.whiteColor
-        },
-        // StyleSheet.flatten({ padding: 5 }),
-        sm && StyleSheet.flatten({ padding: 3 }),
-        md && StyleSheet.flatten({ padding: 5 }),
-        lg && StyleSheet.flatten({ padding: 7.5 }),
-        xl && StyleSheet.flatten({ padding: 10 }),
+        value && { backgroundColor:  BaseColor.primaryColor },
         style && style
-      ])}
+      ]}
       onPress={onPress}
     >
       {value ? (
@@ -37,14 +31,14 @@ export const CheckBox = ({ onChange, value, sm, md, lg, xl, style }) => {
       )}
     </TouchableOpacity>
   );
-};
+}));
 
 CheckBox.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object]),
   value: PropTypes.bool,
   onChange: PropTypes.func,
   sm: PropTypes.bool,
-  md: PropTypes.bool,
+  m2: PropTypes.bool,
   lg: PropTypes.bool,
   xl: PropTypes.bool
 };

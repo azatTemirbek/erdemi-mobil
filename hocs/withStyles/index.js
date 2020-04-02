@@ -17,11 +17,7 @@ export function withStyles(Component) {
     smallCard,
     card,
     bigCard,
-    shadow,
-    color,
     space,
-    padding,
-    margin,
     wrap,
     style,
     ...remainingProps
