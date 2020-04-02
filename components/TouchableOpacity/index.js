@@ -1,3 +1,4 @@
+import React from "react";
 import { TouchableOpacity as TouchableOpacityQ } from "react-native";
 import {
   withStyles,

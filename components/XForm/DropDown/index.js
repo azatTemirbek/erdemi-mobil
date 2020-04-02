@@ -220,7 +220,7 @@ export class DropDown extends Component {
     // delete rest.value;
     const { options, value } = this.state;
     const filtered = options.filter(item => item.value === value);
-    let selected = filtered.length && filtered[0].text;
+    let selected = filtered.length && filtered[0].text+"";
     return (
       <>
         <TextInput

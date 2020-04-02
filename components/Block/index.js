@@ -10,11 +10,11 @@ export const Block = compose(
   withStyles,
   withShadows,
   withMarginPaddings
-)(({ animated, style, ...props }) =>
+)(({ animated, ...props }) =>
   animated ? (
-    <Animated.View style={style} {...props} />
+    <Animated.View {...props} />
   ) : (
-    <View style={style} {...props} />
+    <View {...props} />
   )
 );
 
