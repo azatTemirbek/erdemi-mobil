@@ -6,7 +6,13 @@ export function withMarginPaddings(Component) {
   const displayName = `withMarginPaddings(${Component.displayName ||
     Component.name})`;
   const C = ({ padding, margin, style, ...rest }) => {
-    const [c1, c2, c3, c4] = [3, 5, 7.5, 10];
+    const $spacer = 10;
+    const [c1, c2, c3, c4] = [
+      $spacer * 0.25,
+      $spacer * 0.5,
+      $spacer * 0.75,
+      $spacer * 1
+    ];
     const blockStyle = [
       /***######## margins */
       margin && handleMargins(margin),
