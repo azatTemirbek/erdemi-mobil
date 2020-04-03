@@ -1,11 +1,8 @@
 import React, { Component, cloneElement, Children } from "react";
-import {
-  InteractionManager,
-  TextInput as Input
-} from "react-native";
+import { InteractionManager, TextInput as Input } from "react-native";
 import PropTypes from "prop-types";
 import { BaseColor } from "../../../config";
-import { Text, Icon, Block, TouchableOpacity } from "../..";
+import { Icon, Block, TouchableOpacity, Label, ErrorLabel } from "../..";
 import styles from "./styles";
 
 export class TextInput extends Component {
@@ -51,40 +48,50 @@ export class TextInput extends Component {
 
     return (
       <>
-        {!!label && (
-          <Text p2 style={labelStyle}>{label}
-          {required && <Text primaryColor>*</Text>}
-          </Text>
-        )}
-        <Block p1 row smallCard style={[styles.container, error && { borderColor: "red" }, style]}>
+        <Label {...{ labelStyle, label, required }} />
+        <Block
+          p1
+          row
+          smallCard
+          style={[styles.container, error && { borderColor: "red" }, style]}
+        >
           {!!renderLeft && (
-            <Block flex={150} center col style={[renderLeftStyle,{justifySelf: "flex-start"}]}>
+            <Block
+              flex={150}
+              center
+              col
+              style={[renderLeftStyle, { justifySelf: "flex-start" }]}
+            >
               {this.renderer("renderLeft")}
             </Block>
           )}
           <Block flex={900} style={renderCenterStyle}>
-          {!!renderCenter? this.renderer("renderCenter"): (<Input
-            ref={ref => {
-              this.input = ref;
-            }}
-            {...rest}
-            style={[
-              styles.baseInput,
-              // {backgroundColor:"green"},
-              inputStyle
-            ]}
-          />)}
-          
+            {!!renderCenter ? (
+              this.renderer("renderCenter")
+            ) : (
+              <Input
+                ref={ref => {
+                  this.input = ref;
+                }}
+                {...rest}
+                style={[
+                  styles.baseInput,
+                  // {backgroundColor:"green"},
+                  inputStyle
+                ]}
+              />
+            )}
           </Block>
           {!!renderRight && (
-            <Block flex={150} style={[renderRightStyle,{justifySelf: "flex-end"}]}>
+            <Block
+              flex={150}
+              style={[renderRightStyle, { justifySelf: "flex-end" }]}
+            >
               {this.renderer("renderRight")}
             </Block>
           )}
         </Block>
-        {!!error && (
-          <Text padding={5} style={errorStyle}>{error}</Text>
-        )}
+        <ErrorLabel {...{ errorStyle, error }} />
       </>
     );
   }
@@ -142,13 +149,13 @@ TextInput.defaultProps = {
     );
   },
   translate: key => key,
-  required: false,
+  required: false
   // renderLeft: ({ props }) => {
   //   return (
   //     <TouchableOpacity onPress={() => props.focusInput()}>
   //       <Icon name="edit" size={22} color={BaseColor.navyBlue} />
   //     </TouchableOpacity>
-  //   );    
+  //   );
 };
 
 export default TextInput;

@@ -19,6 +19,8 @@ export { Selector } from "./Selector";
 export { PolicyButton } from "./PolicyButton";
 /** FORM RELATED */
 export { XForm } from "./XForm";
+export { Label } from "./XForm/FormLabels";
+export { ErrorLabel } from "./XForm/FormLabels";
 export { TextInput } from "./XForm/TextInput";
 export { DropDown } from "./XForm/DropDown";
 export { DropDownMulti } from "./XForm/DropDownMulti";

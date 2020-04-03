@@ -1,7 +1,7 @@
 import React, { Component, Children, cloneElement } from "react";
 import { View, TouchableOpacity } from "react-native";
 import PropTypes from "prop-types";
-import { Text, Block, MapArray } from "../../";
+import { Text, Block, MapArray, ErrorLabel, Label } from "../../";
 import styles from "./styles";
 /**
  * transform array with checked
@@ -109,18 +109,13 @@ export class RadioGroup extends Component {
   };
 
   render() {
-    const { style, label, error, errorStyle } = this.props;
+    const { style, error, errorStyle, labelStyle, required, label } = this.props;
+
     return (
       <View style={style}>
-        {!!label && (
-          <Text style={[styles.labelStyle, this.props.labelStyle]}>
-            {label}
-          </Text>
-        )}
+        <Label {...{ labelStyle, required, label }} />
         {this.renderContent()}
-        {!!error && (
-          <Text style={[styles.errorStyle, errorStyle]}>{error}</Text>
-        )}
+        <ErrorLabel {...{ errorStyle, error }} />
       </View>
     );
   }

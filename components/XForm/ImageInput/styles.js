@@ -11,9 +11,6 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.1)"
   },
-  labelStyle: {
-    padding: 5
-  },
   renderRightStyle: {
     flexDirection: "row",
     justifyContent: "flex-end",

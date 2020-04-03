@@ -35,12 +35,5 @@ export default StyleSheet.create({
     width: 20,
     borderRadius: 10,
     backgroundColor: BaseColor.primaryColor
-  },
-  labelStyle: {
-    padding: 5
-  },
-  errorStyle:{ 
-    color: "red",
-    padding: 5
-  } 
+  }
 });

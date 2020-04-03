@@ -7,7 +7,7 @@ import {
   Dimensions
 } from "react-native";
 import PropTypes from "prop-types";
-import { Text, Button, Icon, MapArray } from "../../";
+import { Text, Button, Icon, MapArray, ErrorLabel, Label } from "../../";
 import styles from "./styles";
 import Modal from "react-native-modal";
 import { BaseColor } from "../../../config";
@@ -226,19 +226,21 @@ export class DropDownMulti extends Component {
   };
   /** renders label at the top */
   renderLabel = (...inlineStyles) => {
-    const { label } = this.props;
-    if (!label) {
-      return null;
-    }
-    return <Text style={inlineStyles}>{label}</Text>;
+    const { label, required } = this.props;
+    return (
+      <Label
+        labelStyle={StyleSheet.flatten(inlineStyles)}
+        label={label}
+        required={required}
+      />
+    );
   };
   /** renders error label at the bottom */
   renderError = (...inlineStyles) => {
     const { error } = this.props;
-    if (!error) {
-      return null;
-    }
-    return <Text style={inlineStyles}>{error}</Text>;
+    return (
+      <ErrorLabel errorStyle={StyleSheet.flatten(inlineStyles)} error={error} />
+    );
   };
   /** render dropdown icon and handle opening modal */
   renderDropDownIcon = () => {
@@ -301,7 +303,7 @@ export class DropDownMulti extends Component {
     const Tag = !selected ? Text : View;
     return (
       <>
-        {this.renderLabel(styles.labelStyle, labelStyle)}
+        {this.renderLabel(labelStyle)}
         {this.renderModal()}
         <View
           style={[styles.mainContainer, error && { borderColor: "red" }, style]}
@@ -319,7 +321,7 @@ export class DropDownMulti extends Component {
           </Tag>
           {this.renderDropDownIcon()}
         </View>
-        {this.renderError(styles.errorStyle, errorStyle)}
+        {this.renderError(errorStyle)}
       </>
     );
   }
@@ -329,6 +331,8 @@ DropDownMulti.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   renderPillIconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   modalStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  errorStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  error: PropTypes.string,
   modalContentContainerStyle: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array
@@ -392,7 +396,8 @@ DropDownMulti.propTypes = {
   ]),
   maxSelectionCount: PropTypes.number,
   onSelectionItemChange: PropTypes.func,
-  translate: PropTypes.func
+  translate: PropTypes.func,
+  required: PropTypes.bool
 };
 
 DropDownMulti.defaultProps = {
@@ -408,6 +413,8 @@ DropDownMulti.defaultProps = {
   renderDropDownIconStyle: {},
   pillContainerStyle: {},
   renderPillsStyle: {},
+  errorStyle: {},
+  error: "",
   loading: false,
   icon: (
     <Icon name="chevron-down" size={12} color={BaseColor.textPrimaryColor} />
@@ -442,6 +449,7 @@ DropDownMulti.defaultProps = {
   onRemoveItem: (item, items) => console.warn("onRemoveItem"),
   onSelectionItemChange: (selectedItem, orderedItems) =>
     console.warn("onSelectionItemChange"),
-  translate: key => key
+  translate: key => key,
+  required: false
 };
 export default DropDownMulti;

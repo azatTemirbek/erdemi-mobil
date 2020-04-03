@@ -2,7 +2,7 @@ import React, { Component, cloneElement, Children } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { BaseColor } from "../../../config";
 import PropTypes from "prop-types";
-import { Text, Icon, Card, MapArray, Selector } from "../../";
+import { Text, Icon, Card, MapArray, Selector, ErrorLabel, Label } from "../../";
 import styles from "./styles";
 import ImagePicker from "react-native-image-crop-picker";
 
@@ -110,6 +110,9 @@ export class ImageInput extends Component {
       placeholder,
       pillContainerStyle,
       imageContainerStyle,
+      errorStyle,
+      error,
+      required,
       translate,
       ...rest
     } = this.props;
@@ -133,9 +136,7 @@ export class ImageInput extends Component {
           isVisible={this.state.modal}
           list={list}
         />
-        {!!label && (
-          <Text style={[styles.labelStyle, labelStyle]}>{label}</Text>
-        )}
+        <Label {...{ label, labelStyle, required }} />
         <View style={[styles.container, style]}>
           {!!renderLeft && (
             <View style={[styles.renderLeftStyle, renderLeftStyle]}>
@@ -201,6 +202,7 @@ export class ImageInput extends Component {
             </View>
           )}
         </View>
+        <ErrorLabel {...{errorStyle,error}} />
       </>
     );
   }
@@ -215,6 +217,9 @@ ImageInput.propTypes = {
   renderRightStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   label: PropTypes.string,
   placeholder: PropTypes.string,
+  errorStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  error: PropTypes.string,
+  required: PropTypes.bool,
   renderPillIcon: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.node,
@@ -244,6 +249,9 @@ ImageInput.defaultProps = {
   renderRightStyle: {},
   label: "Label",
   placeholder: "",
+  errorStyle: {},
+  error: "",
+  required: false,
   renderPillIcon: (
     <Icon
       name="ios-close-circle-outline"

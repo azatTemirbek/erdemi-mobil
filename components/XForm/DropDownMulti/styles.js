@@ -66,9 +66,6 @@ export default StyleSheet.create({
   modalLabelStyle: {
     padding: 15
   },
-  labelStyle: {
-    padding: 5
-  },
   renderDropDownIcon: {
     padding: 3,
     // backgroundColor: "red",
@@ -77,9 +74,5 @@ export default StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     flex: 1
-  },
-  errorStyle: {
-    color: "red",
-    padding: 5
   }
 });
