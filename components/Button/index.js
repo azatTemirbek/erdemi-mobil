@@ -1,10 +1,9 @@
-import React, { Component } from "react";
-import { TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
+import React from "react";
+import { StyleSheet, ActivityIndicator } from "react-native";
 import { BaseColor } from "../../config";
 import PropTypes from "prop-types";
-import { Text } from "../";
+import { Text, TouchableOpacity } from "../";
 import styles from "./styles";
-import * as Utils from "../../utils";
 
 export const Button = ({
   style,
@@ -14,39 +13,33 @@ export const Button = ({
   full,
   round,
   loading,
-  margin,
-  padding,
   opacity,
-  color,
-  shadow,
   children,
   ...rest
 }) => {
   return (
     <TouchableOpacity
+      smallCard={!round}
+      bigCard={round}
+      row
+      middle
+      center
+      padding={[0, 20]}
       {...rest}
       style={StyleSheet.flatten([
         styles.default,
         full && styles.full,
-        round && styles.round,
-        !!shadow &&
-          Utils.elevationShadowStyle(shadow === true ? undefined : shadow),
-        color && styles[color], // predefined styles colors for backgroundColor
-        color && !styles[color] && { backgroundColor: color }, // custom backgroundColor
         outline && styles.outline,
-        margin && Utils.handleMargins(margin),
-        padding && Utils.handlePaddings(padding),
         style
       ])}
       activeOpacity={opacity}
     >
       {icon ? icon : null}
       <Text
-        style={StyleSheet.flatten([
-          styles.textDefault,
-          outline && styles.textOuline,
-          styleText
-        ])}
+        headline
+        color={outline ? "primaryColor" : "whiteColor"}
+        bold
+        style={styleText}
         numberOfLines={1}
       >
         {children || "Button"}
