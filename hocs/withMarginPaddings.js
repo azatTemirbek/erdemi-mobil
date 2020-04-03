@@ -7,7 +7,7 @@ export function withMarginPaddings(Component) {
     Component.name})`;
   const C = ({ padding, margin, style, ...rest }) => {
     const $spacer = 10;
-    const [c1, c1, c2, c3, c4] = [
+    const [c0, c1, c2, c3, c4] = [
       $spacer * 0,
       $spacer * 0.25,
       $spacer * 0.5,
