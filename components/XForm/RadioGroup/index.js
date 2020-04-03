@@ -109,7 +109,14 @@ export class RadioGroup extends Component {
   };
 
   render() {
-    const { style, error, errorStyle, labelStyle, required, label } = this.props;
+    const {
+      style,
+      error,
+      errorStyle,
+      labelStyle,
+      required,
+      label
+    } = this.props;
 
     return (
       <View style={style}>

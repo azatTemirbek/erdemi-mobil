@@ -6,8 +6,8 @@ export default StyleSheet.create({
     flexDirection: "row",
     paddingVertical: 10,
     justifyContent: "space-between",
-    alignItems:"center",
-    width:"50%",
+    alignItems: "center",
+    width: "50%",
     paddingHorizontal: 10
   },
   ItemsConatiner: {
