@@ -1,5 +1,5 @@
 import React from "react";
-import { Text } from "../";
+import { Text } from "../../index";
 import PropTypes from "prop-types";
 
 /** used inside form inputs */
