@@ -16,7 +16,7 @@ export const XCard = compose(
   withStyles,
   withShadows,
   withMarginPaddings
-)(({ style, children, styleContent, image, onPress, touchable, ...rest }) => {
+)(({ style, children, styleContent, image, onPress, ...rest }) => {
   let Tag = View;
   let params = {};
   if (onPress) {

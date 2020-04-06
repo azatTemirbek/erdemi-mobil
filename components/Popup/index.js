@@ -27,25 +27,11 @@ export const Popup = ({
   withScroll = true,
   containerStyle,
   contentStyle,
-  duration = 500,
   children
 }) => {
-  // const [SlideIn, setSlideIn] = useState(new Animated.Value(0));
   const _closeAndGoBack = useCallback(() => {
     onCloseModal();
   }, [onCloseModal]);
-  // useEffect(() => {
-  //   if (isVisible) {
-  //     Animated.timing(SlideIn, {
-  //       toValue: 1,
-  //       duration,
-  //       useNativeDriver: true
-  //     }).start();
-  //   } else {
-  //     setSlideIn(new Animated.Value(0));
-  //   }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [duration, isVisible]);
   let Tag = titleTag;
   return (
     <Modal
@@ -66,16 +52,6 @@ export const Popup = ({
           style={[
             styles.content,
             contentStyle,
-            // {
-            //   transform: [
-            //     {
-            //       translateY: SlideIn.interpolate({
-            //         inputRange: [0, 1],
-            //         outputRange: [1000, 0]
-            //       })
-            //     }
-            //   ]
-            // },
             !bottom && {
               borderBottomRightRadius: 0,
               borderBottomLeftRadius: 0
@@ -124,7 +100,6 @@ Popup.propTypes = {
   bottomStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   top: PropTypes.bool,
   topStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  duration: PropTypes.number,
   disableCloseBtn: PropTypes.bool,
   withScroll: PropTypes.bool,
   closeIconProps: PropTypes.object
@@ -144,7 +119,6 @@ Popup.defaultProps = {
   bottomStyle: {},
   top: true,
   topStyle: {},
-  duration: 500,
   disableCloseBtn: false,
   withScroll: true,
   closeIconProps:{}
