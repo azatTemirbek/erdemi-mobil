@@ -7,8 +7,8 @@ import { BaseColor } from "../../config";
  * @param {Object} props - react props
  */
 export const MapArray = React.memo(
-  ({ array = [], children, fallback, ...rest }) => {
-    if (!array.length) {
+  ({ array = [], children, loading, fallback, ...rest }) => {
+    if (!array.length || loading) {
       let propsCopy = { key: "index", object: array, children, ...rest };
       let index = 0;
       return typeof fallback === "function"
