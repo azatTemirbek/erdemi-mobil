@@ -68,7 +68,7 @@ export class FilterSort extends Component {
   }
 
   render() {
-    const { style, onFilter, filters } = this.props;
+    const { style, onFilter, filters, translate } = this.props;
     const { sortOption, modalVisible, sortSelected } = this.state;
     return (
       <View style={[styles.contain, style]}>
@@ -106,7 +106,7 @@ export class FilterSort extends Component {
               style={{ marginTop: 10, marginBottom: 20 }}
               onPress={() => this.onApply()}
             >
-              {this.props.translate("apply")}
+              {translate("apply")}
             </Button>
           </View>
         </Modal>
@@ -121,7 +121,7 @@ export class FilterSort extends Component {
             solid
           />
           <Text headline primaryColor style={{ marginLeft: 5 }}>
-            {this.props.translate("sort")}
+            {translate("sort")}
           </Text>
         </TouchableOpacity>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -133,7 +133,7 @@ export class FilterSort extends Component {
               solid
             />
             <Text headline primaryColor style={{ marginLeft: 5 }}>
-              {this.props.translate("filter")}
+              {translate("filter")}
             </Text>
           </TouchableOpacity>
         </View>

@@ -146,7 +146,7 @@ export class CheckboxFilter extends Component {
               label={label}
               options={options}
               onChange={this._onOptionChange(index)}
-              translate={this.props.translate}
+              translate={translate}
             />
           ))}
         </ScrollView>
