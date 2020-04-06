@@ -30,27 +30,27 @@ export const Popup = ({
   duration = 500,
   children
 }) => {
-  const [SlideIn, setSlideIn] = useState(new Animated.Value(0));
+  // const [SlideIn, setSlideIn] = useState(new Animated.Value(0));
   const _closeAndGoBack = useCallback(() => {
     onCloseModal();
   }, [onCloseModal]);
-  useEffect(() => {
-    if (isVisible) {
-      Animated.timing(SlideIn, {
-        toValue: 1,
-        duration,
-        useNativeDriver: true
-      }).start();
-    } else {
-      setSlideIn(new Animated.Value(0));
-    }
+  // useEffect(() => {
+  //   if (isVisible) {
+  //     Animated.timing(SlideIn, {
+  //       toValue: 1,
+  //       duration,
+  //       useNativeDriver: true
+  //     }).start();
+  //   } else {
+  //     setSlideIn(new Animated.Value(0));
+  //   }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [duration, isVisible]);
+  // }, [duration, isVisible]);
   let Tag = titleTag;
   return (
     <Modal
       visible={isVisible}
-      // animationType="slide"
+      animationType="slide"
       onBackdropPress={_closeAndGoBack}
       propagateSwipe
       transparent
@@ -66,16 +66,16 @@ export const Popup = ({
           style={[
             styles.content,
             contentStyle,
-            {
-              transform: [
-                {
-                  translateY: SlideIn.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [1000, 0]
-                  })
-                }
-              ]
-            },
+            // {
+            //   transform: [
+            //     {
+            //       translateY: SlideIn.interpolate({
+            //         inputRange: [0, 1],
+            //         outputRange: [1000, 0]
+            //       })
+            //     }
+            //   ]
+            // },
             !bottom && {
               borderBottomRightRadius: 0,
               borderBottomLeftRadius: 0

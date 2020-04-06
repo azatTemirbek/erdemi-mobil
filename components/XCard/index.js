@@ -19,7 +19,7 @@ export const XCard = compose(
 )(({ style, children, styleContent, image, onPress, touchable, ...rest }) => {
   let Tag = View;
   let params = {};
-  if (touchable) {
+  if (onPress) {
     Tag = TouchableOpacity;
     params.onPress = onPress;
   }
@@ -35,8 +35,7 @@ XCard.propTypes = {
   image: PropTypes.node.isRequired,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   styleContent: PropTypes.object,
-  touchable: PropTypes.bool,
-  onPress: PropTypes.func,
+  onPress: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   //custom for text color
   primaryColor: PropTypes.bool,
   darkPrimaryColor: PropTypes.bool,
@@ -58,8 +57,7 @@ XCard.defaultProps = {
   image: "" || false,
   style: {},
   styleContent: {},
-  touchable: false,
-  onPress: () => {},
+  onPress: false,
   //custom for text color
   primaryColor: false,
   darkPrimaryColor: false,
