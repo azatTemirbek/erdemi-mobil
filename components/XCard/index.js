@@ -2,7 +2,7 @@ import React from "react";
 import { View, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import PropTypes from "prop-types";
-import { Image } from "../";
+import { Image, Block } from "../";
 import {
   withColors,
   compose,
@@ -17,16 +17,16 @@ export const XCard = compose(
   withShadows,
   withMarginPaddings
 )(({ style, children, styleContent, image, onPress, ...rest }) => {
-  let Tag = View;
+  let Tag = Block;
   let params = {};
   if (onPress) {
     Tag = TouchableOpacity;
     params.onPress = onPress;
   }
   return (
-    <Tag style={[styles.container, style]} {...params}>
+    <Tag padding={20} my4 style={[styles.container, style]} {...params} {...rest}>
       {!!image && <Image source={image} style={styles.imageBanner} />}
-      <View style={[styles.styleContent, styleContent]}>{children}</View>
+      <View style={styleContent}>{children}</View>
     </Tag>
   );
 });
@@ -50,7 +50,8 @@ XCard.propTypes = {
   whiteColor: PropTypes.bool,
   fieldColor: PropTypes.bool,
   lightPink: PropTypes.bool,
-  shadows: PropTypes.bool
+  shadows: PropTypes.bool,
+  flex: PropTypes.bool
 };
 
 XCard.defaultProps = {
@@ -70,7 +71,8 @@ XCard.defaultProps = {
   whiteColor: false,
   fieldColor: false,
   lightPink: false,
-  shadows: true
+  shadows: true,
+  flex: false
 };
 
 export default XCard;

@@ -3,8 +3,6 @@ export default StyleSheet.create({
   container: {
     borderRadius: 10,
     borderWidth: 0.02,
-    borderColor: "transparent",
-    padding: 20,
-    marginVertical: 10
+    borderColor: "transparent"
   },
 });
