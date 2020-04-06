@@ -76,6 +76,20 @@ Question.defaultProps = {
 };
 
 export class CheckboxFilter extends Component {
+  /** "[{"urunTipi":["yassi","uzun"]}]"  */
+  static transform = filters =>
+    filters
+      .map(item => ({
+        [item.title]: item.options
+          .filter(op => op.value)
+          .map(opt => opt.paramKey.toLowerCase())
+      }))
+      .filter(item => {
+        // eslint-disable-next-line no-unused-vars
+        let [key, val] = Object.entries(item)[0];
+        return val.length;
+      });
+
   constructor(props) {
     super(props);
     this.state = {
