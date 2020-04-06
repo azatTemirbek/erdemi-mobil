@@ -39,5 +39,13 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     borderBottomColor: BaseColor.textSecondaryColor,
     borderBottomWidth: 1
+  },
+  containerStyle: {
+    paddingTop: 100,
+    paddingBottom: 0
+  },
+  contentStyle: {
+    paddingHorizontal: 0,
+    width: "100%"
   }
 });

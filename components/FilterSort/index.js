@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity } from "react-native";
 import styles from "./styles";
-import { Icon, Text, Button } from "../";
+import { Icon, Text, Button, Popup, CheckboxFilter } from "../";
 import PropTypes from "prop-types";
 import { BaseColor } from "../../config";
 import Modal from "react-native-modal";
@@ -12,7 +12,8 @@ export class FilterSort extends Component {
     this.state = {
       sortOption: props.sortOption,
       sortSelected: props.sortSelected,
-      modalVisible: false
+      modalVisible: false,
+      isVisible: false
     };
   }
 
@@ -67,7 +68,7 @@ export class FilterSort extends Component {
   }
 
   render() {
-    const { style, onFilter } = this.props;
+    const { style, onFilter, filters } = this.props;
     const { sortOption, modalVisible, sortSelected } = this.state;
     return (
       <View style={[styles.contain, style]}>
@@ -124,7 +125,7 @@ export class FilterSort extends Component {
           </Text>
         </TouchableOpacity>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <TouchableOpacity onPress={onFilter} style={styles.contentFilter}>
+          <TouchableOpacity onPress={() => this.setState({ isVisible: true })} style={styles.contentFilter}>
             <Icon
               name="filter"
               size={16}
@@ -136,6 +137,21 @@ export class FilterSort extends Component {
             </Text>
           </TouchableOpacity>
         </View>
+        {/* render the popup */}
+        <Popup
+          isVisible={this.state.isVisible}
+          containerStyle={styles.containerStyle}
+          contentStyle={styles.contentStyle}
+          bottom={false}
+          disableCloseBtn={true}
+        >
+          <CheckboxFilter
+            onClosePress={() => this.setState({ isVisible: false })}
+            translate={translate}
+            filters={filters}
+            onFilterApply={(questions)=>{ onFilter(questions) }}
+          />
+        </Popup>
       </View>
     );
   }
