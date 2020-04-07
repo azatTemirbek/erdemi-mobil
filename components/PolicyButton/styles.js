@@ -2,22 +2,9 @@ import { StyleSheet } from "react-native";
 import { BaseColor } from "../../config";
 
 export default StyleSheet.create({
-  policyTextContainer: {
-    flexDirection: "row"
-  },
   pdf: {
     flex: 1,
     marginTop: 10
-  },
-  policyText: {
-    margin: 10,
-    flex: 1
-  },
-  checkbox: {
-    margin: 12,
-    height: 30,
-    marginLeft: 0,
-    marginRight: 0
   },
   bottomModal: {
     justifyContent: "flex-end",

@@ -5,6 +5,6 @@ export default StyleSheet.create({
   container: {
     borderRadius: 3,
     borderColor: BaseColor.dividerColor,
-    borderWidth: 0.5
-  }
+    borderWidth: 0.5,
+  },
 });

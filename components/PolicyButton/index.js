@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { BaseColor } from "../../config";
 import PropTypes from "prop-types";
-import { Button, Text, CheckBox } from "../";
+import { Button, Text, CheckBox, Block } from "../";
 import styles from "./styles";
 import Pdf from "react-native-pdf";
 import Modal from "react-native-modal";
@@ -25,9 +25,9 @@ export class PolicyButton extends Component {
     let { onPress, children, ...rest } = this.props;
     return (
       <>
-        <View style={styles.policyTextContainer}>
-          <CheckBox style={styles.checkbox} value={this._isAllChecked()} />
-          <Text style={styles.policyText}>{children}</Text>
+        <Block flex={false} row center middle >
+          <CheckBox value={this._isAllChecked()} />
+          <Text style={{flex: 1}} m4>{children}</Text>
           <Modal
             isVisible={this.state.modal}
             onBackdropPress={() => this.setState({ modal: false })}
@@ -59,14 +59,14 @@ export class PolicyButton extends Component {
               <Button
                 full
                 loading={!this.state.modal}
-                style={{ marginTop: 10, marginBottom: 20 }}
+                margin={[10,0,20,0]}
                 onPress={() => this._onConfirm()}
               >
                 {this.props.translate(this.props.iHaveReadAndAcceptedText)}
               </Button>
             </View>
           </Modal>
-        </View>
+        </Block>
         <Button {...rest} onPress={this._onPress} loading={this.state.modal}>
           {this.props.translate(this.props.buttonText)}
         </Button>

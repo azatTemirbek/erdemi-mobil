@@ -4,7 +4,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   ScrollView,
-  Dimensions
+  Dimensions,
+  StyleSheet
 } from "react-native";
 import PropTypes from "prop-types";
 import { Text, Button, Icon, MapArray, ErrorLabel, Label } from "../../";
@@ -417,7 +418,7 @@ DropDownMulti.defaultProps = {
   error: "",
   loading: false,
   icon: (
-    <Icon name="chevron-down" size={12} color={BaseColor.textPrimaryColor} />
+    <Icon name="chevron-down" size={22} color={BaseColor.accentColor} />
   ),
   renderItem: ({ object }) => (
     <Text body2 semibold primaryColor={object.checked}>
