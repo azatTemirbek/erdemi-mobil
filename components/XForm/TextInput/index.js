@@ -52,6 +52,7 @@ export class TextInput extends Component {
         <Block
           p1
           row
+          flex={false}
           smallCard
           style={[styles.container, error && { borderColor: "red" }, style]}
         >

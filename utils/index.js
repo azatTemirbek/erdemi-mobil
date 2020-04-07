@@ -11,6 +11,14 @@ import {
 import DeviceInfo from "react-native-device-info";
 const scaleValue = PixelRatio.get() / 2;
 
+export const pick = (obj = {}, blacklisted = []) =>
+  Object.entries(obj).reduce((acc, [key, val]) => {
+    if (blacklisted.includes(key)) {
+      acc[key] = val;
+    }
+    return acc;
+  }, {});
+
 export const updateObjectInArrayWithIndex = (array, positionIndex, payload) => {
   return array.map((item, index) => {
     if (index !== positionIndex) {
