@@ -232,7 +232,7 @@ export class DropDown extends Component {
               flex={1}
               middle
               center
-              onPress={() => this._openModal()}
+              onPress={() => !loading && this._openModal()}
               {...renderRightTouch}
             >
               {loading ? (
