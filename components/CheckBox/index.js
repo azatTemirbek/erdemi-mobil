@@ -1,20 +1,23 @@
 import React, { useCallback, memo } from "react";
-import { TouchableOpacity } from "react-native";
 import { BaseColor } from "../../config";
-import { Icon } from "../";
+import { Icon, TouchableOpacity } from "../";
 import PropTypes from "prop-types";
 import styles from "./styles";
-import { withMarginPaddings, compose } from "erdemir-mobil/hocs";
 /** Check box optimized */
-export const CheckBox = memo(compose(withMarginPaddings)(({ onChange, value, style }) => {
+export const CheckBox = memo(({ onChange, value, style, ...rest }) => {
   const onPress = useCallback(() => {
     onChange(!value);
   }, [onChange, value]);
   return (
     <TouchableOpacity
+      flex={false}
+      center
+      middle
+      p2
+      {...rest}
       style={[
         styles.container,
-        value && { backgroundColor:  BaseColor.primaryColor },
+        value && { backgroundColor: BaseColor.primaryColor },
         style && style
       ]}
       onPress={onPress}
@@ -31,7 +34,7 @@ export const CheckBox = memo(compose(withMarginPaddings)(({ onChange, value, sty
       )}
     </TouchableOpacity>
   );
-}));
+});
 
 CheckBox.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object]),
