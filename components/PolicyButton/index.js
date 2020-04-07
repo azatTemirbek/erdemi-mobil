@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { BaseColor } from "../../config";
 import PropTypes from "prop-types";
-import { Button, Text, Checkbox } from "../";
+import { Button, Text, CheckBox } from "../";
 import styles from "./styles";
 import Pdf from "react-native-pdf";
 import Modal from "react-native-modal";
@@ -26,7 +26,7 @@ export class PolicyButton extends Component {
     return (
       <>
         <View style={styles.policyTextContainer}>
-          <Checkbox style={styles.checkbox} value={this._isAllChecked()} />
+          <CheckBox style={styles.checkbox} value={this._isAllChecked()} />
           <Text style={styles.policyText}>{children}</Text>
           <Modal
             isVisible={this.state.modal}
