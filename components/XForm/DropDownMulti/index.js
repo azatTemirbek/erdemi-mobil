@@ -28,12 +28,19 @@ export class DropDownMulti extends Component {
     };
     props.selectedItems.map(this._setOrderedList);
   }
+  /** compares two objects */
+  compare = (a, b) => {
+    if (this.props.compare) {
+      return this.props.compare(a, b);
+    }
+    return a.value === b.value && a.label === b.label;
+  };
   /** returns items with checked field  */
   _getSelected = (items, selectedItems) => {
     return items.map(item => {
       return {
         ...item,
-        checked: !!selectedItems.filter(element => item.value === element.value)
+        checked: !!selectedItems.filter(element => this.compare(item, element))
           .length
       };
     });
@@ -41,11 +48,11 @@ export class DropDownMulti extends Component {
   /** a function manages order of the selection */
   _setOrderedList = selectedItem => {
     /** not in the list */
-    if (this.orderedList.find(it => it.value === selectedItem.value)) {
+    if (this.orderedList.find(it => this.compare(it, selectedItem))) {
       /** remove and get new array */
-      this.orderedList = this.orderedList.filter(item => {
-        return item.value !== selectedItem.value;
-      });
+      this.orderedList = this.orderedList.filter(
+        item => !this.compare(item, selectedItem)
+      );
     } else {
       /** add item to list */
       this.orderedList.push(selectedItem);
@@ -61,8 +68,7 @@ export class DropDownMulti extends Component {
     return items.map(item => {
       return {
         ...item,
-        checked:
-          item.value === selectedItem.value ? !item.checked : item.checked
+        checked: this.compare(item, selectedItem) ? !item.checked : item.checked
       };
     });
   };
@@ -90,7 +96,7 @@ export class DropDownMulti extends Component {
   _isItemChecked = (items = [], selectedItem = {}) =>
     !!items
       .map(item => ({ ...item }))
-      .filter(obj => obj.checked && obj.value === selectedItem.value).length;
+      .filter(obj => obj.checked && this.compare(obj, selectedItem)).length;
   /**
    * a function to select
    * @param {Array} selectedItems array of selected objects
@@ -113,7 +119,7 @@ export class DropDownMulti extends Component {
   };
   /** return selected count */
   _getSelectedCount = (items = this.state.items) =>
-    items.map(a => ({ ...a })).filter(a => a.checked).length;
+    this._getChecked(items).length;
   /**
    * a function filters arrays checked chick is added at the beginning of the component
    * @param {Object} element iteration element
@@ -121,8 +127,7 @@ export class DropDownMulti extends Component {
    * @param {Array} readOnlyArray original Array read Only
    */
   _removeCheckedFlag = element => {
-    let obj = { ...element };
-    delete obj.checked;
+    let { checked, ...obj } = { ...element };
     return obj;
   };
   /** will return only checked items */
@@ -298,9 +303,8 @@ export class DropDownMulti extends Component {
   };
   render() {
     const { style, labelStyle, placeholder, error, errorStyle } = this.props;
-    const { items } = this.state;
-    const filtered = items.filter(item => item.checked);
-    let selected = filtered.length && filtered[0].label;
+    const checkedItems = this._getChecked();
+    let selected = checkedItems.length && checkedItems[0].label;
     const Tag = !selected ? Text : View;
     return (
       <>
@@ -417,9 +421,7 @@ DropDownMulti.defaultProps = {
   errorStyle: {},
   error: "",
   loading: false,
-  icon: (
-    <Icon name="chevron-down" size={22} color={BaseColor.accentColor} />
-  ),
+  icon: <Icon name="chevron-down" size={22} color={BaseColor.accentColor} />,
   renderItem: ({ object }) => (
     <Text body2 semibold primaryColor={object.checked}>
       {object.label}
