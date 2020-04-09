@@ -1,6 +1,6 @@
 import React from "react";
-import { Icon, DropDown, Text } from "../";
-import { BaseColor } from "../../config";
+import {Icon, DropDown, Text} from "../";
+import {BaseColor} from "../../config";
 import PropTypes from "prop-types";
 
 export const LanguageDropDownView = ({
@@ -16,7 +16,7 @@ export const LanguageDropDownView = ({
   //   { text: "TR", value: "2" }
   // ];
   let selected = languageListShortened.filter(
-    item => language === item.value
+    (item) => language === item.value
   )[0];
   const pad0 = {
     padding: 0,
@@ -38,10 +38,10 @@ export const LanguageDropDownView = ({
       btnLabel={translate("apply")}
       options={languageListShortened}
       onChange={changeLanguage}
-      renderCenterStyle={{ flex: 0, ...mar0, ...pad0 }}
+      renderCenterStyle={{flex: 0, ...mar0, ...pad0}}
       renderCenter={() => null}
-      renderRightStyle={{ backgroundColor: "transparent", ...mar0, ...pad0 }}
-      renderRightTouch={{ color: "transparent", style: { ...mar0, ...pad0 } }}
+      renderRightStyle={{backgroundColor: "transparent", ...mar0, ...pad0}}
+      renderRightTouch={{color: "transparent", style: {...mar0, ...pad0}}}
       style={{
         borderRadius: 8,
         borderWidth: 2,
@@ -55,7 +55,7 @@ export const LanguageDropDownView = ({
         ...mar0,
         ...pad0
       }}
-      renderLeftStyle={{ backgroundColor: "transparent", ...mar0, ...pad0 }}
+      renderLeftStyle={{backgroundColor: "transparent", ...mar0, ...pad0}}
       renderLeft={
         <Text
           center
@@ -63,8 +63,7 @@ export const LanguageDropDownView = ({
           bgColor="transparent"
           color="white"
           margin={0}
-          padding={0}
-        >
+          padding={0}>
           {selected.text}
         </Text>
       }

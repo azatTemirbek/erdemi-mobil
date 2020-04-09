@@ -14,7 +14,7 @@ import SimpleLineIcon from "react-native-vector-icons/SimpleLineIcons";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import FontistoIcon from "react-native-vector-icons/Fontisto";
-const getIconType = type => {
+const getIconType = (type) => {
   switch (type) {
     case "zocial":
       return ZocialIcon;
@@ -49,7 +49,7 @@ const getIconType = type => {
       return MaterialIcon;
   }
 };
-export const Icon = ({ type = "font-awesome-5", ...rest }) => {
+export const Icon = ({type = "font-awesome-5", ...rest}) => {
   const IconComponent = getIconType(type);
   return <IconComponent {...rest} />;
 };

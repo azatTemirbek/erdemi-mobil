@@ -24,8 +24,8 @@ export function withStyles(Component) {
   }) => {
     const blockStyles = [
       styles.block,
-      flex && { flex },
-      flex === false && { flex: 0 }, // reset / disable flex
+      flex && {flex},
+      flex === false && {flex: 0}, // reset / disable flex
       row && styles.row,
       column && styles.column,
       center && styles.center,
@@ -34,8 +34,8 @@ export function withStyles(Component) {
       right && styles.right,
       top && styles.top,
       bottom && styles.bottom,
-      space && { justifyContent: `space-${space}` },
-      wrap && { flexWrap: "wrap" },
+      space && {justifyContent: `space-${space}`},
+      wrap && {flexWrap: "wrap"},
       /** borderRadius */
       smallCard && styles.smallCard,
       card && styles.card,

@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { View } from "react-native";
-import { BaseColor, FontFamily } from "../../../config";
+import React, {Component} from "react";
+import {View} from "react-native";
+import {BaseColor, FontFamily} from "../../../config";
 import PropTypes from "prop-types";
-import { Text, Icon, TextInput, TouchableOpacity } from "../../";
+import {Text, Icon, TextInput, TouchableOpacity} from "../../";
 import styles from "./styles";
 import Modal from "react-native-modal";
-import { Calendar } from "react-native-calendars";
+import {Calendar} from "react-native-calendars";
 /** calendar theme */
 const theme = {
   textSectionTitleColor: BaseColor.textPrimaryColor,
@@ -30,7 +30,7 @@ export class DatePickerInput extends Component {
   selected = "";
   constructor(props) {
     super(props);
-    this.state = { modalVisible: false };
+    this.state = {modalVisible: false};
   }
   openModal = () => {
     this.old = this.props.value;
@@ -46,28 +46,28 @@ export class DatePickerInput extends Component {
   _applyPress = () => {
     this.closeModal();
   };
-  renderRight = ({ props }) => {
+  renderRight = ({props}) => {
     return (
       <TouchableOpacity center middle onPress={this.openModal}>
         <Icon name="calendar" size={22} color={BaseColor.accentColor} />
       </TouchableOpacity>
     );
   };
-  onCancel = day => {
+  onCancel = (day) => {
     this.selected = this.old;
     this.props.onChangeText(this.old);
     this.closeModal();
     // this.forceUpdate();
   };
-  onDayPress = day => {
+  onDayPress = (day) => {
     this.selected = day.dateString;
     this.props.onChangeText(this.selected);
     // this.forceUpdate();
   };
   /** renders right side of the listItem */
   render() {
-    const { ...rest } = this.props;
-    const { modalVisible } = this.state;
+    const {...rest} = this.props;
+    const {modalVisible} = this.state;
     this.selected =
       !rest.value || rest.value === this.selected ? this.selected : rest.value;
     return (
@@ -82,8 +82,7 @@ export class DatePickerInput extends Component {
           animationOutTiming={600}
           backdropTransitionInTiming={600}
           backdropTransitionOutTiming={600}
-          {...this.props.modalProps}
-        >
+          {...this.props.modalProps}>
           <View style={styles.contentModal}>
             <View style={styles.contentCalendar}>
               <Calendar
@@ -157,7 +156,7 @@ DatePickerInput.defaultProps = {
   calendarProps: {},
   modalProps: {},
   denyText: "Vazgeç",
-  translate: key => key,
+  translate: (key) => key,
   confirmText: "Tamam"
 };
 

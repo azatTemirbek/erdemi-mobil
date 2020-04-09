@@ -1,4 +1,3 @@
-import React from "react";
 import hoistStatics from "hoist-non-react-statics";
 import createElement from "./utils/createElement";
 class WithHooksError extends Error {
@@ -7,12 +6,14 @@ class WithHooksError extends Error {
   }
 }
 /** used to add translate props with HOC */
-export const withHooksFactory = Hooks => (key, args = {}) => Component => {
+export const withHooksFactory = (Hooks) => (key, args = {}) => (Component) => {
   const displayName = `withHooks(${Component.displayName || Component.name})`;
-  const C = remainingProps => {
+  const C = (remainingProps) => {
     let rest = {};
     try {
-      if (!Hooks[key]) throw new WithHooksError(key);
+      if (!Hooks[key]) {
+        throw new WithHooksError(key);
+      }
       rest = Hooks[key](args);
     } catch (error) {
       if (error instanceof WithHooksError) {

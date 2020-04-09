@@ -1,14 +1,14 @@
 import hoistStatics from "hoist-non-react-statics";
-import { Typography, FontWeight, generateColors } from "../../config";
+import {Typography, FontWeight, generateColors} from "../../config";
 import createElement from "../utils/createElement";
 /** will generate bgColors */
 const styles = generateColors();
 export const withFont = (
-  { typography = Typography, fontWeight = FontWeight } = {
+  {typography = Typography, fontWeight = FontWeight} = {
     typography: Typography,
     fontWeight: FontWeight
   }
-) => Component => {
+) => (Component) => {
   const displayName = `withFont(${Component.displayName || Component.name})`;
   const C = ({
     /** Defined typo */
@@ -61,29 +61,29 @@ export const withFont = (
       caption2 && typography.caption2,
       overline && typography.overline,
       /** custom for font */
-      thin && { fontWeight: fontWeight.thin },
+      thin && {fontWeight: fontWeight.thin},
       ultraLight && {
         fontWeight: fontWeight.ultraLight
       },
-      light && { fontWeight: fontWeight.light },
-      regular && { fontWeight: fontWeight.regular },
-      medium && { fontWeight: fontWeight.medium },
-      semibold && { fontWeight: fontWeight.semibold },
-      bold && { fontWeight: fontWeight.bold },
-      heavy && { fontWeight: fontWeight.heavy },
-      black && { fontWeight: fontWeight.black },
+      light && {fontWeight: fontWeight.light},
+      regular && {fontWeight: fontWeight.regular},
+      medium && {fontWeight: fontWeight.medium},
+      semibold && {fontWeight: fontWeight.semibold},
+      bold && {fontWeight: fontWeight.bold},
+      heavy && {fontWeight: fontWeight.heavy},
+      black && {fontWeight: fontWeight.black},
       /** text alignment */
-      { textAlign: "auto" },
-      center && { textAlign: "center" },
-      left && { textAlign: "left" },
-      right && { textAlign: "right" },
-      justify && { textAlign: "justify" },
+      {textAlign: "auto"},
+      center && {textAlign: "center"},
+      left && {textAlign: "left"},
+      right && {textAlign: "right"},
+      justify && {textAlign: "justify"},
       /** textDecorationLine */
-      underline && { textDecorationLine: "underline" },
-      textDecorationLine && { textDecorationLine: textDecorationLine },
+      underline && {textDecorationLine: "underline"},
+      textDecorationLine && {textDecorationLine: textDecorationLine},
       /** bg colors */
       bgColor && styles[bgColor],
-      bgColor && !styles[bgColor] && { backgroundColor: bgColor },
+      bgColor && !styles[bgColor] && {backgroundColor: bgColor},
       style && style
     ];
     return createElement(Component, {

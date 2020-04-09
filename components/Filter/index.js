@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { View, TouchableOpacity } from "react-native";
+import React, {Component} from "react";
+import {View, TouchableOpacity} from "react-native";
 import styles from "./styles";
-import { Icon, Text, Button } from "../";
+import {Icon, Text, Button} from "../";
 import PropTypes from "prop-types";
-import { BaseColor } from "../../config";
+import {BaseColor} from "../../config";
 import Modal from "react-native-modal";
 
 export class Filter extends Component {
@@ -17,9 +17,9 @@ export class Filter extends Component {
   }
 
   componentDidMount() {
-    const { filterOption, filterSelected } = this.state;
+    const {filterOption, filterSelected} = this.state;
     this.setState({
-      filterOption: filterOption.map(item => {
+      filterOption: filterOption.map((item) => {
         return {
           ...item,
           checked: item.value === filterSelected.value
@@ -29,9 +29,9 @@ export class Filter extends Component {
   }
 
   onSelectFilter(selected) {
-    const { filterOption } = this.state;
+    const {filterOption} = this.state;
     this.setState({
-      filterOption: filterOption.map(item => {
+      filterOption: filterOption.map((item) => {
         return {
           ...item,
           checked: item.value === selected.value
@@ -41,10 +41,10 @@ export class Filter extends Component {
   }
 
   onOpenFilter() {
-    const { filterOption, filterSelected } = this.state;
+    const {filterOption, filterSelected} = this.state;
     this.setState({
       modalVisible: true,
-      filterOption: filterOption.map(item => {
+      filterOption: filterOption.map((item) => {
         return {
           ...item,
           checked: item.value === filterSelected.value
@@ -54,9 +54,9 @@ export class Filter extends Component {
   }
 
   onApply() {
-    const { filterOption } = this.state;
-    const { onChangeFilter } = this.props;
-    const filtered = filterOption.filter(item => item.checked);
+    const {filterOption} = this.state;
+    const {onChangeFilter} = this.props;
+    const filtered = filterOption.filter((item) => item.checked);
     if (filtered.length > 0) {
       this.setState({
         filterSelected: filtered[0],
@@ -67,8 +67,8 @@ export class Filter extends Component {
   }
 
   render() {
-    const { style } = this.props;
-    const { filterOption, modalVisible } = this.state;
+    const {style} = this.props;
+    const {filterOption, modalVisible} = this.state;
     return (
       <View style={[styles.contain, style]}>
         <Modal
@@ -80,8 +80,7 @@ export class Filter extends Component {
             });
           }}
           swipeDirection={["down"]}
-          style={styles.bottomModal}
-        >
+          style={styles.bottomModal}>
           <View style={styles.contentFilterBottom}>
             <View style={styles.contentSwipeDown}>
               <View style={styles.lineSwipeDown} />
@@ -90,8 +89,7 @@ export class Filter extends Component {
               <TouchableOpacity
                 style={styles.contentActionModalBottom}
                 key={item.value}
-                onPress={() => this.onSelectFilter(item)}
-              >
+                onPress={() => this.onSelectFilter(item)}>
                 <Text body2 semibold primaryColor={item.checked}>
                   {item.text}
                 </Text>
@@ -102,19 +100,17 @@ export class Filter extends Component {
             ))}
             <Button
               full
-              style={{ marginTop: 10, marginBottom: 20 }}
-              onPress={() => this.onApply()}
-            >
+              style={{marginTop: 10, marginBottom: 20}}
+              onPress={() => this.onApply()}>
               {this.props.translate("apply")}
             </Button>
           </View>
         </Modal>
         <TouchableOpacity
           onPress={() => this.onOpenFilter()}
-          style={styles.contentFilter}
-        >
+          style={styles.contentFilter}>
           <Icon name="filter" size={16} color={BaseColor.primaryColor} solid />
-          <Text headline primaryColor style={{ marginLeft: 5 }}>
+          <Text headline primaryColor style={{marginLeft: 5}}>
             {this.props.translate("filter")}
           </Text>
         </TouchableOpacity>
@@ -167,7 +163,7 @@ Filter.defaultProps = {
   labelCustom: "",
   onChangeFilter: () => {},
   onChangeView: () => {},
-  translate: key => key
+  translate: (key) => key
 };
 
 export default Filter;

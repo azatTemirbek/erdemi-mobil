@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from "react-native";
 
 export default StyleSheet.create({
   container: {
@@ -9,6 +9,6 @@ export default StyleSheet.create({
     borderRadius: 5,
     color: "#333333",
     paddingHorizontal: 10,
-    height:48
-  },
+    height: 48
+  }
 });

@@ -1,4 +1,4 @@
-import React, { Children, cloneElement } from "react";
+import React, {Children, cloneElement} from "react";
 import {
   Animated,
   ActivityIndicator,
@@ -6,8 +6,8 @@ import {
   ScrollView,
   View
 } from "react-native";
-import { generateStyles } from "./styles";
-import { Text } from "../";
+import {generateStyles} from "./styles";
+import {Text} from "../";
 import PropTypes from "prop-types";
 
 export class Table extends React.Component {
@@ -16,8 +16,8 @@ export class Table extends React.Component {
     let component = this.props[keyVal];
     let key = JSON.stringify(object);
     return typeof component === "function"
-      ? component({ key, object })
-      : Children.map(component, child => cloneElement(child, { key, object }));
+      ? component({key, object})
+      : Children.map(component, (child) => cloneElement(child, {key, object}));
   };
   constructor(props) {
     super(props);
@@ -25,11 +25,11 @@ export class Table extends React.Component {
     this.footerScrollView = null;
     this.scrollPosition = new Animated.Value(0);
     this.scrollEvent = Animated.event(
-      [{ nativeEvent: { contentOffset: { x: this.scrollPosition } } }],
-      { useNativeDriver: false }
+      [{nativeEvent: {contentOffset: {x: this.scrollPosition}}}],
+      {useNativeDriver: false}
     );
-    this.state = { loading: false };
-    let { cellWidth, cellHeight, borderWidth } = props;
+    this.state = {loading: false};
+    let {cellWidth, cellHeight, borderWidth} = props;
     /** used to generate style for usage */
     this.styles = generateStyles(cellWidth, cellHeight, borderWidth);
   }
@@ -39,17 +39,17 @@ export class Table extends React.Component {
   handleScrollEndReached = () => {
     /** //TODO: need to be implemented */
     if (this.state.loading) {
-      this.setState({ loading: false }, () =>
+      this.setState({loading: false}, () =>
         setTimeout(this.props.scrollLoad.bind(this), 500)
       );
     }
   };
 
   componentDidMount() {
-    let { fixedRowHeader } = this.props;
+    let {fixedRowHeader} = this.props;
     if (fixedRowHeader) {
-      this.listener = this.scrollPosition.addListener(position => {
-        this.headerScrollView.scrollTo({ x: position.value, animated: false });
+      this.listener = this.scrollPosition.addListener((position) => {
+        this.headerScrollView.scrollTo({x: position.value, animated: false});
         /** will only work with footer is enabled  */
         if (this.props.fixedRowFooter) {
           this.footerScrollView.scrollTo({
@@ -62,7 +62,7 @@ export class Table extends React.Component {
   }
 
   componentWillUnmount() {
-    let { fixedRowHeader } = this.props;
+    let {fixedRowHeader} = this.props;
     if (fixedRowHeader) {
       this.scrollPosition.removeListener(this.listener);
     }
@@ -76,8 +76,7 @@ export class Table extends React.Component {
           this.styles.cellStyle,
           this.styles.headerCellStyle,
           this.props.headerCellStyle
-        ]}
-      >
+        ]}>
         {this.props.headerCell ? (
           this.renderer(
             {
@@ -89,8 +88,8 @@ export class Table extends React.Component {
           )
         ) : (
           <Text {...this.props.headerCellTextProps}>
-          {this.props.translate(value)}
-        </Text>
+            {this.props.translate(value)}
+          </Text>
         )}
       </View>
     );
@@ -103,8 +102,7 @@ export class Table extends React.Component {
           this.styles.cellStyle,
           this.styles.footerCellStyle,
           this.props.footerCellStyle
-        ]}
-      >
+        ]}>
         {this.props.footerCell ? (
           this.renderer(
             {
@@ -132,8 +130,7 @@ export class Table extends React.Component {
           this.styles.footerCellStyle,
           this.props.footerCellStyle,
           this.props.footerIntersectionCellStyle
-        ]}
-      >
+        ]}>
         {this.props.footerIntersectionCell ? (
           this.renderer(
             {
@@ -160,8 +157,7 @@ export class Table extends React.Component {
           this.styles.headerCellStyle,
           this.props.headerCellStyle,
           this.props.headerIntersectionCellStyle
-        ]}
-      >
+        ]}>
         {this.props.headerIntersectionCell ? (
           this.renderer(
             {
@@ -187,8 +183,7 @@ export class Table extends React.Component {
           this.styles.cellStyle,
           this.styles.columnCellStyle,
           this.props.columnCellStyle
-        ]}
-      >
+        ]}>
         {this.props.renderFixedCell ? (
           this.renderer(
             {
@@ -205,7 +200,7 @@ export class Table extends React.Component {
       </View>
     );
   };
-  cell = ({ keyVal, item = "", index }, row, i) => {
+  cell = ({keyVal, item = "", index}, row, i) => {
     let Tag = Text;
     if (typeof item === "function") {
       item = item(this.props.data[i]);
@@ -214,8 +209,7 @@ export class Table extends React.Component {
     return (
       <View
         key={item + index}
-        style={[this.styles.cellStyle, this.props.cellStyle]}
-      >
+        style={[this.styles.cellStyle, this.props.cellStyle]}>
         {this.props[keyVal] ? (
           this.renderer(
             {
@@ -235,7 +229,7 @@ export class Table extends React.Component {
    * used to get title of the left top cell
    */
   getTitle = () => {
-    let { data, fixedRowHeaderData, fixedColumnHeaderTitle } = this.props;
+    let {data, fixedRowHeaderData, fixedColumnHeaderTitle} = this.props;
     let title = "";
     if (fixedRowHeaderData && fixedRowHeaderData[fixedColumnHeaderTitle]) {
       title = fixedRowHeaderData[fixedColumnHeaderTitle];
@@ -248,7 +242,7 @@ export class Table extends React.Component {
   renderFixedRowFooter = () => {
     //fixedRowHeaderData: [{ key: "title", value: "Başlık" }],
     let footerCells = this.getKeys(true);
-    let { fixedColumnFooterTitle, fixedRowFooter } = this.props;
+    let {fixedColumnFooterTitle, fixedRowFooter} = this.props;
     let title = this.getTitle();
     /** if false render nothing */
     if (!fixedRowFooter) {
@@ -259,16 +253,14 @@ export class Table extends React.Component {
         style={[
           this.styles.FixedRowFooterStyle,
           this.props.FixedRowFooterStyle
-        ]}
-      >
+        ]}>
         {!!fixedColumnFooterTitle && this.footerIntersectionCell(title)}
         <ScrollView
-          ref={ref => (this.footerScrollView = ref)}
+          ref={(ref) => (this.footerScrollView = ref)}
           horizontal={true}
           scrollEnabled={false}
           scrollEventThrottle={16}
-          showsHorizontalScrollIndicator={false}
-        >
+          showsHorizontalScrollIndicator={false}>
           {footerCells.map(this.footerCell)}
         </ScrollView>
       </View>
@@ -280,7 +272,7 @@ export class Table extends React.Component {
   renderFixedRowHeader = () => {
     //fixedRowHeaderData: [{ key: "title", value: "Başlık" }],
     let headerCells = this.getKeys(true);
-    let { fixedColumnHeaderTitle, fixedRowHeader } = this.props;
+    let {fixedColumnHeaderTitle, fixedRowHeader} = this.props;
     let title = this.getTitle();
     /** if false render nothing */
     if (!fixedRowHeader) {
@@ -291,17 +283,15 @@ export class Table extends React.Component {
         style={[
           this.styles.FixedRowHeaderStyle,
           this.props.FixedRowHeaderStyle
-        ]}
-      >
+        ]}>
         {/* used to render if fixed is set */}
         {!!fixedColumnHeaderTitle && this.headerIntersectionCell(title)}
         <ScrollView
-          ref={ref => (this.headerScrollView = ref)}
+          ref={(ref) => (this.headerScrollView = ref)}
           horizontal={true}
           scrollEnabled={false}
           scrollEventThrottle={16}
-          showsHorizontalScrollIndicator={false}
-        >
+          showsHorizontalScrollIndicator={false}>
           {headerCells.map((value, index) => this.headerCell(value, index))}
         </ScrollView>
       </View>
@@ -310,15 +300,14 @@ export class Table extends React.Component {
   renderFixedColumnHeader = () => {
     //fixedRowHeaderData: [{ key: "title", value: "Başlık" }],
     let cells = this.props.data.map(
-      item => item[this.props.fixedColumnHeaderTitle]
+      (item) => item[this.props.fixedColumnHeaderTitle]
     );
     return (
       <View
         style={[
           this.styles.FixedColumnHeaderStyle,
           this.props.FixedColumnHeaderStyle
-        ]}
-      >
+        ]}>
         {cells.map((value, index) =>
           this.columnCell(this.props.translateFixedColumnHeader(value), index)
         )}
@@ -332,21 +321,20 @@ export class Table extends React.Component {
         style={[
           this.styles.FixedColumnHeaderStyle,
           this.props.FixedColumnHeaderStyle
-        ]}
-      >
+        ]}>
         {cells.map((value, index) =>
           this.columnCell(this.props.translateFixedColumnHeader(value), index)
         )}
       </View>
     );
   };
-  formatColumn = ({ item, index }) => {
+  formatColumn = ({item, index}) => {
     let key = JSON.stringify(item);
     return (
       <View key={"item" + key + index} style={this.styles.column}>
         {item.columnData.map((value, i, array) =>
           this.cell(
-            { keyVal: item.key, item: value, index: i + index + key },
+            {keyVal: item.key, item: value, index: i + index + key},
             array,
             i
           )
@@ -356,11 +344,11 @@ export class Table extends React.Component {
   };
   getKeys = (forHeader = false) => {
     let headerCells = [];
-    let { data, fixedRowHeaderData } = this.props;
+    let {data, fixedRowHeaderData} = this.props;
 
     if (data.length) {
       /** gets data when data array is provided to the component  */
-      Object.keys(data[0]).forEach(key => {
+      Object.keys(data[0]).forEach((key) => {
         if (key !== this.props.fixedColumnHeaderTitle) {
           headerCells.push(
             forHeader &&
@@ -384,9 +372,9 @@ export class Table extends React.Component {
   };
   renderRow = () => {
     let data = [];
-    this.getKeys().map(key => {
+    this.getKeys().map((key) => {
       if (key !== this.props.fixedColumnHeaderTitle) {
-        let columnData = this.props.data.map(item => item[key]);
+        let columnData = this.props.data.map((item) => item[key]);
         data.push({
           key,
           columnData
@@ -399,7 +387,7 @@ export class Table extends React.Component {
         <FlatList
           style={[
             this.styles.body,
-            this.props.fixedColumnHeaderTitle ? {} : { marginLeft: 0 },
+            this.props.fixedColumnHeaderTitle ? {} : {marginLeft: 0},
             this.props.bodyStyle
           ]}
           horizontal={true}
@@ -418,8 +406,8 @@ export class Table extends React.Component {
 
   renderRowRev = () => {
     let data = [];
-    this.props.data.map(item => {
-      let columnData = this.getKeys().map(key => item[key]);
+    this.props.data.map((item) => {
+      let columnData = this.getKeys().map((key) => item[key]);
       data.push({
         key: "notsupported",
         columnData
@@ -432,7 +420,7 @@ export class Table extends React.Component {
         <FlatList
           style={[
             this.styles.body,
-            this.props.fixedColumnHeaderTitle ? {} : { marginLeft: 0 }
+            this.props.fixedColumnHeaderTitle ? {} : {marginLeft: 0}
           ]}
           horizontal={true}
           data={data}
@@ -559,7 +547,7 @@ Table.defaultProps = {
   headerIntersectionCellStyle: {},
   headerIntersectionCell: false,
   /** Header cells */
-  headerCellStyle:{},
+  headerCellStyle: {},
   headerCell: false,
   cellStyle: {},
   cellText: {},
@@ -597,8 +585,8 @@ Table.defaultProps = {
     a: " aaaa",
     b: "bbbbb"
   },
-  translateFixedColumnHeader: key => key,
-  translate: key => key,
+  translateFixedColumnHeader: (key) => key,
+  translate: (key) => key,
   fixedColumnHeaderTitle: false,
   cell: PropTypes.element,
   scrollLoad: () => {},
@@ -614,6 +602,6 @@ Table.defaultProps = {
   footerIntersectionCell: false,
   /** footer cells */
   footerCellTextProps: {},
-  footerCell: false,
+  footerCell: false
 };
 export default Table;

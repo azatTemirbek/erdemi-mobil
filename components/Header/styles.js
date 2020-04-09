@@ -1,11 +1,11 @@
-import { StyleSheet, Platform } from "react-native";
+import {StyleSheet, Platform} from "react-native";
 
 export default StyleSheet.create({
   container: {
     flexDirection: "row",
     paddingBottom: Platform.OS === "android" ? 0 : 10,
     height: 45,
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
   contentLeft: {
     flex: 1,
@@ -29,8 +29,7 @@ export default StyleSheet.create({
     justifyContent: "flex-end"
   },
 
-  bgImage: {
-  },
+  bgImage: {},
   logo: {
     height: Platform.OS === "android" ? "70%" : "90%",
     width: 72,

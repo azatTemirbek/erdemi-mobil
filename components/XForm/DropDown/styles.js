@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { BaseColor } from "../../../config";
+import {StyleSheet} from "react-native";
+import {BaseColor} from "../../../config";
 
 export default StyleSheet.create({
   lineSwipeDown: {
@@ -24,5 +24,5 @@ export default StyleSheet.create({
   ModalContentAction: {
     borderBottomColor: BaseColor.textSecondaryColor,
     borderBottomWidth: 1
-  },
+  }
 });

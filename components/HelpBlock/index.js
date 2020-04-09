@@ -1,11 +1,11 @@
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
+import {View, TouchableOpacity} from "react-native";
 import PropTypes from "prop-types";
-import { BaseColor } from "../../config";
-import { Text, Icon } from "../";
+import {BaseColor} from "../../config";
+import {Text, Icon} from "../";
 import styles from "./styles";
 
-const HelpBlock = ({ style, title, description, onPress, phone, email }) => {
+const HelpBlock = ({style, title, description, onPress, phone, email}) => {
   return (
     <View style={style}>
       <Text headline semibold>
@@ -17,14 +17,12 @@ const HelpBlock = ({ style, title, description, onPress, phone, email }) => {
       <TouchableOpacity
         style={styles.contentBlockCall}
         onPress={onPress}
-        activeOpacity={0.9}
-      >
+        activeOpacity={0.9}>
         <Icon name="phone" size={18} color={BaseColor.primaryColor} />
         <View
           style={{
             marginLeft: 8
-          }}
-        >
+          }}>
           <Text title3 accentColor>
             {phone}
           </Text>

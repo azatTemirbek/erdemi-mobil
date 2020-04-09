@@ -1,10 +1,10 @@
-import React, { useCallback, memo } from "react";
-import { BaseColor } from "../../config";
-import { Icon, TouchableOpacity } from "../";
+import React, {useCallback, memo} from "react";
+import {BaseColor} from "../../config";
+import {Icon, TouchableOpacity} from "../";
 import PropTypes from "prop-types";
 import styles from "./styles";
 /** Check box optimized */
-export const CheckBox = memo(({ onChange, value, style, size, ...rest }) => {
+export const CheckBox = memo(({onChange, value, style, size, ...rest}) => {
   const onPress = useCallback(() => {
     onChange(!value);
   }, [onChange, value]);
@@ -18,21 +18,23 @@ export const CheckBox = memo(({ onChange, value, style, size, ...rest }) => {
       {...rest}
       style={[
         styles.container,
-        value && { backgroundColor: BaseColor.primaryColor },
-        size && { height: size, maxHeight: size, maxWidth: size, width: size },
+        value && {backgroundColor: BaseColor.primaryColor},
+        size && {height: size, maxHeight: size, maxWidth: size, width: size},
         style && style
       ]}
-      onPress={onPress}
-    >
+      onPress={onPress}>
       {value ? (
-        <Icon name="check" size={Math.floor(size*0.6)} color={BaseColor.whiteColor}/>
+        <Icon
+          name="check"
+          size={Math.floor(size * 0.6)}
+          color={BaseColor.whiteColor}
+        />
       ) : (
         <Icon
           name="square-full"
           type="font-awesome-5"
-          size={Math.floor(size*0.6)}
+          size={Math.floor(size * 0.6)}
           color={BaseColor.primaryColor}
-         
         />
       )}
     </TouchableOpacity>

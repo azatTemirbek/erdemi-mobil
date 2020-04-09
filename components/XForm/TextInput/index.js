@@ -1,8 +1,8 @@
-import React, { Component, cloneElement, Children } from "react";
-import { InteractionManager, TextInput as Input } from "react-native";
+import React, {Component, cloneElement, Children} from "react";
+import {InteractionManager, TextInput as Input} from "react-native";
 import PropTypes from "prop-types";
-import { BaseColor } from "../../../config";
-import { Icon, Block, TouchableOpacity, Label, ErrorLabel } from "../..";
+import {BaseColor} from "../../../config";
+import {Icon, Block, TouchableOpacity, Label, ErrorLabel} from "../..";
 import styles from "./styles";
 
 export class TextInput extends Component {
@@ -18,8 +18,8 @@ export class TextInput extends Component {
     let component = this.props[keyVal];
     let key = JSON.stringify(props);
     return typeof component === "function"
-      ? component({ key, props })
-      : Children.map(component, child => cloneElement(child, { key, props }));
+      ? component({key, props})
+      : Children.map(component, (child) => cloneElement(child, {key, props}));
   };
   /**  used to get input ref */
   _getRef = (name = "input") => this[name];
@@ -48,30 +48,28 @@ export class TextInput extends Component {
 
     return (
       <>
-        <Label {...{ labelStyle, label, required }} />
+        <Label {...{labelStyle, label, required}} />
         <Block
           p1
           row
           flex={false}
           smallCard
-          style={[styles.container, error && { borderColor: "red" }, style]}
-        >
+          style={[styles.container, error && {borderColor: "red"}, style]}>
           {!!renderLeft && (
             <Block
               flex={150}
               center
               col
-              style={[renderLeftStyle, { justifySelf: "flex-start" }]}
-            >
+              style={[renderLeftStyle, {justifySelf: "flex-start"}]}>
               {this.renderer("renderLeft")}
             </Block>
           )}
           <Block flex={900} style={renderCenterStyle}>
-            {!!renderCenter ? (
+            {renderCenter ? (
               this.renderer("renderCenter")
             ) : (
               <Input
-                ref={ref => {
+                ref={(ref) => {
                   this.input = ref;
                 }}
                 {...rest}
@@ -86,13 +84,12 @@ export class TextInput extends Component {
           {!!renderRight && (
             <Block
               flex={150}
-              style={[renderRightStyle, { justifySelf: "flex-end" }]}
-            >
+              style={[renderRightStyle, {justifySelf: "flex-end"}]}>
               {this.renderer("renderRight")}
             </Block>
           )}
         </Block>
-        <ErrorLabel {...{ errorStyle, error }} />
+        <ErrorLabel {...{errorStyle, error}} />
       </>
     );
   }
@@ -142,14 +139,14 @@ TextInput.defaultProps = {
   renderLeft: false,
   renderCenter: false,
   renderCenterStyle: {},
-  renderRight: ({ props }) => {
+  renderRight: ({props}) => {
     return (
       <TouchableOpacity center middle onPress={() => props.focusInput()}>
         <Icon name="edit" size={22} color={BaseColor.accentColor} />
       </TouchableOpacity>
     );
   },
-  translate: key => key,
+  translate: (key) => key,
   required: false
   // renderLeft: ({ props }) => {
   //   return (

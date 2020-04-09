@@ -1,10 +1,10 @@
 import React from "react";
-import { Text } from "../../index";
+import {Text} from "../../index";
 import PropTypes from "prop-types";
 
 /** used inside form inputs */
-export const Label = ({ labelStyle, label, required }) =>
-  !!label ? (
+export const Label = ({labelStyle, label, required}) =>
+  label ? (
     <Text p2 style={labelStyle}>
       {label}
       {required && <Text primaryColor>*</Text>}
@@ -18,8 +18,8 @@ Label.propTypes = {
 };
 
 /** used inside form inputs to show error massage*/
-export const ErrorLabel = ({ errorStyle, error }) =>
-  !!error ? (
+export const ErrorLabel = ({errorStyle, error}) =>
+  error ? (
     <Text p2 color="red" style={errorStyle}>
       {error}
     </Text>

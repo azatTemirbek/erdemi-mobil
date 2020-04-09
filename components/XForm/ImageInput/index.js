@@ -1,8 +1,8 @@
-import React, { Component, cloneElement, Children } from "react";
-import { TouchableOpacity, View } from "react-native";
-import { BaseColor } from "../../../config";
+import React, {Component, cloneElement, Children} from "react";
+import {TouchableOpacity, View} from "react-native";
+import {BaseColor} from "../../../config";
 import PropTypes from "prop-types";
-import { Text, Icon, Card, MapArray, Selector, ErrorLabel, Label } from "../../";
+import {Text, Icon, Card, MapArray, Selector, ErrorLabel, Label} from "../../";
 import styles from "./styles";
 import ImagePicker from "react-native-image-crop-picker";
 
@@ -35,34 +35,34 @@ export class ImageInput extends Component {
       return null;
     }
     return typeof component === "function"
-      ? component({ key, props })
+      ? component({key, props})
       : Array.isArray(component)
-      ? Children.map(component, child => cloneElement(child, { key, props }))
+      ? Children.map(component, (child) => cloneElement(child, {key, props}))
       : component;
   };
   /**  used to get ref */
   _getRef = (name = "input") => this[name];
   /** used to remove from the state */
-  _onPillRemove = object => () => {
-    let { value, onImageChange } = this.props;
+  _onPillRemove = (object) => () => {
+    let {value, onImageChange} = this.props;
     let photos = Array.isArray(value) ? value : value ? [value] : [];
     photos = photos
-      .map(item => ({ ...item }))
-      .filter(photo => {
+      .map((item) => ({...item}))
+      .filter((photo) => {
         return JSON.stringify(object) !== JSON.stringify(photo);
       });
     onImageChange(photos);
   };
   _addAndFilter = (newPhotos = []) => {
     let newArrayOfPhotos = [];
-    let { value } = this.props;
+    let {value} = this.props;
     let photos = Array.isArray(value) ? value : value ? [value] : [];
     /** remove selected one if exists */
     newArrayOfPhotos = photos
-      .map(item => ({ ...item }))
-      .filter(photo => {
+      .map((item) => ({...item}))
+      .filter((photo) => {
         return (
-          newPhotos.findIndex(item => {
+          newPhotos.findIndex((item) => {
             return photo.path === item.path;
           }) === -1
         );
@@ -73,19 +73,19 @@ export class ImageInput extends Component {
   };
   /** opens gallery */
   _openGallery = () => {
-    let { options } = this.props;
-    this.setState({ modal: false });
-    ImagePicker.openPicker({ ...this.options, ...options }).then(images => {
-      let { onImageChange } = this.props;
+    let {options} = this.props;
+    this.setState({modal: false});
+    ImagePicker.openPicker({...this.options, ...options}).then((images) => {
+      let {onImageChange} = this.props;
       onImageChange(this._addAndFilter(images));
     });
   };
   /** opens Camera */
   _openCamera = () => {
-    let { options } = this.props;
-    this.setState({ modal: false });
-    ImagePicker.openCamera({ ...this.options, ...options }).then(images => {
-      let { onImageChange } = this.props;
+    let {options} = this.props;
+    this.setState({modal: false});
+    ImagePicker.openCamera({...this.options, ...options}).then((images) => {
+      let {onImageChange} = this.props;
       onImageChange(
         this._addAndFilter(Array.isArray(images) ? images : [images])
       );
@@ -93,9 +93,9 @@ export class ImageInput extends Component {
   };
 
   /** opens selector */
-  _openSelector = () => this.setState({ modal: true });
+  _openSelector = () => this.setState({modal: true});
   /** close selector */
-  _closeSelector = () => this.setState({ modal: false });
+  _closeSelector = () => this.setState({modal: false});
   render() {
     const {
       style,
@@ -117,7 +117,7 @@ export class ImageInput extends Component {
       ...rest
     } = this.props;
     let photos = Array.isArray(value) ? value : value ? [value] : [];
-    let opt = { ...this.options, ...options };
+    let opt = {...this.options, ...options};
     let list = [
       {
         title: translate("takePhoto"),
@@ -136,7 +136,7 @@ export class ImageInput extends Component {
           isVisible={this.state.modal}
           list={list}
         />
-        <Label {...{ label, labelStyle, required }} />
+        <Label {...{label, labelStyle, required}} />
         <View style={[styles.container, style]}>
           {!!renderLeft && (
             <View style={[styles.renderLeftStyle, renderLeftStyle]}>
@@ -146,40 +146,38 @@ export class ImageInput extends Component {
           <View
             style={[
               styles.ImageInputContainer,
-              renderRight && { width: "90%" },
-              renderLeft && { width: "90%" },
-              renderLeft && renderRight && { width: "80%" },
+              renderRight && {width: "90%"},
+              renderLeft && {width: "90%"},
+              renderLeft && renderRight && {width: "80%"},
               imageContainerStyle
-            ]}
-          >
+            ]}>
             <MapArray
+              {...rest}
               array={photos}
               fallback={
                 <View
                   key={"no-img"}
                   style={[
                     styles.ImageInputContainer,
-                    renderRight && { width: "90%" },
-                    renderLeft && { width: "90%" },
-                    renderLeft && renderRight && { width: "80%" },
+                    renderRight && {width: "90%"},
+                    renderLeft && {width: "90%"},
+                    renderLeft && renderRight && {width: "80%"},
                     imageContainerStyle
-                  ]}
-                >
+                  ]}>
                   <Text
                     style={{
                       color: BaseColor.grayColor,
                       paddingVertical: 10,
                       marginVertical: 8
-                    }}
-                  >
+                    }}>
                     {placeholder}
                   </Text>
                 </View>
-              }
-            >
-              {({ key, object, ...rest }, index) => {
+              }>
+              {({key, object, ...rest1}, index) => {
                 return (
                   <Card
+                    {...rest1}
                     style={[styles.pillContainer]}
                     onPress={this._onPillRemove(object)}
                     styleContent={[styles.styleContent, pillContainerStyle]}
@@ -188,8 +186,7 @@ export class ImageInput extends Component {
                         ? `data:${object.mime};base64,${object.data}`
                         : object.path
                     }}
-                    key={"View" + index}
-                  >
+                    key={"View" + index}>
                     {this.renderer("renderPillIcon", object)}
                   </Card>
                 );
@@ -202,7 +199,7 @@ export class ImageInput extends Component {
             </View>
           )}
         </View>
-        <ErrorLabel {...{errorStyle,error}} />
+        <ErrorLabel {...{errorStyle, error}} />
       </>
     );
   }
@@ -262,7 +259,7 @@ ImageInput.defaultProps = {
     />
   ),
   renderLeft: false,
-  renderRight: ({ props }) => {
+  renderRight: ({props}) => {
     return (
       <TouchableOpacity onPress={() => props.openSelector()}>
         <Icon
@@ -274,7 +271,7 @@ ImageInput.defaultProps = {
       </TouchableOpacity>
     );
   },
-  translate: key => key
+  translate: (key) => key
 };
 
 export default ImageInput;

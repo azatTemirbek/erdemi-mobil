@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {useCallback} from "react";
 import {
   TouchableOpacity,
   View,
@@ -8,7 +8,7 @@ import {
   Animated
 } from "react-native";
 import styles from "./styles";
-import { Icon, Text } from "../";
+import {Icon, Text} from "../";
 import PropTypes from "prop-types";
 
 export const Popup = ({
@@ -39,8 +39,7 @@ export const Popup = ({
       animationType="slide"
       onBackdropPress={_closeAndGoBack}
       propagateSwipe
-      transparent
-    >
+      transparent>
       <SafeAreaView style={[styles.container, containerStyle]}>
         {top && (
           <TouchableOpacity
@@ -60,18 +59,24 @@ export const Popup = ({
               borderTopRightRadius: 0,
               borderTopLeftRadius: 0
             }
-          ]}
-        >
+          ]}>
           <View style={styles.header}>
             <Tag {...titleProps}>{title}</Tag>
             {!disableCloseBtn && (
               <TouchableOpacity onPress={_closeAndGoBack}>
-                <Icon type="antdesign" name="close" size={28} {...closeIconProps} />
+                <Icon
+                  type="antdesign"
+                  name="close"
+                  size={28}
+                  {...closeIconProps}
+                />
               </TouchableOpacity>
             )}
           </View>
           {iconProps && <Icon {...iconProps} />}
-          {withScroll?(<ScrollView style={{ width: "100%" }}>{children}</ScrollView>):(
+          {withScroll ? (
+            <ScrollView style={{width: "100%"}}>{children}</ScrollView>
+          ) : (
             children
           )}
         </Animated.View>
@@ -121,7 +126,7 @@ Popup.defaultProps = {
   topStyle: {},
   disableCloseBtn: false,
   withScroll: true,
-  closeIconProps:{}
+  closeIconProps: {}
 };
 
 export default Popup;

@@ -1,19 +1,18 @@
 import React from "react";
-import { TouchableOpacity, View } from "react-native";
+import {TouchableOpacity, View} from "react-native";
 import styles from "./styles";
-import { Text } from "../";
+import {Text} from "../";
 import PropTypes from "prop-types";
 import Modal from "react-native-modal";
 
-export const Selector = ({ onCloseModal, isVisible, title, list, translate }) => (
+export const Selector = ({onCloseModal, isVisible, title, list, translate}) => (
   <Modal
     isVisible={isVisible}
     onBackdropPress={onCloseModal}
     style={[styles.container]}
     animationIn="slideInUp"
     animationOut="slideOutDown"
-    propagateSwipe
-  >
+    propagateSwipe>
     <View style={[styles.content]}>
       {!!title && (
         <View style={styles.header}>
@@ -24,8 +23,7 @@ export const Selector = ({ onCloseModal, isVisible, title, list, translate }) =>
         <TouchableOpacity
           style={index === list.length - 1 ? styles.lastList : styles.list}
           key={JSON.stringify(item) + index}
-          onPress={item.onPress}
-        >
+          onPress={item.onPress}>
           <Text style={styles.btnText}>{item.title}</Text>
         </TouchableOpacity>
       ))}
@@ -33,8 +31,7 @@ export const Selector = ({ onCloseModal, isVisible, title, list, translate }) =>
     <TouchableOpacity
       onPress={onCloseModal}
       activeOpacity={0.8}
-      style={styles.cancelButton}
-    >
+      style={styles.cancelButton}>
       <Text style={styles.cancelText}>{translate("cancel")}</Text>
     </TouchableOpacity>
   </Modal>
@@ -62,7 +59,7 @@ Selector.defaultProps = {
   ],
   title: "",
   onCloseModal: () => {},
-  translate: key => key
+  translate: (key) => key
 };
 
 export default Selector;

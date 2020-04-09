@@ -9,15 +9,15 @@ import {
   YellowColor,
   OrangeColor
 } from "./color";
-import { Typography, FontWeight, FontFamily } from "./typography";
-import { BaseSetting } from "./setting";
-import { BaseStyle } from "./theme";
-import { ScreenSize } from "./sizes";
+import {Typography, FontWeight, FontFamily} from "./typography";
+import {BaseSetting} from "./setting";
+import {BaseStyle} from "./theme";
+import {ScreenSize} from "./sizes";
 
 const BaseColor = {
   ...RedColor,
   ...ExtraColors,
-  ...baseColor,
+  ...baseColor
 };
 
 export {

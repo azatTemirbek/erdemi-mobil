@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 export const OrangeColor = {
   primaryColor: "#FF3160",
   darkPrimaryColor: "#C31C0D",
@@ -50,7 +49,7 @@ export const RedColor = {
   primaryColor: "#FF3360",
   darkPrimaryColor: "#C31C0D",
   lightPrimaryColor: "#FF8A65",
-  accentColor: "#4A90A4",
+  accentColor: "#4A90A4"
 };
 
 export const BaseColor = {
@@ -66,11 +65,11 @@ export const BaseColor = {
 };
 
 export const generateColors = (
-  baseColor = { ...BaseColor, ...ExtraColors, ...RedColor },
+  baseColor = {...BaseColor, ...ExtraColors, ...RedColor},
   cssProperty = "backgroundColor",
   prefix = ""
 ) =>
   Object.entries(baseColor).reduce((acc, [key, value], index, array) => {
-    acc[`${prefix}${key}`] = { [cssProperty]: value };
+    acc[`${prefix}${key}`] = {[cssProperty]: value};
     return acc;
   }, {});

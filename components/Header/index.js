@@ -1,18 +1,18 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {
   View,
   TouchableOpacity,
   SafeAreaView,
   ImageBackground
 } from "react-native";
-import { Text, Image, Icon } from "../";
+import {Text, Image, Icon} from "../";
 import styles from "./styles";
 import PropTypes from "prop-types";
-import { BaseColor } from "../../config";
-import { heightHeader } from "../../utils";
+import {BaseColor} from "../../config";
+import {heightHeader} from "../../utils";
 
 export class Header extends Component {
-  renderLeft = type => {
+  renderLeft = (type) => {
     return type === 1 ? (
       <View style={styles.centered}>
         <Image
@@ -28,12 +28,19 @@ export class Header extends Component {
         />
       </View>
     ) : (
-      <Icon name="angle-left" type="fontisto" size={22} color={this.props.type===3 ?BaseColor.primaryColor: BaseColor.whiteColor} />
+      <Icon
+        name="angle-left"
+        type="fontisto"
+        size={22}
+        color={
+          this.props.type === 3 ? BaseColor.primaryColor : BaseColor.whiteColor
+        }
+      />
     );
   };
-  renderRight = type => {
+  renderRight = (type) => {
     return type === 1 ? (
-      <View style={{ alignItems: "center" }}>
+      <View style={{alignItems: "center"}}>
         <Icon
           type="entypo"
           name="home"
@@ -63,17 +70,18 @@ export class Header extends Component {
       <ImageBackground
         source={type === 3 ? null : require("./bgImage.png")}
         style={styles.bgImage}
-        resizeMode="cover"
-      >
-        <SafeAreaView
-          forceInset={{ top: "always" }}
-        >
-          <View style={[styles.container, style, {height:type===1?heightHeader():45}]}>
-            <View style={{ flex: 1 }}>
+        resizeMode="cover">
+        <SafeAreaView forceInset={{top: "always"}}>
+          <View
+            style={[
+              styles.container,
+              style,
+              {height: type === 1 ? heightHeader() : 45}
+            ]}>
+            <View style={{flex: 1}}>
               <TouchableOpacity
                 style={[styles.contentLeft, styleLeft]}
-                onPress={onPressLeft}
-              >
+                onPress={onPressLeft}>
                 {this.props.renderLeft
                   ? this.props.renderLeft()
                   : this.renderLeft(type)}
@@ -85,16 +93,14 @@ export class Header extends Component {
                 primaryColor={type === 3}
                 bold
                 headline={title.length < 20}
-                style={titleStyle}
-              >
+                style={titleStyle}>
                 {title}
               </Text>
             </View>
             <View style={styles.right}>
               <TouchableOpacity
                 style={[styles.contentRight, styleRight]}
-                onPress={onPressRight}
-              >
+                onPress={onPressRight}>
                 {this.props.renderRight
                   ? this.props.renderRight()
                   : this.renderRight(type)}
@@ -136,7 +142,7 @@ Header.defaultProps = {
   title: "",
   titleStyle: {},
   type: 2,
-  translate: key => key,
+  translate: (key) => key,
   companyLogo: null
 };
 

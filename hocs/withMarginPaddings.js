@@ -1,11 +1,12 @@
-import { handleMargins, handlePaddings } from "../utils";
+import {handleMargins, handlePaddings} from "../utils";
 import hoistStatics from "hoist-non-react-statics";
-import { createElement } from "./";
+import {createElement} from "./";
 /** generates margin and paddings */
 export function withMarginPaddings(Component) {
-  const displayName = `withMarginPaddings(${Component.displayName ||
-    Component.name})`;
-  const C = ({ padding, margin, style, ...rest }) => {
+  const displayName = `withMarginPaddings(${
+    Component.displayName || Component.name
+  })`;
+  const C = ({padding, margin, style, ...rest}) => {
     const $spacer = 10;
     const [c0, c1, c2, c3, c4] = [
       $spacer * 0,

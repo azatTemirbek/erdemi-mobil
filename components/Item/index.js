@@ -1,7 +1,7 @@
 import React from "react";
-import { View } from "react-native";
+import {View} from "react-native";
 import styles from "./styles";
-import { Text } from "../";
+import {Text} from "../";
 
 export const Item = ({
   style = {},
@@ -10,19 +10,14 @@ export const Item = ({
   keyVal = "",
   value = "",
   index = 0,
-  translate = key => key,
+  translate = (key) => key,
   Tag = Text,
   noBorder
 }) => {
   return (
     <View
-      style={[
-        styles.itemContainer,
-        style,
-        noBorder && { borderBottomWidth: 0 }
-      ]}
-      key={keyVal + value + index}
-    >
+      style={[styles.itemContainer, style, noBorder && {borderBottomWidth: 0}]}
+      key={keyVal + value + index}>
       <Tag bold {...leftProps} style={[styles.title, leftProps.style || {}]}>
         {translate(keyVal)}
       </Tag>

@@ -1,7 +1,7 @@
 import React from "react";
-import { TouchableOpacity, View } from "react-native";
+import {TouchableOpacity, View} from "react-native";
 import styles from "./styles";
-import { Text } from "../";
+import {Text} from "../";
 import PropTypes from "prop-types";
 import Modal from "react-native-modal";
 import Pdf from "react-native-pdf";
@@ -27,8 +27,7 @@ export class PdfModal extends React.Component {
           this.pressedButtons[this.pressedButtons.length - 1]
             ? this.props.onSuccess()
             : this.props.onDismiss();
-        }}
-      >
+        }}>
         <View style={[styles.content, this.props.contentStyle]}>
           <Pdf
             source={this.props.source}
@@ -41,23 +40,21 @@ export class PdfModal extends React.Component {
             {this.props.children}
             {this.props.renderLeft && (
               <TouchableOpacity
-                style={{ flex: 1 }}
+                style={{flex: 1}}
                 onPress={() => {
                   this.props.onPressLeft();
                   this.pressedButtons.push(false);
-                }}
-              >
+                }}>
                 {this.props.renderLeft()}
               </TouchableOpacity>
             )}
             {this.props.renderRight && (
               <TouchableOpacity
-                style={{ flex: 1 }}
+                style={{flex: 1}}
                 onPress={() => {
                   this.props.onPressRight();
                   this.pressedButtons.push(true);
-                }}
-              >
+                }}>
                 {this.props.renderRight()}
               </TouchableOpacity>
             )}

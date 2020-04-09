@@ -1,8 +1,8 @@
 import React from "react";
-import { StyleSheet, ActivityIndicator } from "react-native";
-import { BaseColor } from "../../config";
+import {StyleSheet, ActivityIndicator} from "react-native";
+import {BaseColor} from "../../config";
 import PropTypes from "prop-types";
-import { Text, TouchableOpacity } from "../";
+import {Text, TouchableOpacity} from "../";
 import styles from "./styles";
 
 export const Button = ({
@@ -32,23 +32,22 @@ export const Button = ({
         outline && styles.outline,
         style
       ])}
-      activeOpacity={opacity}
-    >
+      activeOpacity={opacity}>
       {icon ? icon : null}
       <Text
         headline
+        ml2
         color={outline ? "primaryColor" : "whiteColor"}
         bold
         style={styleText}
-        numberOfLines={1}
-      >
+        numberOfLines={1}>
         {children || "Button"}
       </Text>
       {loading ? (
         <ActivityIndicator
           size="small"
           color={outline ? BaseColor.primaryColor : BaseColor.whiteColor}
-          style={{ paddingLeft: 5 }}
+          style={{paddingLeft: 5}}
         />
       ) : null}
     </TouchableOpacity>

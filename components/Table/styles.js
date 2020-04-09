@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { BaseColor } from "../../config";
+import {StyleSheet} from "react-native";
+import {BaseColor} from "../../config";
 
 const DEF_CELL_WIDTH = 200;
 const DEF_CELL_HEIGHT = 50;
@@ -17,8 +17,8 @@ const generateStyles = (
       borderLeftWidth: BORDER_WIDTH,
       borderColor: BaseColor.blackColor
     },
-    body: { marginLeft: CELL_WIDTH },
-    column: { flexDirection: "column" },
+    body: {marginLeft: CELL_WIDTH},
+    column: {flexDirection: "column"},
 
     FixedRowHeaderStyle: {
       flexDirection: "row"
@@ -36,12 +36,10 @@ const generateStyles = (
       alignItems: "center",
       justifyContent: "center"
     },
-    headerCellStyle: {
-    },
-    columnCellStyle: {
-    }
+    headerCellStyle: {},
+    columnCellStyle: {}
   });
 };
 
 const styles = generateStyles();
-export { styles, generateStyles };
+export {styles, generateStyles};

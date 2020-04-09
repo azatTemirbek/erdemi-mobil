@@ -1,10 +1,10 @@
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
+import {View, TouchableOpacity} from "react-native";
 import styles from "./styles";
 import PropTypes from "prop-types";
-import { Image } from "../";
+import {Image} from "../";
 
-export const Card = ({ style, children, styleContent, image, onPress }) => {
+export const Card = ({style, children, styleContent, image, onPress}) => {
   return (
     <TouchableOpacity style={style} onPress={onPress} activeOpacity={0.9}>
       {!!image && <Image source={image} style={styles.imageBanner} />}

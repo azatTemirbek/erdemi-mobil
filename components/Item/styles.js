@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { BaseColor } from "../../config";
+import {StyleSheet} from "react-native";
+import {BaseColor} from "../../config";
 export default StyleSheet.create({
   itemContainer: {
     flexDirection: "row",
@@ -7,7 +7,7 @@ export default StyleSheet.create({
     borderBottomColor: BaseColor.dividerColor
   },
   title: {
-    flex:1,
-    padding:10,
+    flex: 1,
+    padding: 10
   }
 });

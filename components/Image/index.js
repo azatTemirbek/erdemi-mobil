@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { StyleSheet } from "react-native";
+import React from "react";
+import {StyleSheet} from "react-native";
 import PropTypes from "prop-types";
 import FastImage from "react-native-fast-image";
 

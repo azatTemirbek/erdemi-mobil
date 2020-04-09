@@ -40,7 +40,7 @@ export const elevationShadowStyle = (elevation = 2) => {
   return {
     elevation,
     shadowColor: "black",
-    shadowOffset: { width: 0, height: 0.5 * elevation },
+    shadowOffset: {width: 0, height: 0.5 * elevation},
     shadowOpacity: 0.3,
     shadowRadius: 0.8 * elevation
   };
@@ -105,9 +105,9 @@ export function fromLeft(duration = 300) {
       timing: Animated.timing,
       useNativeDriver: true
     },
-    screenInterpolator: ({ layout, position, scene }) => {
-      const { index } = scene;
-      const { initWidth } = layout;
+    screenInterpolator: ({layout, position, scene}) => {
+      const {index} = scene;
+      const {initWidth} = layout;
 
       const translateX = position.interpolate({
         inputRange: [index - 1, index, index + 1],
@@ -119,7 +119,7 @@ export function fromLeft(duration = 300) {
         outputRange: [0, 1, 1]
       });
 
-      return { opacity, transform: [{ translateX }] };
+      return {opacity, transform: [{translateX}]};
     }
   };
 }
@@ -132,9 +132,9 @@ export function fromTop(duration = 300) {
       timing: Animated.timing,
       useNativeDriver: true
     },
-    screenInterpolator: ({ layout, position, scene }) => {
-      const { index } = scene;
-      const { initHeight } = layout;
+    screenInterpolator: ({layout, position, scene}) => {
+      const {index} = scene;
+      const {initHeight} = layout;
 
       const translateY = position.interpolate({
         inputRange: [index - 1, index, index + 1],
@@ -146,7 +146,7 @@ export function fromTop(duration = 300) {
         outputRange: [0, 1, 1]
       });
 
-      return { opacity, transform: [{ translateY }] };
+      return {opacity, transform: [{translateY}]};
     }
   };
 }
@@ -159,9 +159,9 @@ export function fromRight(duration = 300) {
       timing: Animated.timing,
       useNativeDriver: true
     },
-    screenInterpolator: ({ layout, position, scene }) => {
-      const { index } = scene;
-      const { initWidth } = layout;
+    screenInterpolator: ({layout, position, scene}) => {
+      const {index} = scene;
+      const {initWidth} = layout;
 
       const translateX = position.interpolate({
         inputRange: [index - 1, index, index + 1],
@@ -173,7 +173,7 @@ export function fromRight(duration = 300) {
         outputRange: [0, 1, 1]
       });
 
-      return { opacity, transform: [{ translateX }] };
+      return {opacity, transform: [{translateX}]};
     }
   };
 }
@@ -186,9 +186,9 @@ export function fromBottom(duration = 300) {
       timing: Animated.timing,
       useNativeDriver: true
     },
-    screenInterpolator: ({ layout, position, scene }) => {
-      const { index } = scene;
-      const { initHeight } = layout;
+    screenInterpolator: ({layout, position, scene}) => {
+      const {index} = scene;
+      const {initHeight} = layout;
 
       const translateY = position.interpolate({
         inputRange: [index - 1, index, index + 1],
@@ -200,7 +200,7 @@ export function fromBottom(duration = 300) {
         outputRange: [0, 1, 1]
       });
 
-      return { opacity, transform: [{ translateY }] };
+      return {opacity, transform: [{translateY}]};
     }
   };
 }
@@ -213,15 +213,15 @@ export function fadeIn(duration = 300) {
       timing: Animated.timing,
       useNativeDriver: true
     },
-    screenInterpolator: ({ position, scene }) => {
-      const { index } = scene;
+    screenInterpolator: ({position, scene}) => {
+      const {index} = scene;
 
       const opacity = position.interpolate({
         inputRange: [index - 1, index],
         outputRange: [0, 1]
       });
 
-      return { opacity };
+      return {opacity};
     }
   };
 }
@@ -234,8 +234,8 @@ export function zoomIn(duration = 300) {
       timing: Animated.timing,
       useNativeDriver: true
     },
-    screenInterpolator: ({ position, scene }) => {
-      const { index } = scene;
+    screenInterpolator: ({position, scene}) => {
+      const {index} = scene;
       let start = 0;
 
       if (Platform.OS !== "ios") {
@@ -247,7 +247,7 @@ export function zoomIn(duration = 300) {
         outputRange: [start, 1]
       });
 
-      return { transform: [{ scale }] };
+      return {transform: [{scale}]};
     }
   };
 }
@@ -260,15 +260,15 @@ export function zoomOut(duration = 300) {
       timing: Animated.timing,
       useNativeDriver: true
     },
-    screenInterpolator: ({ position, scene }) => {
-      const { index } = scene;
+    screenInterpolator: ({position, scene}) => {
+      const {index} = scene;
 
       const scale = position.interpolate({
         inputRange: [index - 1, index],
         outputRange: [10, 1]
       });
 
-      return { transform: [{ scale }] };
+      return {transform: [{scale}]};
     }
   };
 }
@@ -281,15 +281,15 @@ export function flipY(duration = 300) {
       timing: Animated.timing,
       useNativeDriver: true
     },
-    screenInterpolator: ({ position, scene }) => {
-      const { index } = scene;
+    screenInterpolator: ({position, scene}) => {
+      const {index} = scene;
 
       const rotateY = position.interpolate({
         inputRange: [index - 1, index],
         outputRange: ["180deg", "0deg"]
       });
 
-      return { transform: [{ rotateY }], backfaceVisibility: "hidden" };
+      return {transform: [{rotateY}], backfaceVisibility: "hidden"};
     }
   };
 }
@@ -302,15 +302,15 @@ export function flipX(duration = 300) {
       timing: Animated.timing,
       useNativeDriver: true
     },
-    screenInterpolator: ({ position, scene }) => {
-      const { index } = scene;
+    screenInterpolator: ({position, scene}) => {
+      const {index} = scene;
 
       const rotateX = position.interpolate({
         inputRange: [index - 1, index],
         outputRange: ["180deg", "0deg"]
       });
 
-      return { transform: [{ rotateX }], backfaceVisibility: "hidden" };
+      return {transform: [{rotateX}], backfaceVisibility: "hidden"};
     }
   };
 }
@@ -318,7 +318,7 @@ export function flipX(duration = 300) {
  * top right bottom left
  * @param {String} key Key to generate trbl
  */
-export const TRBLFactory = (key = "padding") => value => {
+export const TRBLFactory = (key = "padding") => (value) => {
   if (typeof value === "number") {
     return {
       [`${key}Top`]: value,

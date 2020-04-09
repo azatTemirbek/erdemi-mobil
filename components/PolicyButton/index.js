@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { ActivityIndicator, View } from "react-native";
-import { BaseColor } from "../../config";
+import React, {Component} from "react";
+import {ActivityIndicator, View} from "react-native";
+import {BaseColor} from "../../config";
 import PropTypes from "prop-types";
-import { Button, Text, CheckBox, Block } from "../";
+import {Button, Text, CheckBox, Block} from "../";
 import styles from "./styles";
 import Pdf from "react-native-pdf";
 import Modal from "react-native-modal";
@@ -11,7 +11,7 @@ export class PolicyButton extends Component {
   constructor(props) {
     super(props);
     /** Copy all data from props and add checked to every item */
-    let policyList = props.policyList.map(PDFData => ({
+    let policyList = props.policyList.map((PDFData) => ({
       ...PDFData,
       checked: false
     }));
@@ -22,24 +22,25 @@ export class PolicyButton extends Component {
     };
   }
   render() {
-    let { onPress, children, ...rest } = this.props;
+    let {onPress, children, ...rest} = this.props;
     return (
       <>
-        <Block flex={false} row center middle >
+        <Block flex={false} row center middle>
           <CheckBox value={this._isAllChecked()} />
-          <Text style={{flex: 1}} m4>{children}</Text>
+          <Text style={{flex: 1}} m4>
+            {children}
+          </Text>
           <Modal
             isVisible={this.state.modal}
-            onBackdropPress={() => this.setState({ modal: false })}
+            onBackdropPress={() => this.setState({modal: false})}
             style={styles.bottomModal}
-            propagateSwipe
-          >
+            propagateSwipe>
             <View style={styles.contentModalBottom}>
               <View style={styles.contentTitle}>
                 <Text title3>{this.state.current.title}</Text>
               </View>
               <Pdf
-                source={{ uri: this.state.current.baseData || "" }}
+                source={{uri: this.state.current.baseData || ""}}
                 headers={this.props.headers || {}}
                 activityIndicator={
                   <ActivityIndicator
@@ -50,7 +51,7 @@ export class PolicyButton extends Component {
                     }}
                   />
                 }
-                onError={error => {
+                onError={(error) => {
                   // eslint-disable-next-line no-alert
                   alert(error);
                 }}
@@ -59,9 +60,8 @@ export class PolicyButton extends Component {
               <Button
                 full
                 loading={!this.state.modal}
-                margin={[10,0,20,0]}
-                onPress={() => this._onConfirm()}
-              >
+                margin={[10, 0, 20, 0]}
+                onPress={() => this._onConfirm()}>
                 {this.props.translate(this.props.iHaveReadAndAcceptedText)}
               </Button>
             </View>
@@ -75,20 +75,20 @@ export class PolicyButton extends Component {
   }
 
   _isAllChecked = () => {
-    let { policyList } = this.state;
-    let filtered = policyList.filter(policy => policy.checked === true);
+    let {policyList} = this.state;
+    let filtered = policyList.filter((policy) => policy.checked === true);
     return filtered.length === policyList.length;
   };
   _openUncheckedModal = () => {
-    let { policyList } = this.state;
-    let filtered = policyList.filter(policy => policy.checked === false);
+    let {policyList} = this.state;
+    let filtered = policyList.filter((policy) => policy.checked === false);
     let uncheckedModal = filtered[0];
-    this.setState({ current: uncheckedModal, modal: true });
+    this.setState({current: uncheckedModal, modal: true});
   };
   _onConfirm = () => {
     /** close modal and set the current modal cheked true */
-    let { policyList } = this.state;
-    let filtered = policyList.filter(policy => policy.checked === false);
+    let {policyList} = this.state;
+    let filtered = policyList.filter((policy) => policy.checked === false);
     filtered[0].checked = true;
     this.setState({
       modal: false,
@@ -122,7 +122,7 @@ PolicyButton.propTypes = {
 };
 
 PolicyButton.defaultProps = {
-  translate: key => key,
+  translate: (key) => key,
   buttonText: "confirm",
   iHaveReadAndAcceptedText: "iHaveReadAndAccepted",
   children: "Provide policy text as a children",

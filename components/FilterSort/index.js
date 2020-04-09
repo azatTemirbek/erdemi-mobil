@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { View, TouchableOpacity } from "react-native";
+import React, {Component} from "react";
+import {View, TouchableOpacity} from "react-native";
 import styles from "./styles";
-import { Icon, Text, Button, Popup, CheckboxFilter } from "../";
+import {Icon, Text, Button, Popup, CheckboxFilter} from "../";
 import PropTypes from "prop-types";
-import { BaseColor } from "../../config";
+import {BaseColor} from "../../config";
 import Modal from "react-native-modal";
 
 export class FilterSort extends Component {
@@ -18,9 +18,9 @@ export class FilterSort extends Component {
   }
 
   componentDidMount() {
-    const { sortOption, sortSelected } = this.state;
+    const {sortOption, sortSelected} = this.state;
     this.setState({
-      sortOption: sortOption.map(item => {
+      sortOption: sortOption.map((item) => {
         return {
           ...item,
           checked: item.value === sortSelected.value
@@ -30,9 +30,9 @@ export class FilterSort extends Component {
   }
 
   onSelectFilter(selected) {
-    const { sortOption } = this.state;
+    const {sortOption} = this.state;
     this.setState({
-      sortOption: sortOption.map(item => {
+      sortOption: sortOption.map((item) => {
         return {
           ...item,
           checked: item.value === selected.value
@@ -42,10 +42,10 @@ export class FilterSort extends Component {
   }
 
   onOpenSort() {
-    const { sortOption, sortSelected } = this.state;
+    const {sortOption, sortSelected} = this.state;
     this.setState({
       modalVisible: true,
-      sortOption: sortOption.map(item => {
+      sortOption: sortOption.map((item) => {
         return {
           ...item,
           checked: item.value === sortSelected.value
@@ -55,9 +55,9 @@ export class FilterSort extends Component {
   }
 
   onApply() {
-    const { sortOption } = this.state;
-    const { onChangeSort } = this.props;
-    const sorted = sortOption.filter(item => item.checked);
+    const {sortOption} = this.state;
+    const {onChangeSort} = this.props;
+    const sorted = sortOption.filter((item) => item.checked);
     if (sorted.length > 0) {
       this.setState({
         sortSelected: sorted[0],
@@ -68,8 +68,8 @@ export class FilterSort extends Component {
   }
 
   render() {
-    const { style, onFilter, filters, translate } = this.props;
-    const { sortOption, modalVisible, sortSelected } = this.state;
+    const {style, onFilter, filters, translate} = this.props;
+    const {sortOption, modalVisible, sortSelected} = this.state;
     return (
       <View style={[styles.contain, style]}>
         <Modal
@@ -81,8 +81,7 @@ export class FilterSort extends Component {
             });
           }}
           swipeDirection={["down"]}
-          style={styles.bottomModal}
-        >
+          style={styles.bottomModal}>
           <View style={styles.contentFilterBottom}>
             <View style={styles.contentSwipeDown}>
               <View style={styles.lineSwipeDown} />
@@ -91,8 +90,7 @@ export class FilterSort extends Component {
               <TouchableOpacity
                 style={styles.contentActionModalBottom}
                 key={item.value}
-                onPress={() => this.onSelectFilter(item)}
-              >
+                onPress={() => this.onSelectFilter(item)}>
                 <Text body2 semibold primaryColor={item.checked}>
                   {item.text}
                 </Text>
@@ -103,36 +101,36 @@ export class FilterSort extends Component {
             ))}
             <Button
               full
-              style={{ marginTop: 10, marginBottom: 20 }}
-              onPress={() => this.onApply()}
-            >
+              style={{marginTop: 10, marginBottom: 20}}
+              onPress={() => this.onApply()}>
               {translate("apply")}
             </Button>
           </View>
         </Modal>
         <TouchableOpacity
-          style={{ flexDirection: "row", alignItems: "center" }}
-          onPress={() => this.onOpenSort()}
-        >
+          style={{flexDirection: "row", alignItems: "center"}}
+          onPress={() => this.onOpenSort()}>
           <Icon
             name={sortSelected.icon}
             size={16}
             color={BaseColor.primaryColor}
             solid
           />
-          <Text headline primaryColor style={{ marginLeft: 5 }}>
+          <Text headline primaryColor style={{marginLeft: 5}}>
             {translate("sort")}
           </Text>
         </TouchableOpacity>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <TouchableOpacity onPress={() => this.setState({ isVisible: true })} style={styles.contentFilter}>
+        <View style={{flexDirection: "row", alignItems: "center"}}>
+          <TouchableOpacity
+            onPress={() => this.setState({isVisible: true})}
+            style={styles.contentFilter}>
             <Icon
               name="filter"
               size={16}
               color={BaseColor.primaryColor}
               solid
             />
-            <Text headline primaryColor style={{ marginLeft: 5 }}>
+            <Text headline primaryColor style={{marginLeft: 5}}>
               {translate("filter")}
             </Text>
           </TouchableOpacity>
@@ -143,13 +141,14 @@ export class FilterSort extends Component {
           containerStyle={styles.containerStyle}
           contentStyle={styles.contentStyle}
           bottom={false}
-          disableCloseBtn={true}
-        >
+          disableCloseBtn={true}>
           <CheckboxFilter
-            onClosePress={() => this.setState({ isVisible: false })}
+            onClosePress={() => this.setState({isVisible: false})}
             translate={translate}
             filters={filters}
-            onFilterApply={(questions)=>{ onFilter(questions) }}
+            onFilterApply={(questions) => {
+              onFilter(questions);
+            }}
           />
         </Popup>
       </View>
@@ -205,7 +204,7 @@ FilterSort.defaultProps = {
   onChangeView: () => {},
   onFilter: () => {},
   filter: undefined,
-  translate: key => key
+  translate: (key) => key
 };
 
 export default FilterSort;

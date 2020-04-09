@@ -1,7 +1,7 @@
-import React, { Component, Children, cloneElement } from "react";
-import { View, TouchableOpacity } from "react-native";
+import React, {Component, Children, cloneElement} from "react";
+import {View, TouchableOpacity} from "react-native";
 import PropTypes from "prop-types";
-import { Text, Block, MapArray, ErrorLabel, Label } from "../../";
+import {Text, Block, MapArray, ErrorLabel, Label} from "../../";
 import styles from "./styles";
 /**
  * transform array with checked
@@ -9,7 +9,7 @@ import styles from "./styles";
  * @param {String} value
  */
 const transForm = (options, value) =>
-  options.map(item => ({
+  options.map((item) => ({
     ...item,
     checked: item.value === value
   }));
@@ -17,7 +17,7 @@ const transForm = (options, value) =>
  * renders Icon checked or unchecked
  * @param {Object} param0
  */
-export const Radio = ({ checked }) => {
+export const Radio = ({checked}) => {
   if (!checked) {
     return <Block style={styles.unchecked} margin={[0, 5]} flex={false} />;
   }
@@ -33,15 +33,15 @@ export class RadioGroup extends Component {
     if (
       (props.value !== "" && state.value !== props.value) ||
       JSON.stringify(
-        state.options.map(item => {
-          let i = { ...item };
+        state.options.map((item) => {
+          let i = {...item};
           delete i.checked;
           return i;
         })
-      ) !== JSON.stringify(props.options.map(i => ({ ...i })))
+      ) !== JSON.stringify(props.options.map((i) => ({...i})))
     ) {
       return {
-        options: props.options.map(item => ({
+        options: props.options.map((item) => ({
           ...item,
           checked: item.value === state.value
         })),
@@ -59,7 +59,7 @@ export class RadioGroup extends Component {
     };
   }
 
-  _onSelect = select => {
+  _onSelect = (select) => {
     this.props.onChange(select.value, select);
     this.setState({
       value: select.value,
@@ -69,12 +69,12 @@ export class RadioGroup extends Component {
 
   /** renders Content */
   renderContent = () => {
-    const { options } = this.state;
-    let { ItemsConatiner, ItemContainer } = this.props;
+    const {options} = this.state;
+    let {ItemsConatiner, ItemContainer} = this.props;
     return (
       <View style={[styles.ItemsConatiner, ItemsConatiner]}>
         <MapArray array={options}>
-          {({ key, object, ...rest }, index) => (
+          {({key, object, ...rest}, index) => (
             <TouchableOpacity
               style={[
                 styles.ItemContainer,
@@ -84,8 +84,7 @@ export class RadioGroup extends Component {
                 ItemContainer
               ]}
               key={object.value + key + index}
-              onPress={() => this._onSelect(object)}
-            >
+              onPress={() => this._onSelect(object)}>
               {this.props.reverseLabel && this.renderer(object, "renderItem")}
               {object.checked
                 ? this.renderer(object, "checkedIcon")
@@ -102,27 +101,20 @@ export class RadioGroup extends Component {
     let component = this.props[keyVal];
     let key = JSON.stringify(object);
     return typeof component === "function"
-      ? component({ key, ...object })
-      : Children.map(component, child =>
-          cloneElement(child, { key, ...object })
+      ? component({key, ...object})
+      : Children.map(component, (child) =>
+          cloneElement(child, {key, ...object})
         );
   };
 
   render() {
-    const {
-      style,
-      error,
-      errorStyle,
-      labelStyle,
-      required,
-      label
-    } = this.props;
+    const {style, error, errorStyle, labelStyle, required, label} = this.props;
 
     return (
       <View style={style}>
-        <Label {...{ labelStyle, required, label }} />
+        <Label {...{labelStyle, required, label}} />
         {this.renderContent()}
-        <ErrorLabel {...{ errorStyle, error }} />
+        <ErrorLabel {...{errorStyle, error}} />
       </View>
     );
   }
@@ -175,7 +167,7 @@ RadioGroup.defaultProps = {
     }
   ],
   onChange: () => {},
-  renderItem: ({ text }) => (
+  renderItem: ({text}) => (
     <Text body2 semibold>
       {text}
     </Text>
@@ -183,6 +175,6 @@ RadioGroup.defaultProps = {
   checkedIcon: <Radio />,
   unCheckedIcon: <Radio />,
   reverseLabel: false,
-  translate: key => key
+  translate: (key) => key
 };
 export default RadioGroup;

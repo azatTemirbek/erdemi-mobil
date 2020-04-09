@@ -1,6 +1,6 @@
-import { Dimensions } from "react-native";
+import {Dimensions} from "react-native";
 
-const { height } = Dimensions.get("screen");
+const {height} = Dimensions.get("screen");
 
 let mediumScreenHeight = 650;
 let largeScreenHeight = 800;
@@ -8,4 +8,4 @@ let largeScreenHeight = 800;
 let ScreenSize =
   height >= largeScreenHeight ? "l" : height >= mediumScreenHeight ? "m" : "s";
 
-export { ScreenSize };
+export {ScreenSize};

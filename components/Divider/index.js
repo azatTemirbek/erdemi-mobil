@@ -1,7 +1,7 @@
 import React from "react";
-import { BaseColor } from "../../config";
+import {BaseColor} from "../../config";
 import PropTypes from "prop-types";
-import { Block } from "../";
+import {Block} from "../";
 import styles from "./styles";
 
 export const Divider = ({

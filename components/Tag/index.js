@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { TouchableOpacity, StyleSheet, View } from "react-native";
+import React from "react";
+import {TouchableOpacity, StyleSheet, View} from "react-native";
 import PropTypes from "prop-types";
-import { Text } from "../";
+import {Text} from "../";
 import styles from "./styles";
 
 export const Tag = ({
@@ -31,8 +31,7 @@ export const Tag = ({
         sale && styles.sale,
         style
       ])}
-      activeOpacity={0.9}
-    >
+      activeOpacity={0.9}>
       {icon ? icon : null}
       <View style={styles.viewText}>
         <Text
@@ -46,8 +45,7 @@ export const Tag = ({
             sale && styles.textSale,
             styleText
           ])}
-          numberOfLines={1}
-        >
+          numberOfLines={1}>
           {children || "Tag"}
         </Text>
       </View>

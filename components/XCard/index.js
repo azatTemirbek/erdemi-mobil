@@ -1,14 +1,9 @@
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
+import {View, TouchableOpacity} from "react-native";
 import styles from "./styles";
 import PropTypes from "prop-types";
-import { Image, Block } from "../";
-import {
-  withColors,
-  compose,
-  withStyles,
-  withMarginPaddings
-} from "../../hocs";
+import {Image, Block} from "../";
+import {withColors, compose, withStyles, withMarginPaddings} from "../../hocs";
 import withShadows from "../../hocs/withShadows";
 
 export const XCard = compose(
@@ -16,7 +11,7 @@ export const XCard = compose(
   withStyles,
   withShadows,
   withMarginPaddings
-)(({ style, children, styleContent, image, onPress, ...rest }) => {
+)(({style, children, styleContent, image, onPress, ...rest}) => {
   let Tag = Block;
   let params = {};
   if (onPress) {
@@ -24,7 +19,12 @@ export const XCard = compose(
     params.onPress = onPress;
   }
   return (
-    <Tag padding={20} my4 style={[styles.container, style]} {...params} {...rest}>
+    <Tag
+      padding={20}
+      my4
+      style={[styles.container, style]}
+      {...params}
+      {...rest}>
       {!!image && <Image source={image} style={styles.imageBanner} />}
       <View style={styleContent}>{children}</View>
     </Tag>

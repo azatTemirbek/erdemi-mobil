@@ -1,5 +1,5 @@
 import hoistStatics from "hoist-non-react-statics";
-import { BaseColor, generateColors } from "../config";
+import {BaseColor, generateColors} from "../config";
 import createElement from "./utils/createElement";
 /**
  * You can generate background or textColor using this hook
@@ -9,7 +9,7 @@ import createElement from "./utils/createElement";
 export const withColors = (
   ColorKey = "backgroundColor",
   base = BaseColor.whiteColor
-) => Component => {
+) => (Component) => {
   const displayName = `withColors(${Component.displayName || Component.name})`;
   const C = ({
     primaryColor,
@@ -33,23 +33,23 @@ export const withColors = (
     /** used to generate style colors */
     const styles = generateColors(undefined, ColorKey, ColorKey);
     const blockStyles = [
-      { [ColorKey]: base },
-      primaryColor && { [ColorKey]: BaseColor.primaryColor },
-      darkPrimaryColor && { [ColorKey]: BaseColor.darkPrimaryColor },
-      lightPrimaryColor && { [ColorKey]: BaseColor.lightPrimaryColor },
-      accentColor && { [ColorKey]: BaseColor.accentColor },
-      textSecondaryColor && { [ColorKey]: BaseColor.textSecondaryColor },
-      lightGrayColor && { [ColorKey]: BaseColor.lightGrayColor },
-      grayColor && { [ColorKey]: BaseColor.grayColor },
-      darkGrayColor && { [ColorKey]: BaseColor.darkGrayColor },
-      darkBlueColor && { [ColorKey]: BaseColor.darkBlueColor },
-      dividerColor && { [ColorKey]: BaseColor.dividerColor },
-      whiteColor && { [ColorKey]: BaseColor.whiteColor },
-      fieldColor && { [ColorKey]: BaseColor.fieldColor },
-      navyBlue && { [ColorKey]: BaseColor.navyBlue },
-      lightPink && { [ColorKey]: BaseColor.lightPink },
+      {[ColorKey]: base},
+      primaryColor && {[ColorKey]: BaseColor.primaryColor},
+      darkPrimaryColor && {[ColorKey]: BaseColor.darkPrimaryColor},
+      lightPrimaryColor && {[ColorKey]: BaseColor.lightPrimaryColor},
+      accentColor && {[ColorKey]: BaseColor.accentColor},
+      textSecondaryColor && {[ColorKey]: BaseColor.textSecondaryColor},
+      lightGrayColor && {[ColorKey]: BaseColor.lightGrayColor},
+      grayColor && {[ColorKey]: BaseColor.grayColor},
+      darkGrayColor && {[ColorKey]: BaseColor.darkGrayColor},
+      darkBlueColor && {[ColorKey]: BaseColor.darkBlueColor},
+      dividerColor && {[ColorKey]: BaseColor.dividerColor},
+      whiteColor && {[ColorKey]: BaseColor.whiteColor},
+      fieldColor && {[ColorKey]: BaseColor.fieldColor},
+      navyBlue && {[ColorKey]: BaseColor.navyBlue},
+      lightPink && {[ColorKey]: BaseColor.lightPink},
       color && styles[`${ColorKey}${color}`],
-      color && !styles[`${ColorKey}${color}`] && { [ColorKey]: color },
+      color && !styles[`${ColorKey}${color}`] && {[ColorKey]: color},
       style // rewrite predefined styles
     ];
     return createElement(Component, {

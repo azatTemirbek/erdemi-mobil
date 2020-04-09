@@ -1,19 +1,22 @@
-import React, { Component, Children, cloneElement } from "react";
-import {
-  View,
-  ActivityIndicator,
-  ScrollView,
-  Dimensions
-} from "react-native";
+import React, {Component, Children, cloneElement} from "react";
+import {View, ActivityIndicator, ScrollView, Dimensions} from "react-native";
 import PropTypes from "prop-types";
-import { Block, MapArray, Text, Button, Icon, TextInput, TouchableOpacity } from "../../";
+import {
+  Block,
+  MapArray,
+  Text,
+  Button,
+  Icon,
+  TextInput,
+  TouchableOpacity
+} from "../../";
 import styles from "./styles";
 import Modal from "react-native-modal";
-import { BaseColor } from "../../../config";
-const { height } = Dimensions.get("screen");
+import {BaseColor} from "../../../config";
+const {height} = Dimensions.get("screen");
 
 const transForm = (options, value) =>
-  options.map(item => ({
+  options.map((item) => ({
     ...item,
     checked: item.value === value
   }));
@@ -23,15 +26,15 @@ export class DropDown extends Component {
     if (
       (props.value !== "" && state.value !== props.value) ||
       JSON.stringify(
-        state.options.map(item => {
-          let i = { ...item };
+        state.options.map((item) => {
+          let i = {...item};
           delete i.checked;
           return i;
         })
-      ) !== JSON.stringify(props.options.map(i => ({ ...i })))
+      ) !== JSON.stringify(props.options.map((i) => ({...i})))
     ) {
       return {
-        options: props.options.map(item => ({
+        options: props.options.map((item) => ({
           ...item,
           checked: item.value === state.value
         })),
@@ -79,23 +82,23 @@ export class DropDown extends Component {
   // }
 
   _openModal() {
-    const { options, value } = this.state;
+    const {options, value} = this.state;
     this.setState({
       modalVisible: true,
-      options: transForm(this.state.options, value)
+      options: transForm(options, value)
     });
   }
 
-  _onSelect = select => {
+  _onSelect = (select) => {
     this.setState({
       options: transForm(this.state.options, select.value)
     });
   };
 
   _onApply = () => {
-    const { options } = this.state;
-    const { onChange } = this.props;
-    const selected = options.filter(item => item.checked);
+    const {options} = this.state;
+    const {onChange} = this.props;
+    const selected = options.filter((item) => item.checked);
     if (selected.length > 0) {
       onChange(selected[0].value, selected[0]);
       this.setState({
@@ -106,7 +109,7 @@ export class DropDown extends Component {
   };
 
   _onCancel = () => {
-    const { onCancel } = this.props;
+    const {onCancel} = this.props;
     this.setState({
       modalVisible: false
       // options: this.props.options
@@ -115,7 +118,7 @@ export class DropDown extends Component {
   };
   /** renders label at the top */
   renderLabel = (...inlineStyles) => {
-    const { label } = this.props;
+    const {label} = this.props;
     if (!label) {
       return null;
     }
@@ -123,8 +126,8 @@ export class DropDown extends Component {
   };
   /** renders Modal */
   renderModal = () => {
-    const { modalVisible, options } = this.state;
-    const { modalContentActionStyle, translate, btnLabel } = this.props;
+    const {modalVisible, options} = this.state;
+    const {modalContentActionStyle, translate, btnLabel} = this.props;
     return (
       <Modal
         isVisible={modalVisible}
@@ -132,20 +135,17 @@ export class DropDown extends Component {
         onSwipeComplete={this._onCancel}
         swipeDirection={["down"]}
         style={[styles.Modal, this.props.modalStyle]}
-        propagateSwipe
-      >
+        propagateSwipe>
         <View
           style={[
             styles.modalContentContainer,
             this.props.modalContentContainerStyle
-          ]}
-        >
+          ]}>
           <Block
             pt4
             center
             flex={false}
-            style={this.props.contentSwipeDownStyle}
-          >
+            style={this.props.contentSwipeDownStyle}>
             <View
               style={[styles.lineSwipeDown, this.props.lineSwipeDownStyle]}
             />
@@ -155,12 +155,11 @@ export class DropDown extends Component {
             )}
           </Block>
           <ScrollView
-            style={[{ height: height * 0.6 }, this.props.scrollListStyle]}
-            showsHorizontalScrollIndicator={false}
-          >
+            style={[{height: height * 0.6}, this.props.scrollListStyle]}
+            showsHorizontalScrollIndicator={false}>
             <MapArray
               array={options}
-              fallback={({ object }) => {
+              fallback={({object}) => {
                 return object.length === 0 ? (
                   <Text center>{translate("empty")}</Text>
                 ) : (
@@ -169,9 +168,8 @@ export class DropDown extends Component {
                     color={BaseColor.accentColor}
                   />
                 );
-              }}
-            >
-              {({ key, object, ...rest }, index) => (
+              }}>
+              {({key, object, ...rest}, index) => (
                 <TouchableOpacity
                   style={[styles.ModalContentAction, modalContentActionStyle]}
                   row
@@ -180,8 +178,7 @@ export class DropDown extends Component {
                   pb2
                   space="between"
                   key={object.value + key + index}
-                  onPress={() => this._onSelect(object)}
-                >
+                  onPress={() => this._onSelect(object)}>
                   {this.renderer(object, "renderItem")}
                   {object.checked && this.renderer(object, "checkedIcon")}
                 </TouchableOpacity>
@@ -190,9 +187,8 @@ export class DropDown extends Component {
           </ScrollView>
           <Button
             full
-            style={{ marginTop: 10, marginBottom: 20 }}
-            onPress={this._onApply}
-          >
+            style={{marginTop: 10, marginBottom: 20}}
+            onPress={this._onApply}>
             {translate(btnLabel)}
           </Button>
         </View>
@@ -204,8 +200,8 @@ export class DropDown extends Component {
     let component = this.props[keyVal];
     let key = JSON.stringify(object);
     return typeof component === "function"
-      ? component({ key, object })
-      : Children.map(component, child => cloneElement(child, { key, object }));
+      ? component({key, object})
+      : Children.map(component, (child) => cloneElement(child, {key, object}));
   };
 
   render() {
@@ -218,9 +214,9 @@ export class DropDown extends Component {
       ...rest
     } = this.props;
     // delete rest.value;
-    const { options, value } = this.state;
-    const filtered = options.filter(item => item.value === value);
-    let selected = filtered.length && filtered[0].text || "";
+    const {options, value} = this.state;
+    const filtered = options.filter((item) => item.value === value);
+    let selected = (filtered.length && filtered[0].text) || "";
     return (
       <>
         <TextInput
@@ -233,8 +229,7 @@ export class DropDown extends Component {
               middle
               center
               onPress={() => !loading && this._openModal()}
-              {...renderRightTouch}
-            >
+              {...renderRightTouch}>
               {loading ? (
                 <ActivityIndicator
                   animating={loading}
@@ -312,14 +307,14 @@ DropDown.defaultProps = {
   onCancel: () => {},
   onChange: () => {},
   loading: false,
-  renderItem: ({ object }) => (
+  renderItem: ({object}) => (
     <Text headline semibold primaryColor={object.checked}>
       {object.text}
     </Text>
   ),
   checkedIcon: <Icon name="check" size={22} color={BaseColor.primaryColor} />,
   required: false,
-  translate: key => key,
+  translate: (key) => key,
   renderRightTouch: {}
 };
 

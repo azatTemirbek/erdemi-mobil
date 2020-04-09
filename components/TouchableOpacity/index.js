@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity as TouchableOpacityQ } from "react-native";
+import {TouchableOpacity as TouchableOpacityQ} from "react-native";
 import {
   withStyles,
   withColors,
@@ -13,6 +13,6 @@ export const TouchableOpacity = compose(
   withStyles,
   withShadows,
   withMarginPaddings
-)(props => <TouchableOpacityQ {...props} />);
+)((props) => <TouchableOpacityQ {...props} />);
 
 export default TouchableOpacity;

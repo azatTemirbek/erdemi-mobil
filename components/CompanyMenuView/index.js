@@ -1,7 +1,7 @@
 import React from "react";
-import { TouchableOpacity, Image, ImageBackground, View } from "react-native";
+import {TouchableOpacity, Image, ImageBackground, View} from "react-native";
 import Modal from "react-native-modal";
-import { Text } from "../";
+import {Text} from "../";
 import styles from "./styles";
 import PropTypes from "prop-types";
 /**
@@ -23,8 +23,7 @@ export const CompanyMenuView = ({
       <TouchableOpacity
         style={styles.container}
         activeOpacity={0.5}
-        onPress={open}
-      >
+        onPress={open}>
         <Image source={logoBg} style={styles.image} resizeMode="contain" />
         <Text bold caption2 style={styles.text}>
           {selectedName}
@@ -35,8 +34,7 @@ export const CompanyMenuView = ({
         onSwipeComplete={close}
         swipeDirection={["down"]}
         style={styles.modal}
-        animationIn="slideInUp"
-      >
+        animationIn="slideInUp">
         <ImageBackground source={companyMenuBg} style={styles.companyMenuBg}>
           <View style={styles.modalContent}>
             <Text bold title1 style={styles.heading}>
@@ -48,8 +46,7 @@ export const CompanyMenuView = ({
                   key={JSON.stringify(item)}
                   style={styles.menuItem}
                   activeOpacity={0.9}
-                  onPress={closeAndSelect(index)}
-                >
+                  onPress={closeAndSelect(index)}>
                   <Image
                     source={logoBg}
                     style={styles.menuImage}
@@ -75,10 +72,10 @@ CompanyMenuView.defaultProps = {
   Visible: false,
   selectedName: "",
   companyList: [],
-  open: ()=>{},
+  open: () => {},
   close: () => {},
   closeAndSelect: () => {},
-  translate: () => {},
+  translate: () => {}
 };
 
 CompanyMenuView.propTypes = {

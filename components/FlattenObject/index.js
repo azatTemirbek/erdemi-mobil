@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
  * used to flatten object and provide data to child
  * @param {Object} props - react Props
  */
-export const FlattenObject = React.memo(({ object = {}, children, ...rest }) => (
+export const FlattenObject = React.memo(({object = {}, children, ...rest}) => (
   <>
     {Object.entries(object).map(([key, value], k, array) =>
       typeof children === "function"
@@ -15,7 +15,7 @@ export const FlattenObject = React.memo(({ object = {}, children, ...rest }) => 
             noBorder: array.length === k + 1,
             ...rest
           })
-        : React.Children.map(children, child =>
+        : React.Children.map(children, (child) =>
             React.cloneElement(child, {
               key: key + k,
               keyVal: key,

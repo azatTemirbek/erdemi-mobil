@@ -1,4 +1,4 @@
-import React, { Component, Children, cloneElement } from "react";
+import React, {Component, Children, cloneElement} from "react";
 import {
   View,
   TouchableOpacity,
@@ -8,11 +8,11 @@ import {
   StyleSheet
 } from "react-native";
 import PropTypes from "prop-types";
-import { Text, Button, Icon, MapArray, ErrorLabel, Label } from "../../";
+import {Text, Button, Icon, MapArray, ErrorLabel, Label} from "../../";
 import styles from "./styles";
 import Modal from "react-native-modal";
-import { BaseColor } from "../../../config";
-const { height } = Dimensions.get("screen");
+import {BaseColor} from "../../../config";
+const {height} = Dimensions.get("screen");
 
 export class DropDownMulti extends Component {
   /** add selected to the ordered list */
@@ -37,21 +37,22 @@ export class DropDownMulti extends Component {
   };
   /** returns items with checked field  */
   _getSelected = (items, selectedItems) => {
-    return items.map(item => {
+    return items.map((item) => {
       return {
         ...item,
-        checked: !!selectedItems.filter(element => this.compare(item, element))
-          .length
+        checked: !!selectedItems.filter((element) =>
+          this.compare(item, element)
+        ).length
       };
     });
   };
   /** a function manages order of the selection */
-  _setOrderedList = selectedItem => {
+  _setOrderedList = (selectedItem) => {
     /** not in the list */
-    if (this.orderedList.find(it => this.compare(it, selectedItem))) {
+    if (this.orderedList.find((it) => this.compare(it, selectedItem))) {
       /** remove and get new array */
       this.orderedList = this.orderedList.filter(
-        item => !this.compare(item, selectedItem)
+        (item) => !this.compare(item, selectedItem)
       );
     } else {
       /** add item to list */
@@ -65,7 +66,7 @@ export class DropDownMulti extends Component {
    */
   _toggleSelected = (items, selectedItem) => {
     this._setOrderedList(selectedItem);
-    return items.map(item => {
+    return items.map((item) => {
       return {
         ...item,
         checked: this.compare(item, selectedItem) ? !item.checked : item.checked
@@ -73,11 +74,11 @@ export class DropDownMulti extends Component {
     });
   };
   /** remove the pill while modal closed */
-  _onPillRemove = selectedItem => () => {
-    let { items } = this.state;
-    let { onRemoveItem, onSelectionsChange } = this.props;
+  _onPillRemove = (selectedItem) => () => {
+    let {items} = this.state;
+    let {onRemoveItem, onSelectionsChange} = this.props;
     let it = this._toggleSelected(items, selectedItem);
-    this.setState({ items: it });
+    this.setState({items: it});
     /** get checked and flag removed */
     onSelectionsChange(
       this._getChecked(it).map(this._removeCheckedFlag),
@@ -87,23 +88,23 @@ export class DropDownMulti extends Component {
   };
   /** a function used to ope the modal */
   _openModal = () => {
-    const { items } = this.state;
+    const {items} = this.state;
     this.items = items;
     this.oldOrderedList = [...this.orderedList];
-    this.setState({ modalVisible: true });
+    this.setState({modalVisible: true});
   };
   /** checks weather item is checked returns boolean */
   _isItemChecked = (items = [], selectedItem = {}) =>
     !!items
-      .map(item => ({ ...item }))
-      .filter(obj => obj.checked && this.compare(obj, selectedItem)).length;
+      .map((item) => ({...item}))
+      .filter((obj) => obj.checked && this.compare(obj, selectedItem)).length;
   /**
    * a function to select
    * @param {Array} selectedItems array of selected objects
    */
-  _onSelect = selectedItem => () => {
-    const { items } = this.state;
-    const { maxSelectionCount, onSelectionItemChange } = this.props;
+  _onSelect = (selectedItem) => () => {
+    const {items} = this.state;
+    const {maxSelectionCount, onSelectionItemChange} = this.props;
     if (
       this._getSelectedCount(items) >= maxSelectionCount &&
       !this._isItemChecked(items, selectedItem)
@@ -111,9 +112,9 @@ export class DropDownMulti extends Component {
       return;
     }
     let it = this._toggleSelected(items, selectedItem);
-    this.setState({ items: it });
+    this.setState({items: it});
     onSelectionItemChange(
-      this._removeCheckedFlag({ ...selectedItem }),
+      this._removeCheckedFlag({...selectedItem}),
       this.orderedList.map(this._removeCheckedFlag)
     );
   };
@@ -126,17 +127,17 @@ export class DropDownMulti extends Component {
    * @param {Number} index index inside array
    * @param {Array} readOnlyArray original Array read Only
    */
-  _removeCheckedFlag = element => {
-    let { checked, ...obj } = { ...element };
+  _removeCheckedFlag = (element) => {
+    let {checked, ...obj} = {...element};
     return obj;
   };
   /** will return only checked items */
   _getChecked = (items = this.state.items) => {
-    return items.map(object => ({ ...object })).filter(item => item.checked);
+    return items.map((object) => ({...object})).filter((item) => item.checked);
   };
   /** a function to trigger the selection onSelectionsChange */
   _onApply = () => {
-    const { onSelectionsChange } = this.props;
+    const {onSelectionsChange} = this.props;
     let selectedAndTransformed = this._getChecked(this.state.items).map(
       this._removeCheckedFlag
     );
@@ -164,7 +165,7 @@ export class DropDownMulti extends Component {
   };
   /** renders Modal */
   renderModal = () => {
-    const { modalVisible, items } = this.state;
+    const {modalVisible, items} = this.state;
     return (
       <Modal
         isVisible={modalVisible}
@@ -172,17 +173,14 @@ export class DropDownMulti extends Component {
         onSwipeComplete={this._onCancel}
         swipeDirection={["down"]}
         style={[styles.Modal, this.props.modalStyle]}
-        propagateSwipe
-      >
+        propagateSwipe>
         <View
           style={[
             styles.modalContentContainer,
             this.props.modalContentContainerStyle
-          ]}
-        >
+          ]}>
           <View
-            style={[styles.contentSwipeDown, this.props.contentSwipeDownStyle]}
-          >
+            style={[styles.contentSwipeDown, this.props.contentSwipeDownStyle]}>
             <View
               style={[styles.lineSwipeDown, this.props.lineSwipeDownStyle]}
             />
@@ -192,19 +190,17 @@ export class DropDownMulti extends Component {
             )}
           </View>
           <ScrollView
-            style={[{ height: height * 0.6 }, this.props.scrollListStyle]}
-            showsHorizontalScrollIndicator={false}
-          >
+            style={[{height: height * 0.6}, this.props.scrollListStyle]}
+            showsHorizontalScrollIndicator={false}>
             <MapArray array={items}>
-              {({ key, object, ...rest }, index) => (
+              {({key, object, ...rest}, index) => (
                 <TouchableOpacity
                   style={[
                     styles.ModalContentAction,
                     this.props.modalContentActionStyle
                   ]}
                   key={object.value + key + index}
-                  onPress={this._onSelect(object)}
-                >
+                  onPress={this._onSelect(object)}>
                   {this.renderer(object, "renderItem")}
                   {object.checked && this.renderer(object, "checkedIcon")}
                 </TouchableOpacity>
@@ -213,9 +209,8 @@ export class DropDownMulti extends Component {
           </ScrollView>
           <Button
             full
-            style={{ marginTop: 10, marginBottom: 20 }}
-            onPress={this._onApply}
-          >
+            style={{marginTop: 10, marginBottom: 20}}
+            onPress={this._onApply}>
             {this.props.translate("apply")}
           </Button>
         </View>
@@ -227,12 +222,12 @@ export class DropDownMulti extends Component {
     let component = this.props[keyVal];
     let key = JSON.stringify(object);
     return typeof component === "function"
-      ? component({ key, object })
-      : Children.map(component, child => cloneElement(child, { key, object }));
+      ? component({key, object})
+      : Children.map(component, (child) => cloneElement(child, {key, object}));
   };
   /** renders label at the top */
   renderLabel = (...inlineStyles) => {
-    const { label, required } = this.props;
+    const {label, required} = this.props;
     return (
       <Label
         labelStyle={StyleSheet.flatten(inlineStyles)}
@@ -243,7 +238,7 @@ export class DropDownMulti extends Component {
   };
   /** renders error label at the bottom */
   renderError = (...inlineStyles) => {
-    const { error } = this.props;
+    const {error} = this.props;
     return (
       <ErrorLabel errorStyle={StyleSheet.flatten(inlineStyles)} error={error} />
     );
@@ -253,8 +248,7 @@ export class DropDownMulti extends Component {
     return (
       <TouchableOpacity
         style={[styles.renderDropDownIcon, this.props.renderDropDownIconStyle]}
-        onPress={this._openModal}
-      >
+        onPress={this._openModal}>
         {this.props.loading ? (
           <ActivityIndicator
             animating={this.props.loading}
@@ -269,7 +263,7 @@ export class DropDownMulti extends Component {
   };
   /** renders list of checked pills */
   renderPills = () => {
-    let { items } = this.state;
+    let {items} = this.state;
     const filtered = this.state.modalVisible
       ? this.oldOrderedList || []
       : this.orderedList.length
@@ -278,20 +272,18 @@ export class DropDownMulti extends Component {
     return (
       <>
         <MapArray array={filtered}>
-          {({ key, object, ...rest }, index) => {
+          {({key, object, ...rest}, index) => {
             return (
               <View
                 style={[styles.pillContainer, this.props.pillContainerStyle]}
-                key={object.value + key + index}
-              >
+                key={object.value + key + index}>
                 {this.renderer(object, "renderPill")}
                 <TouchableOpacity
                   style={[
                     styles.renderPillIconContainer,
                     this.props.renderPillIconStyle
                   ]}
-                  onPress={this._onPillRemove(object)}
-                >
+                  onPress={this._onPillRemove(object)}>
                   {this.renderer(object, "renderPillIcon")}
                 </TouchableOpacity>
               </View>
@@ -302,7 +294,7 @@ export class DropDownMulti extends Component {
     );
   };
   render() {
-    const { style, labelStyle, placeholder, error, errorStyle } = this.props;
+    const {style, labelStyle, placeholder, error, errorStyle} = this.props;
     const checkedItems = this._getChecked();
     let selected = checkedItems.length && checkedItems[0].label;
     const Tag = !selected ? Text : View;
@@ -311,17 +303,15 @@ export class DropDownMulti extends Component {
         {this.renderLabel(labelStyle)}
         {this.renderModal()}
         <View
-          style={[styles.mainContainer, error && { borderColor: "red" }, style]}
-        >
+          style={[styles.mainContainer, error && {borderColor: "red"}, style]}>
           <Tag
             style={[
               styles.renderPills,
               !selected
-                ? { color: BaseColor.grayColor, padding: 10, margin: 4 }
+                ? {color: BaseColor.grayColor, padding: 10, margin: 4}
                 : {},
               this.props.renderPillsStyle
-            ]}
-          >
+            ]}>
             {!selected ? placeholder : this.renderPills()}
           </Tag>
           {this.renderDropDownIcon()}
@@ -422,12 +412,12 @@ DropDownMulti.defaultProps = {
   error: "",
   loading: false,
   icon: <Icon name="chevron-down" size={22} color={BaseColor.accentColor} />,
-  renderItem: ({ object }) => (
+  renderItem: ({object}) => (
     <Text body2 semibold primaryColor={object.checked}>
       {object.label}
     </Text>
   ),
-  renderPill: ({ object }) => (
+  renderPill: ({object}) => (
     <Text body2 semibold primaryColor>
       {object.label}
     </Text>
@@ -452,7 +442,7 @@ DropDownMulti.defaultProps = {
   onRemoveItem: (item, items) => console.warn("onRemoveItem"),
   onSelectionItemChange: (selectedItem, orderedItems) =>
     console.warn("onSelectionItemChange"),
-  translate: key => key,
+  translate: (key) => key,
   required: false
 };
 export default DropDownMulti;

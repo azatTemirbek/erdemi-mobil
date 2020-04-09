@@ -1,12 +1,11 @@
-import React from "react";
 import hoistStatics from "hoist-non-react-statics";
 import createElement from "../utils/createElement";
 /**
  * @param {Object|Function} extraProps used to add extra props to compose
  */
-export const withProps = (extraProps = {}) => Component => {
+export const withProps = (extraProps = {}) => (Component) => {
   const displayName = `withProps(${Component.displayName || Component.name})`;
-  const C = remainingProps =>
+  const C = (remainingProps) =>
     createElement(Component, {
       ...remainingProps,
       ...(typeof extraProps === "function"
