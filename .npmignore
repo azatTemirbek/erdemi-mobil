@@ -3,10 +3,11 @@ __tests__
 android
 ios
 storybook
+dist
 
 !components/*
 !config/*
 !hocs/*
 !utils/*
 !package.json
-!/index.js
+!./index.js
