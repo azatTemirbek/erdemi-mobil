@@ -2,7 +2,7 @@
   "name": "erdemir-mobil",
   "version": "1.0.125",
   "description": "",
-  "main": "dist/index.js",
+  "main": "index.js",
   "private": false,
   "license": "ISC",
   "publishConfig": {
