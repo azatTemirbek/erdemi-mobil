@@ -22,7 +22,7 @@
     "lint:fix": "eslint components/ --fix",
     "prestorybook": "rnstl",
     "storybook": "(adb reverse tcp:7007 tcp:7007 || true) && start-storybook",
-    "premerge": "git pull && git add ./ && git commit -m \"commitpremerge\" && rm -rf dist && cp -r components dist/components && cp -r utils dist/utils && cp -r config dist/config && cp -r hocs dist/hocs && cp lib.js dist/index.js",
+    "premerge": "git pull && git add ./ && git commit -m \"commitpremerge\" && rm -rf dist && mkdir dist && cp -r components dist/components && cp -r utils dist/utils && cp -r config dist/config && cp -r hocs dist/hocs && cp lib.js dist/index.js",
     "merge": "np --yolo --no-release-draft --tag "
   },
   "dependencies": {
