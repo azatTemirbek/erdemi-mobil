@@ -13,18 +13,19 @@
     "url": "https://github.com/azatTemirbek/erdemi-mobil.git"
   },
   "scripts": {
-    "preandroid": "rm -rf index.js && cp app.js index.js",
     "android": "react-native run-android",
-    "preios": "rm -rf index.js && cp app.js index.js",
     "ios": "react-native run-ios",
+    "prestart": "rm -rf index.js && cp app.js index.js",
     "start": "react-native start",
+    "poststart": "rm -rf index.js && cp lib.js index.js",
     "test": "jest",
     "lint": "eslint .",
     "lint:fix": "eslint components/ --fix",
     "prestorybook": "rnstl",
     "storybook": "(adb reverse tcp:7007 tcp:7007 || true) && start-storybook",
     "premerge": "git pull && rm -rf index.js && cp lib.js index.js && git add ./ && git commit -m \"commitpremerge\" ",
-    "merge": "np --yolo --no-release-draft --tag "
+    "merge": "np --yolo --no-release-draft --tag ",
+    "postmerge": "rm -rf index.js && cp app.js index.js"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.2",

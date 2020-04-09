@@ -28,6 +28,8 @@ jobs:
     # Runs a single command using the runners shell
     - name: Run
       run: yarn install
+    - name: Run
+      run: rm -rf index.js && cp lib.js index.js
     - name: Publish
       run: npm publish --access public
       env:
