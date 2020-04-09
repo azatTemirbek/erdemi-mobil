@@ -13,16 +13,17 @@
     "url": "https://github.com/azatTemirbek/erdemi-mobil.git"
   },
   "scripts": {
-    "compile": "rm -rf dist/* && babel ./lib.js --out-dir dist --ignore node_modules,dist --source-maps ",
+    "preandroid": "rm -rf index.js && cp app.js index.js",
     "android": "react-native run-android",
+    "preios": "rm -rf index.js && cp app.js index.js",
     "ios": "react-native run-ios",
-    "start": "react-native start --projectRoot ./root/index.js",
+    "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
     "lint:fix": "eslint components/ --fix",
     "prestorybook": "rnstl",
     "storybook": "(adb reverse tcp:7007 tcp:7007 || true) && start-storybook",
-    "premerge": "git pull && rm -rf dist && mkdir dist && cp -r components dist/components && cp -r utils dist/utils && cp -r config dist/config && cp -r hocs dist/hocs && cp lib.js dist/index.js && git add ./ && git commit -m \"commitpremerge\" ",
+    "premerge": "git pull && rm -rf index.js && cp lib.js index.js && git add ./ && git commit -m \"commitpremerge\" ",
     "merge": "np --yolo --no-release-draft --tag "
   },
   "dependencies": {
