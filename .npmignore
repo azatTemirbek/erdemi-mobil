@@ -9,4 +9,4 @@ storybook
 !hocs/*
 !utils/*
 !package.json
-!index.js
+!/index.js
