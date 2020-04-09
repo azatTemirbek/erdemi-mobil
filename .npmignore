@@ -15,7 +15,7 @@ __tests__
 .vscode
 android
 ios
-node_modules
+node_modules/
 .buckconfig
 .eslintrc.js
 .flowconfig
