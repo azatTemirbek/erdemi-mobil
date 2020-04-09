@@ -23,5 +23,5 @@ node_modules/
 .watchmanconfig
 app.json
 babel.config.js
-index.js
+./index.js
 metro.config.js
