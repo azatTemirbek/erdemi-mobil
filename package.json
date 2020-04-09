@@ -2,7 +2,7 @@
   "name": "erdemir-mobil",
   "version": "1.0.114",
   "description": "",
-  "main": "index.js",
+  "main": "lib.js",
   "private": false,
   "license": "ISC",
   "publishConfig": {
@@ -13,15 +13,16 @@
     "url": "https://github.com/azatTemirbek/erdemi-mobil.git"
   },
   "scripts": {
+    "compile": "rm -rf dist/* && babel ./lib.js --out-dir dist --ignore node_modules,dist --source-maps ",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native start",
+    "start": "react-native start --projectRoot ./root/index.js",
     "test": "jest",
     "lint": "eslint .",
     "lint:fix": "eslint components/ --fix",
     "prestorybook": "rnstl",
     "storybook": "(adb reverse tcp:7007 tcp:7007 || true) && start-storybook",
-    "premerge": "git pull && git add ./ && git commit -m \"commitpremerge\"",
+    "premerge": "git pull && git add ./ && git commit -m \"commitpremerge\" && rm -rf dist && cp -r components dist/components && cp -r utils dist/utils && cp -r config dist/config && cp -r hocs dist/hocs && cp lib.js dist/index.js",
     "merge": "np --yolo --no-release-draft --tag "
   },
   "dependencies": {
@@ -60,6 +61,7 @@
     "rn-range-slider": "^1.3.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/runtime": "^7.9.2",
     "@react-native-community/eslint-config": "^1.0.0",

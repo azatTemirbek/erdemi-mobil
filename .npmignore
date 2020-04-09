@@ -15,7 +15,7 @@ __tests__
 .vscode
 android
 ios
-node_modules/
+node_modules
 .buckconfig
 .eslintrc.js
 .flowconfig
@@ -23,5 +23,4 @@ node_modules/
 .watchmanconfig
 app.json
 babel.config.js
-./index.js
-metro.config.js
+storybook
