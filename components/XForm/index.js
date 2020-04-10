@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {BaseColor} from "../../config";
 import {Icon, TouchableOpacity} from "../";
 import PropTypes from "prop-types";
-
 export class XForm extends Component {
   elements = [];
   triggers4ComboRemotes= {};
