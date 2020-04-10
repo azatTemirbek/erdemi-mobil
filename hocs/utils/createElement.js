@@ -7,14 +7,14 @@ import isClassComponent from "./isClassComponent";
 export const createElement = (Component, {wrappedComponentRef, ...props}) => {
   props.ref = wrappedComponentRef ? wrappedComponentRef : props.ref;
   try {
-    return (!isClassComponent(Component) && typeof Component === "function")
-    ? Component(props)
-    : React.createElement(Component, props);
+    return !isClassComponent(Component) && typeof Component === "function"
+      ? Component(props)
+      : React.createElement(Component, props);
   } catch (error) {
-    console.log(error)
-    return CE(Component, props)
-  }finally {
-    return CE(Component, props)
+    console.log(error);
+    return CE(Component, props);
+  } finally {
+    return CE(Component, props);
   }
 };
 
