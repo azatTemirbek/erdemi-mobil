@@ -1,4 +1,4 @@
-import React, {createElement as CE, memo} from "react";
+import React, {createElement as CE} from "react";
 import isClassComponent from "./isClassComponent";
 /**
  * used to merge the dom view
@@ -11,9 +11,9 @@ export const createElement = (Component, {wrappedComponentRef, ...props}) => {
       ? Component(props)
       : React.createElement(Component, props);
   } catch (error) {
-    console.log(createElement,error);
+    console.log(createElement, error);
     return CE(Component, props);
-  } 
+  }
   // finally {
   //   return CE(Component, props);
   // }

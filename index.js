@@ -1,5 +1,4 @@
-export * as components from "./components";
-export * as Utils from "./utils";
-export * as Config from "./config";
-export * as hocs from "./hocs";
-export default {};
+import {AppRegistry} from "react-native";
+import StorybookUIRoot from "./storybook/index";
+import {name as appName} from "./app.json";
+AppRegistry.registerComponent(appName, () => StorybookUIRoot);

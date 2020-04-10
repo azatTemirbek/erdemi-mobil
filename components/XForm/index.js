@@ -4,10 +4,11 @@ import {Icon, TouchableOpacity} from "../";
 import PropTypes from "prop-types";
 
 export class XForm extends Component {
+  elements = [];
+  triggers4ComboRemotes= {};
   constructor(props) {
     super(props);
     this.state = {values: {}, options: {}, errors: {}, isVisible: false};
-    this.triggers4ComboRemotes = {};
   }
   /** used to log */
   log = (a) => {
@@ -87,50 +88,67 @@ export class XForm extends Component {
     }
     this.setState({values, errors});
   };
+  /** adds item to track list */
+  _initRequiredAndTrackList = (ctx = this, required = false) => {
+    if (!ctx.elements.some((el) => el.key === key)) {
+      ctx.elements.push({
+        key,
+        required
+      });
+    }
+  };
   /** core method */
-  bindCore = (key, ctx = this) => ({
-    value: ctx.state.values[key],
-    error: ctx.state.errors[key],
-    label: ctx.props.translate(key),
-    translate: ctx.props.translate,
-    name: key
-  });
+  bindCore = (key, ctx = this, extra = {required: false}) => {
+    this._initRequiredAndTrackList(ctx, extra.required);
+    return {
+      value: ctx.state.values[key],
+      error: ctx.state.errors[key],
+      label: ctx.props.translate(key),
+      translate: ctx.props.translate,
+      name: key,
+      ...extra
+    };
+  };
   /** RadioGroup with normal keyboard */
-  bindRadioGroup = (key, ctx = this) => ({
-    ...ctx.bindCore(key),
+  bindRadioGroup = (key, ctx = this, extra={required=false}) => ({
+    ...ctx.bindCore(key, undefined, extra),
     onChange: ctx._onComboChange(key)
   });
   /** binds the input to state */
-  bindDropDown = (key, parentKey = null, onParentChange = null, ctx = this) => {
+  bindDropDown = (key, ctx = this, extra={
+    parentKey = null,
+    onParentChange = null,
+    required = false
+  }) => {
     if (parentKey && onParentChange) {
       ctx._initTriggers(key, parentKey, onParentChange, ctx);
     }
     return {
-      ...ctx.bindCore(key),
+      ...ctx.bindCore(key, undefined, extra),
       options: ctx.state.options[key] || [], //will be empty or will get from state
       onChange: ctx._onComboChange(key)
     };
   };
   /** TextInput with normal keyboard */
-  bindTextInput = (key, ctx = this) => ({
-    ...ctx.bindCore(key),
+  bindTextInput = (key, ctx = this, extra={required=false}) => ({
+    ...ctx.bindCore(key, undefined, extra),
     onChangeText: ctx._onChangeText(key)
   });
   /** TextInput with normal keyboard */
-  bindTextArea = (key, ctx = this) => ({
-    ...ctx.bindTextInput(key),
+  bindTextArea = (key, ctx = this, extra={required=false}) => ({
+    ...ctx.bindTextInput(key,undefined,extra),
     multiline: true,
     numberOfLines: 3
   });
   /** binds textInput with state and number keypad*/
-  bindTextInputNumber = (key, ctx = this) => ({
-    ...ctx.bindTextInput(key),
+  bindTextInputNumber = (key, ctx = this, extra={required=false}) => ({
+    ...ctx.bindTextInput(key,undefined,extra),
     keyboardType: "number-pad"
     /** need to add number validators */
   });
   /** binds text input with QRCode reader and sets value to state */
-  bindTextInputQR = (key, ctx = this) => ({
-    ...ctx.bindTextInputNumber(key),
+  bindTextInputQR = (key, ctx = this, extra={required=false}) => ({
+    ...ctx.bindTextInputNumber(key, undefined,extra),
     renderRight: ({props}) => {
       /** this callback is invoked at qr screen */
       let callback = (e) => {
@@ -151,13 +169,13 @@ export class XForm extends Component {
     }
   });
   /** bindCalendarInput to XForm */
-  bindCalendarInput = (key, ctx = this) => ({
-    ...ctx.bindCore(key),
+  bindCalendarInput = (key, ctx = this, extra={required=false}) => ({
+    ...ctx.bindCore(key, undefined, extra),
     onChangeText: ctx._onChangeText(key)
   });
   /** binds text input with Barcode reader and sets value to state */
-  bindTextInputBarcode = (key, ctx = this) => ({
-    ...ctx.bindTextInput(key),
+  bindTextInputBarcode = (key, ctx = this, extra={required=false}) => ({
+    ...ctx.bindTextInput(key,undefined,extra),
     renderRight: ({props}) => {
       /** this callback is invoked at qr screen */
       let callback = (e) => {
@@ -183,26 +201,24 @@ export class XForm extends Component {
     }
   });
   /** image props handler */
-  bindImageInput = (key, ctx = this) => ({
-    ...ctx.bindCore(key),
+  bindImageInput = (key, ctx = this, extra={required=false}) => ({
+    ...ctx.bindCore(key, undefined, extra),
     onImageChange: ctx._onImageChange(key)
   });
-
-  /** is Form valid */
-  isValid = () => {
-    let {errors} = this.state;
-    let result = true;
-    Object.entries(errors).map(([key, val]) => {
-      if (!!key && !!val) {
-        result = false;
-      }
-    });
-    return result;
-  };
+  _hasError = (errors = this.state.errors) =>
+    Object.entries(errors).some(([key, val]) => !!key && !!val);
+  /** check weather all required fields have value inside state */
+  _allRequiredFieldsHasValue = (
+    values = this.state.values,
+    elements = this.elements
+  ) =>
+    elements
+      .filter(({required}) => required)
+      .some(({key, required}) => required && !!values[key]);
+  /** is Form valid if there is no error and no empty required fields */
+  isValid = () => !this._hasError() && this._allRequiredFieldsHasValue();
   /** will return true if touched */
-  isTouched = (key) => {
-    return this.state.values.hasOwnProperty(key);
-  };
+  isTouched = (key) => this.state.values.hasOwnProperty(key);
 
   render() {
     console.error("implement render method for dynamic imput generator");
@@ -211,7 +227,7 @@ export class XForm extends Component {
 }
 
 XForm.propTypes = {
-  translate: PropTypes.func
+  translate: PropTypes.func.isRequired
 };
 
 XForm.defaultProps = {
