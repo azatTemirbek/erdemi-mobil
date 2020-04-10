@@ -1,11 +1,9 @@
-import React, {Component} from "react";
-import {View} from "react-native";
-import {BaseColor, FontFamily} from "../../../config";
+import React, { Component } from "react";
+import { BaseColor, FontFamily } from "../../../config";
 import PropTypes from "prop-types";
-import {Text, Icon, TextInput, TouchableOpacity} from "../../";
-import styles from "./styles";
+import { Text, Icon, TextInput, TouchableOpacity, Block } from "../../";
 import Modal from "react-native-modal";
-import {Calendar} from "react-native-calendars";
+import { Calendar } from "react-native-calendars";
 /** calendar theme */
 const theme = {
   textSectionTitleColor: BaseColor.textPrimaryColor,
@@ -30,7 +28,7 @@ export class DatePickerInput extends Component {
   selected = "";
   constructor(props) {
     super(props);
-    this.state = {modalVisible: false};
+    this.state = { modalVisible: false };
   }
   openModal = () => {
     this.old = this.props.value;
@@ -46,7 +44,7 @@ export class DatePickerInput extends Component {
   _applyPress = () => {
     this.closeModal();
   };
-  renderRight = ({props}) => {
+  renderRight = ({ props }) => {
     return (
       <TouchableOpacity center middle onPress={this.openModal}>
         <Icon name="calendar" size={22} color={BaseColor.accentColor} />
@@ -66,8 +64,8 @@ export class DatePickerInput extends Component {
   };
   /** renders right side of the listItem */
   render() {
-    const {...rest} = this.props;
-    const {modalVisible} = this.state;
+    const { ...rest } = this.props;
+    const { modalVisible } = this.state;
     this.selected =
       !rest.value || rest.value === this.selected ? this.selected : rest.value;
     return (
@@ -83,10 +81,10 @@ export class DatePickerInput extends Component {
           backdropTransitionInTiming={600}
           backdropTransitionOutTiming={600}
           {...this.props.modalProps}>
-          <View style={styles.contentModal}>
-            <View style={styles.contentCalendar}>
+          <Block card center middle flex={false}>
+            <Block whiteColor card flex={false} style={{ width: "100%" }}>
               <Calendar
-                style={styles.calendar}
+                style={{ borderRadius: 8 }}
                 monthFormat={"dd-MM-yyyy"}
                 theme={theme}
                 onDayPress={this.onDayPress}
@@ -99,18 +97,18 @@ export class DatePickerInput extends Component {
                 }}
                 {...this.props.calendarProps}
               />
-              <View style={styles.contentActionCalendar}>
-                <TouchableOpacity onPress={this.onCancel}>
+              <Block flex={false} row space="between" padding={15}>
+                <TouchableOpacity flex={false} onPress={this.onCancel}>
                   <Text body1>{this.props.translate(this.props.denyText)}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={this._applyPress}>
+                <TouchableOpacity flex={false} onPress={this._applyPress}>
                   <Text body1 primaryColor>
                     {this.props.translate(this.props.confirmText)}
                   </Text>
                 </TouchableOpacity>
-              </View>
-            </View>
-          </View>
+              </Block>
+            </Block>
+          </Block>
         </Modal>
       </>
     );
