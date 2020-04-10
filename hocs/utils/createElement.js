@@ -11,11 +11,12 @@ export const createElement = (Component, {wrappedComponentRef, ...props}) => {
       ? Component(props)
       : React.createElement(Component, props);
   } catch (error) {
-    console.log(error);
+    console.log(createElement,error);
     return CE(Component, props);
-  } finally {
-    return CE(Component, props);
-  }
+  } 
+  // finally {
+  //   return CE(Component, props);
+  // }
 };
 
 export default createElement;
