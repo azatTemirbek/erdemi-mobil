@@ -83,7 +83,7 @@ export class XForm extends Component {
     this.setState({values, errors});
   };
   /** adds item to track list */
-  _initRequiredAndTrackList = (key,required = false) => {
+  _initRequiredAndTrackList = (key, required = false) => {
     if (!this.elements.some((el) => el.key === key)) {
       this.elements.push({
         key,
@@ -93,7 +93,7 @@ export class XForm extends Component {
   };
   /** core method */
   bindCore = (key, extra = {required: false}) => {
-    this._initRequiredAndTrackList(key,extra.required);
+    this._initRequiredAndTrackList(key, extra.required);
     return {
       value: this.state.values[key],
       error: this.state.errors[key],
@@ -222,22 +222,22 @@ export class XForm extends Component {
     return null;
   }
   /** default _handleSubmit version */
-  _handleSubmit=()=>{
-    console.warning("implement function _handleSubmit")
-  }
+  _handleSubmit = () => {
+    console.warning("implement function _handleSubmit");
+  };
   /** validates the form and trigers callback */
-  _handleSubmitAndValidate=(key="_handleSubmit")=>(e)=>{
-    let {values,errors} =this.state;
-    // this.validate() && 
-    this[key](e,values,errors);
-  }
+  _handleSubmitAndValidate = (key = "_handleSubmit") => (e) => {
+    let {values, errors} = this.state;
+    // this.validate() &&
+    this[key](e, values, errors);
+  };
   /** bind button to submit */
-  bindOnSubmitButton = (key="_handleSubmit")=>{
+  bindOnSubmitButton = (key = "_handleSubmit") => {
     return {
-      disabled:!this.isValid(),
-      onPress:this._handleSubmitAndValidate(key)
-    }
-  }
+      disabled: !this.isValid(),
+      onPress: this._handleSubmitAndValidate(key)
+    };
+  };
 }
 
 XForm.propTypes = {
