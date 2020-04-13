@@ -2,12 +2,15 @@ import React, {Component} from "react";
 import {BaseColor} from "../../config";
 import {Icon, TouchableOpacity} from "../";
 import PropTypes from "prop-types";
+import ValidatorJS from './Validators/Validator';
+import ValidatorAdapter from './Validators/ValidatorAdapter';
 export class XForm extends Component {
-  elements = [];
+  elements = {};
   triggers4ComboRemotes = {};
   constructor(props) {
     super(props);
     this.state = {values: {}, options: {}, errors: {}, isVisible: false};
+    this.validator = new ValidatorAdapter(this,props.validator, props.translate);
   }
   /** used to log */
   log = (a) => {
@@ -83,17 +86,14 @@ export class XForm extends Component {
     this.setState({values, errors});
   };
   /** adds item to track list */
-  _initRequiredAndTrackList = (key, required = false) => {
-    if (!this.elements.some((el) => el.key === key)) {
-      this.elements.push({
-        key,
-        required
-      });
+  _initRequiredAndTrackList = (key,extra) => {
+    if (!Object.keys(this.elements).some((objkey) => objkey === key)) {
+      this.elements[`${key}`] = extra;
     }
   };
   /** core method */
   bindCore = (key, extra = {required: false}) => {
-    this._initRequiredAndTrackList(key, extra.required);
+    this._initRequiredAndTrackList(key,extra);
     return {
       value: this.state.values[key],
       error: this.state.errors[key],
@@ -202,18 +202,8 @@ export class XForm extends Component {
     ...this.bindCore(key, extra),
     onImageChange: this._onImageChange(key)
   });
-  _hasError = (errors = this.state.errors) =>
-    Object.entries(errors).some(([key, val]) => !!key && !!val);
-  /** check weather all required fields have value inside state */
-  _allRequiredFieldsHasValue = (
-    values = this.state.values,
-    elements = this.elements
-  ) =>
-    elements
-      .filter(({required}) => required)
-      .some(({key, required}) => required && !!values[key]);
   /** is Form valid if there is no error and no empty required fields */
-  isValid = () => !this._hasError() && this._allRequiredFieldsHasValue();
+  isValid = () => console.warn("this.isValid is depricated");
   /** will return true if touched */
   isTouched = (key) => this.state.values.hasOwnProperty(key);
 
@@ -222,22 +212,28 @@ export class XForm extends Component {
     return null;
   }
   /** default _handleSubmit version */
-  _handleSubmit = () => {
-    console.warning("implement function _handleSubmit");
-  };
+  _handleSubmit=()=>{
+    console.warning("implement function _handleSubmit on your Form component")
+  }
   /** validates the form and trigers callback */
-  _handleSubmitAndValidate = (key = "_handleSubmit") => (e) => {
-    let {values, errors} = this.state;
-    // this.validate() &&
-    this[key](e, values, errors);
-  };
+  _handleSubmitAndValidate = (key="_handleSubmit")=>(e)=>{
+    let {values,errors} = this.state;
+    let valid = this.validator.validate();
+    if(!valid){
+      /** this means no error at all */
+      this.setState({errors:{}})
+      this[key](e,values,errors);
+    }else{
+      errors = {...errors, ...valid}
+      this.setState({errors})
+    }
+  }
   /** bind button to submit */
-  bindOnSubmitButton = (key = "_handleSubmit") => {
+  bindOnSubmitButton = (key="_handleSubmit")=>{
     return {
-      disabled: !this.isValid(),
-      onPress: this._handleSubmitAndValidate(key)
-    };
-  };
+      onPress:this._handleSubmitAndValidate(key)
+    }
+  }
 }
 
 XForm.propTypes = {
@@ -245,7 +241,8 @@ XForm.propTypes = {
 };
 
 XForm.defaultProps = {
-  translate: (key) => key
+  translate: (key) => key,
+  validator: ValidatorJS
 };
 
 export default XForm;
