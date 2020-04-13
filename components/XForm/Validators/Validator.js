@@ -1,6 +1,6 @@
 import Validator from "validate.js";
 /**
- * need to add pronis if async is required
+ * need to add promis if async is required
  * need to add format and parse method for date and date time
  */
 export default class ValidatorJS {
@@ -13,47 +13,44 @@ export default class ValidatorJS {
   }
   /** i was using required inside forms so i need to replace required with presence*/
   bindRequiredToPresence = (constraints) =>
-    Object.entries(constraints).reduce(
-      (acc, [key, { required, ...ObjVal }]) => {
-        acc[key] = { presence: required, ...ObjVal };
-        return acc;
-      },
-      {}
-    );
+    Object.entries(constraints).reduce((acc, [key, {required, ...ObjVal}]) => {
+      acc[key] = {presence: required, ...ObjVal};
+      return acc;
+    }, {});
   /** overriding default messages with my own mesages */
   overloadErrorMessages = () => {
     this.Validator.validators.date.options = {
-      message: "DATE_VALIDATOR_ERROR_MSG",
+      message: "DATE_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.datetime.options = {
-      message: "DATETIME_VALIDATOR_ERROR_MSG",
+      message: "DATETIME_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.email.options = {
-      message: "EMAIL_VALIDATOR_ERROR_MSG",
+      message: "EMAIL_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.equality.options = {
-      message: "EQUALITY_VALIDATOR_ERROR_MSG",
+      message: "EQUALITY_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.exclusion.options = {
-      message: "EXCLUSION_VALIDATOR_ERROR_MSG",
+      message: "EXCLUSION_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.format.options = {
-      message: "FORMAT_VALIDATOR_ERROR_MSG",
+      message: "FORMAT_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.inclusion.options = {
-      message: "INCLUSION_VALIDATOR_ERROR_MSG",
+      message: "INCLUSION_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.length.options = {
-      message: "LENGTH_VALIDATOR_ERROR_MSG",
+      message: "LENGTH_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.numericality.options = {
-      message: "NUMERICALITY_VALIDATOR_ERROR_MSG",
+      message: "NUMERICALITY_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.presence.options = {
-      message: "PRESSENCE_VALIDATOR_ERROR_MSG",
+      message: "PRESSENCE_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.url.options = {
-      message: "URL_VALIDATOR_ERROR_MSG",
+      message: "URL_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.type.messages = {
       array: "ARRAY_VALIDATOR_ERROR_MSG",
@@ -62,7 +59,7 @@ export default class ValidatorJS {
       integer: "INTEGER_VALIDATOR_ERROR_MSG",
       number: "NUMBER_VALIDATOR_ERROR_MSG",
       object: "OBJECT_VALIDATOR_ERROR_MSG",
-      string: "STRING_VALIDATOR_ERROR_MSG",
+      string: "STRING_VALIDATOR_ERROR_MSG"
     };
   };
   /*** Override atribute + " " + error */
@@ -78,12 +75,10 @@ export default class ValidatorJS {
         errorInfo.attributes,
         errorInfo.globalOptions
       );
-
       if (!this.Validator.isString(error)) {
         ret.push(errorInfo);
         return;
       }
-
       if (error[0] === "^") {
         error = error.slice(1);
       } else if (options.fullMessages !== false) {
@@ -92,27 +87,25 @@ export default class ValidatorJS {
       }
       error = error.replace(/\\\^/g, "^");
       error = this.Validator.format(error, {
-        value: this.Validator.stringifyValue(errorInfo.value, options),
+        value: this.Validator.stringifyValue(errorInfo.value, options)
       });
-      ret.push(this.Validator.extend({}, errorInfo, { error: error }));
+      ret.push(this.Validator.extend({}, errorInfo, {error: error}));
     });
     return ret;
   };
   /** uses translate with formatfunc */
   overloadFormatFunc = (errors) =>
-    errors.reduce((acc, { validator, attribute, value, error }) => {
+    errors.reduce((acc, {validator, attribute, value, error}) => {
       acc[attribute] = this.translate(error, {
         validator,
         attribute,
         value,
-        prettified: this.Validator.capitalize(
-          this.Validator.prettify(attribute)
-        ),
+        prettified: this.Validator.capitalize(this.translate(attribute))
       });
       return acc;
     }, {});
   /** communicate with internal validate */
-  validate = (data, constraints, options = { format: "custom" }) => {
+  validate = (data, constraints, options = {format: "custom"}) => {
     console.log("validatingData:", data);
     console.log("validatingconstraints:", constraints);
     let res = this.Validator(

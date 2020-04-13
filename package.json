@@ -91,5 +91,8 @@
       "pattern": "**/*.stories.js",
       "outputFile": "./storybook/storyLoader.js"
     }
+  },
+  "dependencies": {
+    "validate.js": "^0.13.1"
   }
 }

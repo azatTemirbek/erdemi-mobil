@@ -67,7 +67,7 @@ export const BaseColor = {
 export const DisabledColor = {
   disabledColor: "#666666",
   disabledBackgroundColor: "#cccccc"
-}; 
+};
 
 export const generateColors = (
   baseColor = {...BaseColor, ...ExtraColors, ...RedColor},

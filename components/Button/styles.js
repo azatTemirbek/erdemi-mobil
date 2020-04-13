@@ -22,6 +22,6 @@ export default StyleSheet.create({
   },
   disabledTouch: {
     borderWidth: 1,
-    borderColor: "#999999",
+    borderColor: "#999999"
   }
 });

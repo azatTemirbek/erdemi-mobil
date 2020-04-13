@@ -2,25 +2,32 @@ import React, {Component} from "react";
 import {BaseColor} from "../../config";
 import {Icon, TouchableOpacity} from "../";
 import PropTypes from "prop-types";
-import ValidatorJS from './Validators/Validator';
-import ValidatorAdapter from './Validators/ValidatorAdapter';
+import ValidatorJS from "./Validators/Validator";
+import ValidatorAdapter from "./Validators/ValidatorAdapter";
+const initalState = {values: {}, options: {}, errors: {}, isVisible: false};
 export class XForm extends Component {
   elements = {};
   triggers4ComboRemotes = {};
   constructor(props) {
     super(props);
-    this.state = {values: {}, options: {}, errors: {}, isVisible: false};
-    this.validator = new ValidatorAdapter(this,props.validator, props.translate);
+    this.state = {...initalState};
+    this.validator = new ValidatorAdapter(
+      this,
+      props.validator,
+      props.translate
+    );
   }
   /** used to log */
   log = (a) => {
     console.log("PropsLogger", a);
     return a;
   };
+  /** will reset the form to be able to add ne values */
+  reset = () => this.setState({...initalState});
   /**will add onParentChange hook and will trigger the function when _onComboChange is activated */
   _initTriggers = (childKey, parentKey, onParentChange) => {
     /** if the there is no anything - initiate*/
-    if (!!this.triggers4ComboRemotes[parentKey]) {
+    if (this.triggers4ComboRemotes[parentKey]) {
       this.triggers4ComboRemotes[parentKey] = [{childKey, onParentChange}];
     } else if (
       /** if not contains in array - push */
@@ -86,14 +93,14 @@ export class XForm extends Component {
     this.setState({values, errors});
   };
   /** adds item to track list */
-  _initRequiredAndTrackList = (key,extra) => {
+  _initRequiredAndTrackList = (key, extra) => {
     if (!Object.keys(this.elements).some((objkey) => objkey === key)) {
       this.elements[`${key}`] = extra;
     }
   };
   /** core method */
   bindCore = (key, extra = {required: false}) => {
-    this._initRequiredAndTrackList(key,extra);
+    this._initRequiredAndTrackList(key, extra);
     return {
       value: this.state.values[key],
       error: this.state.errors[key],
@@ -212,28 +219,28 @@ export class XForm extends Component {
     return null;
   }
   /** default _handleSubmit version */
-  _handleSubmit=()=>{
-    console.warning("implement function _handleSubmit on your Form component")
-  }
+  _handleSubmit = () => {
+    console.warning("implement function _handleSubmit on your Form component");
+  };
   /** validates the form and trigers callback */
-  _handleSubmitAndValidate = (key="_handleSubmit")=>(e)=>{
-    let {values,errors} = this.state;
+  _handleSubmitAndValidate = (key = "_handleSubmit") => (e) => {
+    let {values, errors} = this.state;
     let valid = this.validator.validate();
-    if(!valid){
+    if (!valid) {
       /** this means no error at all */
-      this.setState({errors:{}})
-      this[key](e,values,errors);
-    }else{
-      errors = {...errors, ...valid}
-      this.setState({errors})
+      this.setState({errors: {}});
+      this[key](e, values, errors);
+    } else {
+      errors = {...errors, ...valid};
+      this.setState({errors});
     }
-  }
+  };
   /** bind button to submit */
-  bindOnSubmitButton = (key="_handleSubmit")=>{
+  bindOnSubmitButton = (key = "_handleSubmit") => {
     return {
-      onPress:this._handleSubmitAndValidate(key)
-    }
-  }
+      onPress: this._handleSubmitAndValidate(key)
+    };
+  };
 }
 
 XForm.propTypes = {
