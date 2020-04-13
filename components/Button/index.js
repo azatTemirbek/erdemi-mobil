@@ -15,6 +15,7 @@ export const Button = ({
   loading,
   opacity,
   children,
+  onPress,
   ...rest
 }) => {
   return (
@@ -25,11 +26,13 @@ export const Button = ({
       middle
       center
       padding={[0, 20]}
+      onPress={rest.disabled ? () => {} : onPress}
       {...rest}
       style={StyleSheet.flatten([
         styles.default,
         full && styles.full,
         outline && styles.outline,
+        rest.disabled && style.disabledTouch,
         style
       ])}
       activeOpacity={opacity}>
@@ -37,8 +40,9 @@ export const Button = ({
       <Text
         headline
         ml2
-        color={outline ? "primaryColor" : "whiteColor"}
+        color={outline ? "whiteColor" : "primaryColor"}
         bold
+        disabled={rest.disabled}
         style={styleText}
         numberOfLines={1}>
         {children || "Button"}
@@ -65,7 +69,8 @@ Button.propTypes = {
   loading: PropTypes.bool,
   shadow: PropTypes.bool,
   opacity: PropTypes.any,
-  color: PropTypes.string
+  color: PropTypes.string,
+  disabled: PropTypes.bool
 };
 
 Button.defaultProps = {
@@ -79,6 +84,7 @@ Button.defaultProps = {
   loading: false,
   shadow: false,
   opacity: 0.8,
-  color: BaseColor.primaryColor
+  color: BaseColor.primaryColor,
+  disabled: false
 };
 export default Button;

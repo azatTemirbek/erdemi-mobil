@@ -7,7 +7,8 @@ import {
   PinkColor,
   GreenColor,
   YellowColor,
-  OrangeColor
+  OrangeColor,
+  DisabledColor
 } from "./color";
 import {Typography, FontWeight, FontFamily} from "./typography";
 import {BaseSetting} from "./setting";
@@ -17,7 +18,8 @@ import {ScreenSize} from "./sizes";
 const BaseColor = {
   ...RedColor,
   ...ExtraColors,
-  ...baseColor
+  ...baseColor,
+  ...DisabledColor
 };
 
 export {

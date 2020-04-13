@@ -54,7 +54,8 @@ Text.propTypes = {
   bgColor: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   //custom style
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  children: PropTypes.node // plain text
+  children: PropTypes.node, // plain text,
+  disabled: PropTypes.bool
 };
 
 Text.defaultProps = {
@@ -100,5 +101,6 @@ Text.defaultProps = {
   bgColor: false,
   //custom style
   style: {},
-  children: ""
+  children: "",
+  disabled: false
 };
