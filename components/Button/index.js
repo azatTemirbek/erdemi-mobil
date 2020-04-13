@@ -40,7 +40,7 @@ export const Button = ({
       <Text
         headline
         ml2
-        color={outline ? "whiteColor" : "primaryColor"}
+        color={!outline ? "whiteColor" : "primaryColor"}
         bold
         disabled={rest.disabled}
         style={styleText}
