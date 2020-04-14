@@ -12,18 +12,21 @@ export default class ValidatorJS {
     this.overloadErrorMessages();
   }
   /** i was using required inside forms so i need to replace required with presence*/
-  bindRequiredToPresence = (constraints) =>
+  changeRequiredToPresence = (constraints) =>
     Object.entries(constraints).reduce((acc, [key, {required, ...ObjVal}]) => {
-      acc[key] = {presence: required, ...ObjVal};
+      acc[key] = {presence: !!required, ...ObjVal};
       return acc;
     }, {});
   /** overriding default messages with my own mesages */
   overloadErrorMessages = () => {
     this.Validator.validators.date.options = {
-      message: "DATE_VALIDATOR_ERROR_MSG"
+      // message: "DATE_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.datetime.options = {
-      message: "DATETIME_VALIDATOR_ERROR_MSG"
+      // message: "DATETIME_VALIDATOR_ERROR_MSG"
+      notValid: "notValid_DATETIME_VALIDATOR_ERROR_MSG",
+      tooEarly: "tooEarly_DATETIME_VALIDATOR_ERROR_MSG",
+      tooLate: "tooLate_DATETIME_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.email.options = {
       message: "EMAIL_VALIDATOR_ERROR_MSG"
@@ -41,10 +44,26 @@ export default class ValidatorJS {
       message: "INCLUSION_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.length.options = {
-      message: "LENGTH_VALIDATOR_ERROR_MSG"
+      // message: "LENGTH_VALIDATOR_ERROR_MSG"
+      notValid: "notValid_LENGTH_VALIDATOR_ERROR_MSG",
+      tooLong: "tooLong_LENGTH_VALIDATOR_ERROR_MSG",
+      tooShort: "tooShort_LENGTH_VALIDATOR_ERROR_MSG",
+      wrongLength: "wrongLength_LENGTH_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.numericality.options = {
-      message: "NUMERICALITY_VALIDATOR_ERROR_MSG"
+      // message: "NUMERICALITY_VALIDATOR_ERROR_MSG",
+      notValid: "notValid_NUMERICALITY_VALIDATOR_ERROR_MSG",
+      notInteger: "notInteger_NUMERICALITY_VALIDATOR_ERROR_MSG",
+      notGreaterThan: "notGreaterThan_NUMERICALITY_VALIDATOR_ERROR_MSG",
+      notGreaterThanOrEqualTo:
+        "notGreaterThanOrEqualTo_NUMERICALITY_VALIDATOR_ERROR_MSG",
+      notEqualTo: "notEqualTo_NUMERICALITY_VALIDATOR_ERROR_MSG",
+      notLessThan: "notLessThan_NUMERICALITY_VALIDATOR_ERROR_MSG",
+      notLessThanOrEqualTo:
+        "notLessThanOrEqualTo_NUMERICALITY_VALIDATOR_ERROR_MSG",
+      notDivisibleBy: "notDivisibleBy_NUMERICALITY_VALIDATOR_ERROR_MSG",
+      notOdd: "notOdd_NUMERICALITY_VALIDATOR_ERROR_MSG",
+      notEven: "notEven_NUMERICALITY_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.presence.options = {
       message: "PRESSENCE_VALIDATOR_ERROR_MSG"
@@ -53,13 +72,13 @@ export default class ValidatorJS {
       message: "URL_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.type.messages = {
-      array: "ARRAY_VALIDATOR_ERROR_MSG",
-      boolean: "BOOLEAN_VALIDATOR_ERROR_MSG",
-      date: "DATE_VALIDATOR_ERROR_MSG",
-      integer: "INTEGER_VALIDATOR_ERROR_MSG",
-      number: "NUMBER_VALIDATOR_ERROR_MSG",
-      object: "OBJECT_VALIDATOR_ERROR_MSG",
-      string: "STRING_VALIDATOR_ERROR_MSG"
+      array: "array_TYPE_VALIDATOR_ERROR_MSG",
+      boolean: "boolean_TYPE_VALIDATOR_ERROR_MSG",
+      date: "date_TYPE_VALIDATOR_ERROR_MSG",
+      integer: "integer_TYPE_VALIDATOR_ERROR_MSG",
+      number: "number_TYPE_VALIDATOR_ERROR_MSG",
+      object: "object_TYPE_VALIDATOR_ERROR_MSG",
+      string: "string_TYPE_VALIDATOR_ERROR_MSG"
     };
   };
   /*** Override atribute + " " + error */
@@ -110,7 +129,7 @@ export default class ValidatorJS {
     console.log("validatingconstraints:", constraints);
     let res = this.Validator(
       data,
-      this.bindRequiredToPresence(constraints),
+      this.changeRequiredToPresence(constraints),
       options
     );
     console.log("validatedRes:", res);

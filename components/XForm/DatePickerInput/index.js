@@ -70,7 +70,7 @@ export class DatePickerInput extends Component {
       !rest.value || rest.value === this.selected ? this.selected : rest.value;
     return (
       <>
-        <TextInput edit={false} {...rest} renderRight={this.renderRight} />
+        <TextInput editable={false} {...rest} renderRight={this.renderRight} />
         <Modal
           isVisible={modalVisible}
           backdropColor="rgba(0, 0, 0, 0.5)"
