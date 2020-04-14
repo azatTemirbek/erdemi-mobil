@@ -7,23 +7,20 @@ export default class ValidatorJS {
   constructor(translateFn = (key) => key) {
     this.translate = translateFn;
     this.Validator = Validator;
-    this.Validator.formatters.custom = this.overloadFormatFunc;
+    this.Validator.formatters.customFormatFunc = this.customFormatFunc;
     this.Validator.convertErrorMessages = this.convertErrorMessages;
-    this.overloadErrorMessages();
+    this.customErrorMessages();
   }
   /** i was using required inside forms so i need to replace required with presence*/
-  changeRequiredToPresence = (constraints) =>
+  replaceRequiredToPresence = (constraints) =>
     Object.entries(constraints).reduce((acc, [key, {required, ...ObjVal}]) => {
-      acc[key] = {presence: !!required, ...ObjVal};
+      acc[key] = {presence: required, ...ObjVal};
       return acc;
     }, {});
   /** overriding default messages with my own mesages */
-  overloadErrorMessages = () => {
-    this.Validator.validators.date.options = {
-      // message: "DATE_VALIDATOR_ERROR_MSG"
-    };
+  customErrorMessages = () => {
+    this.Validator.validators.date.options = {};
     this.Validator.validators.datetime.options = {
-      // message: "DATETIME_VALIDATOR_ERROR_MSG"
       notValid: "notValid_DATETIME_VALIDATOR_ERROR_MSG",
       tooEarly: "tooEarly_DATETIME_VALIDATOR_ERROR_MSG",
       tooLate: "tooLate_DATETIME_VALIDATOR_ERROR_MSG"
@@ -44,14 +41,12 @@ export default class ValidatorJS {
       message: "INCLUSION_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.length.options = {
-      // message: "LENGTH_VALIDATOR_ERROR_MSG"
       notValid: "notValid_LENGTH_VALIDATOR_ERROR_MSG",
       tooLong: "tooLong_LENGTH_VALIDATOR_ERROR_MSG",
       tooShort: "tooShort_LENGTH_VALIDATOR_ERROR_MSG",
       wrongLength: "wrongLength_LENGTH_VALIDATOR_ERROR_MSG"
     };
     this.Validator.validators.numericality.options = {
-      // message: "NUMERICALITY_VALIDATOR_ERROR_MSG",
       notValid: "notValid_NUMERICALITY_VALIDATOR_ERROR_MSG",
       notInteger: "notInteger_NUMERICALITY_VALIDATOR_ERROR_MSG",
       notGreaterThan: "notGreaterThan_NUMERICALITY_VALIDATOR_ERROR_MSG",
@@ -113,7 +108,7 @@ export default class ValidatorJS {
     return ret;
   };
   /** uses translate with formatfunc */
-  overloadFormatFunc = (errors) =>
+  customFormatFunc = (errors) =>
     errors.reduce((acc, {validator, attribute, value, error}) => {
       acc[attribute] = this.translate(error, {
         validator,
@@ -124,15 +119,6 @@ export default class ValidatorJS {
       return acc;
     }, {});
   /** communicate with internal validate */
-  validate = (data, constraints, options = {format: "custom"}) => {
-    console.log("validatingData:", data);
-    console.log("validatingconstraints:", constraints);
-    let res = this.Validator(
-      data,
-      this.changeRequiredToPresence(constraints),
-      options
-    );
-    console.log("validatedRes:", res);
-    return res;
-  };
+  validate = (data, constraints, options = {format: "customFormatFunc"}) =>
+    this.Validator(data, this.replaceRequiredToPresence(constraints), options);
 }
