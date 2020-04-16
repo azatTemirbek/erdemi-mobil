@@ -115,7 +115,10 @@ export class Table extends React.Component {
   };
   footerCell = (value = "", index = 0) => {
     return (
-      <View
+      <CellSkeleton
+        height={this.props.cellHeight}
+        width={this.props.cellWidth}
+        loading={this.props.loading || this.state.loading}
         key={value + index}
         style={[
           this.styles.cellStyle,
@@ -136,13 +139,16 @@ export class Table extends React.Component {
             {this.props.translate(value)}
           </Text>
         )}
-      </View>
+      </CellSkeleton>
     );
   };
 
   footerIntersectionCell = (value = "", index = 0) => {
     return (
-      <View
+      <CellSkeleton
+        height={this.props.cellHeight}
+        width={this.props.cellWidth}
+        loading={this.props.loading || this.state.loading}
         key={value + index}
         style={[
           this.styles.cellStyle,
@@ -164,12 +170,15 @@ export class Table extends React.Component {
             {this.props.translate(value)}
           </Text>
         )}
-      </View>
+      </CellSkeleton>
     );
   };
   headerIntersectionCell = (value = "", index = 0) => {
     return (
-      <View
+      <CellSkeleton
+        height={this.props.cellHeight}
+        width={this.props.cellWidth}
+        loading={this.props.loading || this.state.loading}
         key={value + index}
         style={[
           this.styles.cellStyle,
@@ -191,12 +200,15 @@ export class Table extends React.Component {
             {this.props.translate(value)}
           </Text>
         )}
-      </View>
+      </CellSkeleton>
     );
   };
   columnCell = (value = "", index = 0) => {
     return (
-      <View
+      <CellSkeleton
+        height={this.props.cellHeight}
+        width={this.props.cellWidth}
+        loading={this.props.loading || this.state.loading}
         key={value + index + JSON.stringify(this.props.data[index])}
         style={[
           this.styles.cellStyle,
@@ -216,7 +228,7 @@ export class Table extends React.Component {
         ) : (
           <Text {...this.props.columnCellText}>{value}</Text>
         )}
-      </View>
+      </CellSkeleton>
     );
   };
   cell = ({keyVal, item = "", index}, row, i) => {
@@ -226,7 +238,10 @@ export class Table extends React.Component {
       Tag = View;
     }
     return (
-      <View
+      <CellSkeleton
+        height={this.props.cellHeight}
+        width={this.props.cellWidth}
+        loading={this.props.loading || this.state.loading}
         key={item + index}
         style={[this.styles.cellStyle, this.props.cellStyle]}>
         {this.props[keyVal] ? (
@@ -241,7 +256,7 @@ export class Table extends React.Component {
         ) : (
           <Tag {...this.props.cellText}>{item}</Tag>
         )}
-      </View>
+      </CellSkeleton>
     );
   };
   /**
