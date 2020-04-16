@@ -9,7 +9,24 @@ import {
 import {generateStyles} from "./styles";
 import {Text} from "../";
 import PropTypes from "prop-types";
-
+import {Rect} from "react-native-svg";
+import SvgAnimatedLinearGradient from "../SvgAnimatedLinearGradient";
+const CellSkeleton = ({
+  loading = false,
+  width = 100,
+  height = 50,
+  padding = 10,
+  Tag = View,
+  ...rest
+}) => {
+  return loading ? (
+    <SvgAnimatedLinearGradient {...rest} {...{width, height}}>
+      <Rect x="10" y="10" {...{width: width - 20, height: height - 20}} />
+    </SvgAnimatedLinearGradient>
+  ) : (
+    <Tag {...rest} />
+  );
+};
 export class Table extends React.Component {
   /** generic props renderer */
   renderer = (object = {}, keyVal = "") => {
@@ -67,10 +84,12 @@ export class Table extends React.Component {
       this.scrollPosition.removeListener(this.listener);
     }
   }
-
   headerCell = (value = "", index = 0) => {
     return (
-      <View
+      <CellSkeleton
+        height={this.props.cellHeight}
+        width={this.props.cellWidth}
+        loading={this.props.loading || this.state.loading}
         key={value + index}
         style={[
           this.styles.cellStyle,
@@ -84,14 +103,14 @@ export class Table extends React.Component {
               index,
               ...this.props.headerCellTextProps
             },
-            "footerCell"
+            "headerCell"
           )
         ) : (
           <Text {...this.props.headerCellTextProps}>
             {this.props.translate(value)}
           </Text>
         )}
-      </View>
+      </CellSkeleton>
     );
   };
   footerCell = (value = "", index = 0) => {
@@ -536,15 +555,16 @@ Table.propTypes = {
     PropTypes.node,
     PropTypes.element,
     PropTypes.bool
-  ])
+  ]),
+  loading: PropTypes.bool
 };
 
 Table.defaultProps = {
   style: {},
   bodyStyle: {},
-  cellWidth: undefined,
-  cellHeight: undefined,
-  borderWidth: undefined,
+  cellWidth: 200,
+  cellHeight: 50,
+  borderWidth: 0.5,
   FixedRowHeaderStyle: {},
   FixedColumnHeaderStyle: {},
   /** Header intersection */
@@ -590,6 +610,7 @@ Table.defaultProps = {
   footerIntersectionCell: false,
   /** footer cells */
   footerCellTextProps: {},
-  footerCell: false
+  footerCell: false,
+  loading: false
 };
 export default Table;
