@@ -558,36 +558,20 @@ Table.defaultProps = {
   columnCellStyle: {},
   columnCellText: {},
   headerCellTextProps: {},
-  data: [
-    {
-      title: "hello",
-      desc: "Olamaloa",
-      postType: "Vlog",
-      a: "sdfsef sdfsdfsdf",
-      b: "sdfsef sdfsdfsdf"
-    },
-    {
-      title: "hello 2",
-      desc: "Olamaloa 2",
-      postType: "Vlog 2",
-      a: "sdfsef sdfsdfsdf",
-      b: "sdfsef sdfsdfsdf"
-    },
-    {
-      title: "hello",
-      desc: "Olamaloa",
-      postType: "Vlog",
-      a: "sdfsef sdfsdfsdf",
-      b: "sdfsef sdfsdfsdf"
-    }
-  ],
+  data: new Array(3).fill({
+    title: "xxx",
+    desc: "xxx",
+    postType: "xxx",
+    a: "xxx",
+    b: "xxx"
+  }),
   fixedRowHeader: false,
   fixedRowHeaderData: {
-    title: "Başlık",
-    desc: "Açıklama",
-    postType: "Tip",
-    a: " aaaa",
-    b: "bbbbb"
+    title: "xxxxx",
+    desc: "xxxxx",
+    postType: "xxxxx",
+    a: "xxxxx",
+    b: "xxxxx"
   },
   translateFixedColumnHeader: (key) => key,
   translate: (key) => key,
