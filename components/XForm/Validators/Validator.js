@@ -12,11 +12,21 @@ export default class ValidatorJS {
     this.customErrorMessages();
   }
   /** i was using required inside forms so i need to replace required with presence*/
-  replaceRequiredToPresence = (constraints) =>
-    Object.entries(constraints).reduce((acc, [key, {required, ...ObjVal}]) => {
-      acc[key] = {presence: required, ...ObjVal};
-      return acc;
-    }, {});
+  replaceRequiredToPresence = (constraints = {}, values = {}) => {
+    constraints = Object.entries(constraints).reduce(
+      (acc, [key, {required, ...ObjVal}]) => {
+        /** state is always string meed to be converted */
+        values[key] = ObjVal.type === "number" ? +values[key] : values[key];
+        acc[key] = {presence: required, ...ObjVal};
+        return acc;
+      },
+      {}
+    );
+    return {
+      constraints,
+      values
+    };
+  };
   /** overriding default messages with my own mesages */
   customErrorMessages = () => {
     this.Validator.validators.date.options = {};
@@ -119,6 +129,17 @@ export default class ValidatorJS {
       return acc;
     }, {});
   /** communicate with internal validate */
-  validate = (data, constraints, options = {format: "customFormatFunc"}) =>
-    this.Validator(data, this.replaceRequiredToPresence(constraints), options);
+  validate = (
+    valuesOriginal = {},
+    constraintsOrginal = {},
+    options = {format: "customFormatFunc"}
+  ) => {
+    let {values, constraints} = this.replaceRequiredToPresence(
+      constraintsOrginal,
+      {
+        ...valuesOriginal
+      }
+    );
+    return this.Validator(values, constraints, options);
+  };
 }

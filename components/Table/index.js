@@ -384,22 +384,24 @@ export class Table extends React.Component {
     return (
       <View>
         {!!this.props.fixedColumnHeaderTitle && this.renderFixedColumnHeader()}
-        <FlatList
-          style={[
-            this.styles.body,
-            this.props.fixedColumnHeaderTitle ? {} : {marginLeft: 0},
-            this.props.bodyStyle
-          ]}
-          horizontal={true}
-          data={data}
-          keyExtractor={(item, index) => JSON.stringify(item) + index}
-          renderItem={this.formatColumn}
-          stickyHeaderIndices={[0]}
-          onScroll={this.scrollEvent}
-          scrollEventThrottle={16}
-          extraData={this.state}
-          showsHorizontalScrollIndicator={false}
-        />
+        {!!data.length && (
+          <FlatList
+            style={[
+              this.styles.body,
+              this.props.fixedColumnHeaderTitle ? {} : {marginLeft: 0},
+              this.props.bodyStyle
+            ]}
+            horizontal={true}
+            data={data}
+            keyExtractor={(item, index) => JSON.stringify(item) + index}
+            renderItem={this.formatColumn}
+            stickyHeaderIndices={[0]}
+            onScroll={this.scrollEvent}
+            scrollEventThrottle={16}
+            extraData={this.state}
+            showsHorizontalScrollIndicator={false}
+          />
+        )}
       </View>
     );
   };
@@ -417,21 +419,23 @@ export class Table extends React.Component {
       <View>
         {!!this.props.fixedColumnHeaderTitle &&
           this.renderFixedColumnHeaderRev()}
-        <FlatList
-          style={[
-            this.styles.body,
-            this.props.fixedColumnHeaderTitle ? {} : {marginLeft: 0}
-          ]}
-          horizontal={true}
-          data={data}
-          keyExtractor={(item, index) => JSON.stringify(item) + index}
-          renderItem={this.formatColumn}
-          stickyHeaderIndices={[0]}
-          onScroll={this.scrollEvent}
-          scrollEventThrottle={16}
-          extraData={this.state}
-          showsHorizontalScrollIndicator={false}
-        />
+        {!!data.length && (
+          <FlatList
+            style={[
+              this.styles.body,
+              this.props.fixedColumnHeaderTitle ? {} : {marginLeft: 0}
+            ]}
+            horizontal={true}
+            data={data}
+            keyExtractor={(item, index) => JSON.stringify(item) + index}
+            renderItem={this.formatColumn}
+            stickyHeaderIndices={[0]}
+            onScroll={this.scrollEvent}
+            scrollEventThrottle={16}
+            extraData={this.state}
+            showsHorizontalScrollIndicator={false}
+          />
+        )}
       </View>
     );
   };

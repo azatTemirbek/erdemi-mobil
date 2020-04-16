@@ -17,14 +17,7 @@ export class XForm extends Component {
       props.translate
     );
   }
-  /** used to log */
-  log = (a) => {
-    console.log("PropsLogger", a);
-    return a;
-  };
-  /** will reset the form to be able to add ne values */
-  reset = () => this.setState({...initalState});
-  /**will add onParentChange hook and will trigger the function when _onComboChange is activated */
+  /**will add onParentChange hook and will trigger the function when _onSelectCore is activated */
   _initTriggers = (childKey, parentKey, onParentChange) => {
     /** if the there is no anything - initiate*/
     if (this.triggers4ComboRemotes[parentKey]) {
@@ -43,28 +36,17 @@ export class XForm extends Component {
     }
     /** else case is useless since we will not do anything */
   };
-  /** used on selection change */
-  _onChangeText = (inputName) => (value) => {
-    let {values, errors} = this.state;
-    values[inputName] = value;
-    errors[inputName] = value ? undefined : errors[inputName];
-    this.setState({values, errors});
-  };
-  /** on image change */
-  _onImageChange = this._onChangeText;
-  /** used on selection change */
-  _onComboChange = (inputName) => (value) => {
-    let {values, options, errors} = this.state;
-    values[inputName] = value;
-    errors[inputName] = value ? undefined : errors[inputName];
+  /** used to run triggers */
+  _runTriggers = (inputName, value) => {
     let triggers = this.triggers4ComboRemotes;
+    let {values, options} = this.state;
     /** used for relation stuff */
     if (triggers[inputName]) {
       triggers[inputName].map((trigger) => {
-        /** if array set the array */
+        /** if provided value is an array set the array */
         if (Array.isArray(trigger.onParentChange)) {
           options[trigger.childKey] = trigger.onParentChange;
-          /** if function execute the function */
+          /** if provided value is a function execute the function */
         } else if (typeof trigger.onParentChange === "function") {
           let result = trigger.onParentChange(value, trigger.childKey, values);
           /** if executed is a promise then give callback*/
@@ -90,69 +72,126 @@ export class XForm extends Component {
         this.setState({options});
       });
     }
+  };
+  /** used on selection change */
+  _onChangeCore = (inputName) => (value) => {
+    let {values, errors} = this.state;
+    values[inputName] = value;
+    errors[inputName] = value ? undefined : errors[inputName]; //cleaup if edited
+    this.setState({values, errors});
+  };
+  /** used on selection change */
+  _onSelectCore = (inputName) => (value) => {
+    let {values, errors} = this.state;
+    values[inputName] = value;
+    errors[inputName] = value ? undefined : errors[inputName];
+    this._runTriggers(inputName, value);
     this.setState({values, errors});
   };
   /** adds item to track list */
-  _initRequiredAndTrackList = (key, extra) => {
+  _initTrackingList = (key, extra) => {
     if (!Object.keys(this.elements).some((objkey) => objkey === key)) {
       this.elements[`${key}`] = extra;
     }
   };
   /** core method */
-  bindCore = (key, extra = {required: false}) => {
-    this._initRequiredAndTrackList(key, extra);
+  bindCoreDefaults = {
+    required: false,
+    parentKey: undefined,
+    onParentChange: undefined
+  };
+  bindCore = (key, extra = {}) => {
+    const {parentKey, onParentChange, ...rest} = {
+      ...this.bindCoreDefaults,
+      ...extra
+    };
+    if (parentKey && onParentChange) {
+      this._initTriggers(key, parentKey, onParentChange);
+    }
+    this._initTrackingList(key, rest);
     return {
       value: this.state.values[key],
       error: this.state.errors[key],
       label: this.props.translate(key),
       translate: this.props.translate,
       name: key,
+      // onChangeText: this._onChangeCore(key),
       ...extra
     };
   };
+  /** ####################################################################################  */
+  /** ################################### RADIOGROUP INPUT ###################################  */
+  /** used to dropDown change */
+  _onRadioGroupChange = this._onSelectCore;
   /** RadioGroup with normal keyboard */
-  bindRadioGroup = (key, extra = {required: false}) => ({
-    ...this.bindCore(key, extra),
-    onChange: this._onComboChange(key)
+  bindRadioGroupDefaults = {required: false};
+  bindRadioGroup = (key, extra = {}) => ({
+    ...this.bindCore(key, {...this.bindRadioGroupDefaults, ...extra}),
+    onChange: this._onRadioGroupChange(key)
   });
+  /** ####################################################################################  */
+  /** ################################### DROPDOWN INPUT ###################################  */
+  /** used to dropDown change */
+  _onDropDownChange = this._onSelectCore;
   /** binds the input to state */
-  bindDropDown = (
-    key,
-    extra = {
-      parentKey: null,
-      onParentChange: null,
-      required: false
-    }
-  ) => {
-    if (extra.parentKey && extra.onParentChange) {
-      this._initTriggers(key, extra.parentKey, extra.onParentChange);
-    }
-    return {
-      ...this.bindCore(key, extra),
-      options: this.state.options[key] || [], //will be empty or will get from state
-      onChange: this._onComboChange(key)
-    };
+  bindDropDownDefaults = {
+    required: false
   };
-  /** TextInput with normal keyboard */
-  bindTextInput = (key, extra = {required: false}) => ({
-    ...this.bindCore(key, extra),
-    onChangeText: this._onChangeText(key)
+  bindDropDown = (key, extra = {}) => ({
+    ...this.bindCore(key, {...this.bindDropDownDefaults, ...extra}),
+    options: this.state.options[key] || [], //will be empty or will get from state
+    onChange: this._onDropDownChange(key)
   });
+
+  /** ####################################################################################  */
+  /** ################################### TEXT INPUT ###################################  */
+  /** on text change */
+  _onTextChange = this._onChangeCore;
   /** TextInput with normal keyboard */
-  bindTextArea = (key, extra = {required: false}) => ({
-    ...this.bindTextInput(key, extra),
+  bindTextInputDefaults = {required: false};
+  bindTextInput = (key, extra) => ({
+    ...this.bindCore(key, {...this.bindTextInputDefaults, ...extra}),
+    onChangeText: this._onTextChange(key)
+  });
+  /** ####################################################################################  */
+  /** ################################### TEXT AREA INPUT ###################################  */
+  /** on text change */
+  _onTextAreaChange = this._onChangeCore;
+  /** TextInput with normal keyboard */
+  bindTextAreaDefaults = {required: false};
+  bindTextArea = (key, extra = {}) => ({
+    ...this.bindCore(key, {...this.bindTextAreaDefaults, ...extra}),
+    onChangeText: this._onTextAreaChange(key),
     multiline: true,
     numberOfLines: 3
   });
+  /** ####################################################################################  */
+  /** ################################### NUMBER INPUT ###################################  */
+  /** used on selection change */
+  _onNumberChange = this._onChangeCore;
   /** binds textInput with state and number keypad*/
-  bindTextInputNumber = (key, extra = {required: false}) => ({
-    ...this.bindTextInput(key, extra),
-    keyboardType: "number-pad"
-    /** need to add number validators */
+  bindTextInputNumberDefaults = {required: false, type: "number"};
+  bindTextInputNumber = (key, extra) => ({
+    ...this.bindCore(key, {...this.bindTextInputNumberDefaults, ...extra}),
+    onChangeText: this._onNumberChange(key),
+    keyboardType: "number-pad",
+    maxLength: 10
   });
+  /** ####################################################################################  */
+  /** ################################### Calendar INPUT ###################################  */
+  _onChangeCalendarInput = this._onChangeCore;
+  /** bindCalendarInput to XForm */
+  bindCalendarInputDefaults = {required: false};
+  bindCalendarInput = (key, extra = {}) => ({
+    ...this.bindCore(key, {...this.bindCalendarInputDefaults, ...extra}),
+    onChangeText: this._onChangeCalendarInput(key)
+  });
+  /** ####################################################################################  */
+  /** ################################### QR/BARCODE INPUT ###################################  */
   /** binds text input with QRCode reader and sets value to state */
-  bindTextInputQR = (key, extra = {required: false}) => ({
-    ...this.bindTextInputNumber(key, extra),
+  bindTextInputQRDefaults = {required: true};
+  bindTextInputQR = (key, extra = {}) => ({
+    ...this.bindTextInput(key, {...this.bindTextInputQRDefaults, ...extra}),
     renderRight: ({props}) => {
       /** this callback is invoked at qr screen */
       let callback = (e) => {
@@ -160,7 +199,7 @@ export class XForm extends Component {
           return;
         }
         /** will change the state */
-        this._onChangeText(props.name)(e.data);
+        this._onTextChange(props.name)(e.data);
       };
       return (
         <TouchableOpacity
@@ -172,14 +211,13 @@ export class XForm extends Component {
       );
     }
   });
-  /** bindCalendarInput to XForm */
-  bindCalendarInput = (key, extra = {required: false}) => ({
-    ...this.bindCore(key, extra),
-    onChangeText: this._onChangeText(key)
-  });
   /** binds text input with Barcode reader and sets value to state */
-  bindTextInputBarcode = (key, extra = {required: false}) => ({
-    ...this.bindTextInput(key, extra),
+  bindTextInputBarcodeDefaults = {required: false};
+  bindTextInputBarcode = (key, extra = {}) => ({
+    ...this.bindTextInput(key, {
+      ...this.bindTextInputBarcodeDefaults,
+      ...extra
+    }),
     renderRight: ({props}) => {
       /** this callback is invoked at qr screen */
       let callback = (e) => {
@@ -187,7 +225,7 @@ export class XForm extends Component {
           return;
         }
         /** will change the state */
-        this._onChangeText(props.name)(e.data);
+        this._onTextChange(props.name)(e.data);
       };
       return (
         <TouchableOpacity
@@ -204,20 +242,18 @@ export class XForm extends Component {
       );
     }
   });
+  /** ####################################################################################  */
+  /** ################################### IMAGE INPUT ###################################  */
+  /** on image change */
+  _onImageChange = this._onChangeCore;
   /** image props handler */
-  bindImageInput = (key, extra = {required: false}) => ({
-    ...this.bindCore(key, extra),
+  bindImageInputDefaults = {required: false};
+  bindImageInput = (key, extra = {}) => ({
+    ...this.bindCore(key, {...this.bindImageInputDefaults, ...extra}),
     onImageChange: this._onImageChange(key)
   });
-  /** is Form valid if there is no error and no empty required fields */
-  isValid = () => console.warn("this.isValid is depricated");
-  /** will return true if touched */
-  isTouched = (key) => this.state.values.hasOwnProperty(key);
-
-  render() {
-    console.error("implement render method for dynamic imput generator");
-    return null;
-  }
+  /** ####################################################################################  */
+  /** ################################### SUBMIT BUTTON ###################################  */
   /** default _handleSubmit version */
   _handleSubmit = () => {
     console.warning("implement function _handleSubmit on your Form component");
@@ -241,6 +277,38 @@ export class XForm extends Component {
       onPress: this._handleSubmitAndValidate(key)
     };
   };
+  /** ####################################################################################  */
+  /** ################################### RESET BUTTON ###################################  */
+  /** will reset the form to be able to add new values */
+  reset = (key = "_handleReset") =>
+    this.setState({...initalState}, () => {
+      this[key]();
+    });
+  /** default _handleSubmit version */
+  _handleReset = () => {
+    console.warning("implement function _handleReset on your Form component");
+  };
+  /** bind button to submit */
+  bindOnResetButton = (key = "_handleReset") => {
+    return {
+      onPress: this.reset(key)
+    };
+  };
+  /** ####################################################################################  */
+  /** ################################### HELPERS ###################################  */
+  /** used to log */
+  log = (a) => {
+    console.log("PropsLogger", a);
+    return a;
+  };
+  /** is Form valid if there is no error and no empty required fields */
+  isValid = () => console.warn("this.isValid is depricated");
+  /** will return true if touched */
+  isTouched = (key) => this.state.values.hasOwnProperty(key);
+  render() {
+    console.error("implement render method for dynamic imput generator");
+    return null;
+  }
 }
 
 XForm.propTypes = {
