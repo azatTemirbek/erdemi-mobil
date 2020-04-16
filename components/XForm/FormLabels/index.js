@@ -3,9 +3,9 @@ import {Text} from "../../index";
 import PropTypes from "prop-types";
 
 /** used inside form inputs */
-export const Label = ({labelStyle, label, required}) =>
+export const Label = ({labelStyle, label, required, ...rest}) =>
   label ? (
-    <Text p2 style={labelStyle}>
+    <Text p2 style={labelStyle} {...rest}>
       {label}
       {required && <Text primaryColor>*</Text>}
     </Text>
@@ -18,9 +18,9 @@ Label.propTypes = {
 };
 
 /** used inside form inputs to show error massage*/
-export const ErrorLabel = ({errorStyle, error}) =>
+export const ErrorLabel = ({errorStyle, error, ...rest}) =>
   error ? (
-    <Text p2 color="red" style={errorStyle}>
+    <Text p2 color="red" style={errorStyle} {...rest}>
       {error}
     </Text>
   ) : null;
