@@ -63,7 +63,7 @@ Button.propTypes = {
   styleText: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   icon: PropTypes.node,
   outline: PropTypes.bool,
-  flex: PropTypes.bool,
+  flex: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
   full: PropTypes.bool,
   round: PropTypes.bool,
   loading: PropTypes.bool,

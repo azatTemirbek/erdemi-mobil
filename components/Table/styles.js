@@ -15,11 +15,11 @@ const generateStyles = (
       backgroundColor: BaseColor.whiteColor,
       borderTopWidth: BORDER_WIDTH,
       borderLeftWidth: BORDER_WIDTH,
-      borderColor: BaseColor.blackColor
+      borderColor: BaseColor.blackColor,
+      flexGrow: 0
     },
     body: {marginLeft: CELL_WIDTH},
     column: {flexDirection: "column"},
-
     FixedRowHeaderStyle: {
       flexDirection: "row"
     },

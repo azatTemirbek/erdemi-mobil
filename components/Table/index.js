@@ -1,11 +1,5 @@
 import React, {Children, cloneElement} from "react";
-import {
-  Animated,
-  ActivityIndicator,
-  FlatList,
-  ScrollView,
-  View
-} from "react-native";
+import {Animated, FlatList, ScrollView, View} from "react-native";
 import {generateStyles} from "./styles";
 import {Text} from "../";
 import PropTypes from "prop-types";
@@ -476,18 +470,17 @@ export class Table extends React.Component {
 
   render() {
     return (
-      <View style={[this.styles.container, this.props.style]}>
-        {this.renderFixedRowHeader()}
-        <FlatList
-          keyExtractor={(item, index) => JSON.stringify(item) + index}
-          data={[12]}
-          renderItem={this.props.reverse ? this.renderRowRev : this.renderRow}
-          onEndReached={this.handleScrollEndReached}
-          onEndReachedThreshold={0.005}
-          ListFooterComponent={this.renderFixedRowFooter}
-        />
-        {this.state.loading && <ActivityIndicator />}
-      </View>
+      <FlatList
+        style={[this.styles.container, this.props.style]}
+        ListHeaderComponent={this.renderFixedRowHeader()}
+        stickyHeaderIndices={[0]}
+        keyExtractor={(item, index) => JSON.stringify(item) + index}
+        data={[12]}
+        renderItem={this.props.reverse ? this.renderRowRev : this.renderRow}
+        onEndReached={this.handleScrollEndReached}
+        onEndReachedThreshold={0.005}
+        ListFooterComponent={this.renderFixedRowFooter}
+      />
     );
   }
 }
