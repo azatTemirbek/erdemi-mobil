@@ -7,6 +7,7 @@ import ValidatorAdapter from "./Validators/ValidatorAdapter";
 const initalState = {values: {}, options: {}, errors: {}, isVisible: false};
 export class XForm extends Component {
   elements = {};
+  defaultValues = {};
   triggers4ComboRemotes = {};
   constructor(props) {
     super(props);
@@ -73,6 +74,12 @@ export class XForm extends Component {
       });
     }
   };
+  /** used set default values */
+  _setDefaultValues = (defaultValues = this.defaultValues) => {
+    let {values} = this.state;
+    values = {...values, ...defaultValues};
+    this.setState({values});
+  };
   /** used on selection change */
   _onChangeCore = (inputName) => (value) => {
     let {values, errors} = this.state;
@@ -88,10 +95,12 @@ export class XForm extends Component {
     this._runTriggers(inputName, value);
     this.setState({values, errors});
   };
-  /** adds item to track list */
-  _initTrackingList = (key, extra) => {
+  /** adds item to track list and sets default values of the component */
+  _initTrackingListAndDefaultValues = (key, extra, defaultValue) => {
     if (!Object.keys(this.elements).some((objkey) => objkey === key)) {
+      /** runs only once and only at start */
       this.elements[`${key}`] = extra;
+      this.defaultValues = {...this.defaultValues, [key]: defaultValue};
     }
   };
   /** core method */
@@ -109,7 +118,8 @@ export class XForm extends Component {
     if (parentKey && onParentChange) {
       this._initTriggers(key, parentKey, onParentChange);
     }
-    this._initTrackingList(key, rest);
+    /** will work only once  */
+    this._initTrackingListAndDefaultValues(key, rest, defaultValue);
     return {
       value: this.state.values[key] || defaultValue || "",
       error: this.state.errors[key],
@@ -316,6 +326,10 @@ export class XForm extends Component {
   render() {
     console.error("implement render method for dynamic imput generator");
     return null;
+  }
+  componentDidMount() {
+    //TODO: need to be a custom hook(lifecycle)
+    this._setDefaultValues();
   }
 }
 
