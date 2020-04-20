@@ -15,7 +15,11 @@ const CellSkeleton = ({
 }) => {
   return loading ? (
     <SvgAnimatedLinearGradient {...rest} {...{width, height}}>
-      <Rect x="10" y="10" {...{width: width - 20, height: height - 20}} />
+      <Rect
+        x="10"
+        y="10"
+        {...{width: width - 2 * padding, height: height - 2 * padding}}
+      />
     </SvgAnimatedLinearGradient>
   ) : (
     <Tag {...rest} />

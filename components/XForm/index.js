@@ -98,10 +98,11 @@ export class XForm extends Component {
   bindCoreDefaults = {
     required: false,
     parentKey: undefined,
-    onParentChange: undefined
+    onParentChange: undefined,
+    defaultValue: ""
   };
   bindCore = (key, extra = {}) => {
-    const {parentKey, onParentChange, ...rest} = {
+    const {defaultValue, parentKey, onParentChange, ...rest} = {
       ...this.bindCoreDefaults,
       ...extra
     };
@@ -110,7 +111,7 @@ export class XForm extends Component {
     }
     this._initTrackingList(key, rest);
     return {
-      value: this.state.values[key],
+      value: this.state.values[key] || defaultValue || "",
       error: this.state.errors[key],
       label: this.props.translate(key),
       translate: this.props.translate,
@@ -125,8 +126,9 @@ export class XForm extends Component {
   _onRadioGroupChange = this._onSelectCore;
   /** RadioGroup with normal keyboard */
   bindRadioGroupDefaults = {required: false};
-  bindRadioGroup = (key, extra = {}) => ({
+  bindRadioGroup = (key, {options, ...extra} = {}) => ({
     ...this.bindCore(key, {...this.bindRadioGroupDefaults, ...extra}),
+    options: this.state.options[key] || options || [],
     onChange: this._onRadioGroupChange(key)
   });
   /** ####################################################################################  */
@@ -137,9 +139,9 @@ export class XForm extends Component {
   bindDropDownDefaults = {
     required: false
   };
-  bindDropDown = (key, extra = {}) => ({
+  bindDropDown = (key, {options, ...extra} = {}) => ({
     ...this.bindCore(key, {...this.bindDropDownDefaults, ...extra}),
-    options: this.state.options[key] || [], //will be empty or will get from state
+    options: this.state.options[key] || options || [], //will be empty or will get from state
     onChange: this._onDropDownChange(key)
   });
 
@@ -172,7 +174,10 @@ export class XForm extends Component {
   /** binds textInput with state and number keypad*/
   bindTextInputNumberDefaults = {required: false, type: "number"};
   bindTextInputNumber = (key, extra) => ({
-    ...this.bindCore(key, {...this.bindTextInputNumberDefaults, ...extra}),
+    ...this.bindCore(key, {
+      ...this.bindTextInputNumberDefaults,
+      ...extra
+    }),
     onChangeText: this._onNumberChange(key),
     keyboardType: "number-pad",
     maxLength: 10
@@ -191,7 +196,10 @@ export class XForm extends Component {
   /** binds text input with QRCode reader and sets value to state */
   bindTextInputQRDefaults = {required: true};
   bindTextInputQR = (key, extra = {}) => ({
-    ...this.bindTextInput(key, {...this.bindTextInputQRDefaults, ...extra}),
+    ...this.bindTextInput(key, {
+      ...this.bindTextInputQRDefaults,
+      ...extra
+    }),
     renderRight: ({props}) => {
       /** this callback is invoked at qr screen */
       let callback = (e) => {

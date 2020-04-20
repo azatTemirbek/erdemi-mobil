@@ -41,4 +41,6 @@ export {CompanyMenuView} from "./CompanyMenuView";
 export {LanguageDropDownView} from "./LanguageDropDownView";
 /** Native Extend */
 export {TouchableOpacity} from "./TouchableOpacity";
+/** used to sceletone */
+export {SvgAnimatedLinearGradient} from "../SvgAnimatedLinearGradient";
 export default {};

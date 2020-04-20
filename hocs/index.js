@@ -9,4 +9,5 @@ export {withProps} from "./withProps";
 export {compose} from "./compose";
 export {withTranslateFactory} from "./withTranslateFactory";
 export {withHooksFactory} from "./withHooksFactory";
+export {withSkeletone} from "./withSkeletone";
 export default {};
