@@ -9,6 +9,7 @@ export const Selector = ({onCloseModal, isVisible, title, list, translate}) => (
   <Modal
     isVisible={isVisible}
     onBackdropPress={onCloseModal}
+    onRequestClose={onCloseModal}
     style={[styles.container]}
     animationIn="slideInUp"
     animationOut="slideOutDown"

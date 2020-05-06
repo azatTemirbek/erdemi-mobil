@@ -33,6 +33,7 @@ export class PolicyButton extends Component {
           <Modal
             isVisible={this.state.modal}
             onBackdropPress={() => this.setState({modal: false})}
+            onRequestClose={() => this.setState({modal: false})}
             style={styles.bottomModal}
             propagateSwipe>
             <View style={styles.contentModalBottom}>

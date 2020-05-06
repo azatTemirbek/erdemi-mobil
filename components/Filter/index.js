@@ -79,6 +79,12 @@ export class Filter extends Component {
               filterOption: this.props.filterOption
             });
           }}
+          onRequestClose={() => {
+            this.setState({
+              modalVisible: false,
+              filterOption: this.props.filterOption
+            });
+          }}
           swipeDirection={["down"]}
           style={styles.bottomModal}>
           <View style={styles.contentFilterBottom}>

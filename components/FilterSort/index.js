@@ -80,6 +80,12 @@ export class FilterSort extends Component {
               sortOption: this.props.sortOption
             });
           }}
+          onRequestClose={() => {
+            this.setState({
+              modalVisible: false,
+              sortOption: this.props.sortOption
+            });
+          }}
           swipeDirection={["down"]}
           style={styles.bottomModal}>
           <View style={styles.contentFilterBottom}>

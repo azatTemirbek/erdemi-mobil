@@ -133,6 +133,7 @@ export class DropDown extends Component {
         isVisible={modalVisible}
         onBackdropPress={this._onCancel}
         onSwipeComplete={this._onCancel}
+        onRequestClose={this._onCancel}
         swipeDirection={["down"]}
         style={[styles.Modal, this.props.modalStyle]}
         propagateSwipe>

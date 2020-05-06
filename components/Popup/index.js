@@ -38,6 +38,7 @@ export const Popup = ({
       visible={isVisible}
       animationType="slide"
       onBackdropPress={_closeAndGoBack}
+      onRequestClose={_closeAndGoBack}
       propagateSwipe
       transparent>
       <SafeAreaView style={[styles.container, containerStyle]}>

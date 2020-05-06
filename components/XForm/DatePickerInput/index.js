@@ -73,6 +73,7 @@ export class DatePickerInput extends Component {
         <TextInput editable={false} {...rest} renderRight={this.renderRight} />
         <Modal
           isVisible={modalVisible}
+          onRequestClose={this.onCancel}
           backdropColor="rgba(0, 0, 0, 0.5)"
           backdropOpacity={1}
           animationIn="fadeIn"

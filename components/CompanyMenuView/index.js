@@ -32,6 +32,7 @@ export const CompanyMenuView = ({
       <Modal
         isVisible={Visible}
         onSwipeComplete={close}
+        onRequestClose={close}
         swipeDirection={["down"]}
         style={styles.modal}
         animationIn="slideInUp">
