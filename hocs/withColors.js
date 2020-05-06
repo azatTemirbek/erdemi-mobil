@@ -50,8 +50,10 @@ export const withColors = (
       lightPink && {[ColorKey]: BaseColor.lightPink},
       color && styles[`${ColorKey}${color}`],
       color && !styles[`${ColorKey}${color}`] && {[ColorKey]: color},
-      remainingProps.disabled && {color: BaseColor.disabledColor||"#666666"},
-      remainingProps.disabled && {backgroundColor: BaseColor.disabledBackgroundColor||"#cccccc"},
+      remainingProps.disabled && {color: BaseColor.disabledColor || "#666666"},
+      remainingProps.disabled && {
+        backgroundColor: BaseColor.disabledBackgroundColor || "#cccccc"
+      },
       style // rewrite predefined styles
     ];
     return createElement(Component, {

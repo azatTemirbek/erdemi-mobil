@@ -10,4 +10,5 @@ export {withTranslateFactory} from "./withTranslateFactory";
 export {withHooksFactory} from "./withHooksFactory";
 export {withSkeletone} from "./withSkeletone";
 export {compose, curry} from "ramda";
+export {withLoadingScreen} from "./withLoadingScreen";
 export default {};
