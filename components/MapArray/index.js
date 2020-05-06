@@ -23,12 +23,21 @@ export const MapArray = React.memo(
       <>
         {array.map((object = {}, index) =>
           typeof children === "function"
-            ? children({key: index, object: object, ...rest}, index)
+            ? children(
+                {
+                  key: index,
+                  object: object,
+                  noBorder: array.length === index + 1,
+                  ...rest
+                },
+                index
+              )
             : Children.map(children, (child) =>
                 cloneElement(child, {
                   key: index,
                   object: object,
                   index,
+                  noBorder: array.length === index + 1,
                   ...rest
                 })
               )

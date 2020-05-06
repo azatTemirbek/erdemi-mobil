@@ -13,7 +13,7 @@ const defaultProps = {
 export const withLoadingScreen = curry((extraProps, Component) => {
   const {size, color, backgroundColor, zIndex, loading} = merge(
     defaultProps,
-    extraProps
+    extraProps || {}
   );
   const displayName = `withLoadingScreen(${
     Component.displayName || Component.name
