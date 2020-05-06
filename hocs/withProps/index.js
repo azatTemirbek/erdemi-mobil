@@ -1,9 +1,10 @@
 import hoistStatics from "hoist-non-react-statics";
 import createElement from "../utils/createElement";
+import {curry} from "ramda";
 /**
  * @param {Object|Function} extraProps used to add extra props to compose
  */
-export const withProps = (extraProps = {}) => (Component) => {
+export const withProps = curry((extraProps = {}, Component) => {
   const displayName = `withProps(${Component.displayName || Component.name})`;
   const C = (remainingProps) =>
     createElement(Component, {
@@ -16,6 +17,6 @@ export const withProps = (extraProps = {}) => (Component) => {
   C.WrappedComponent = Component;
   /** used to copy static methods */
   return hoistStatics(C, Component);
-};
+});
 
 export default withProps;

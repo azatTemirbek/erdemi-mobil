@@ -60,7 +60,7 @@ export class DatePickerInput extends Component {
   onDayPress = (day) => {
     this.selected = day.dateString;
     this.props.onChangeText(this.selected);
-    // this.forceUpdate(); 
+    // this.forceUpdate();
   };
   /** renders right side of the listItem */
   render() {
