@@ -17,7 +17,12 @@ export default class ValidatorJS {
       (acc, [key, {required, ...ObjVal}]) => {
         /** state is always string meed to be converted */
         values[key] = ObjVal.type === "number" ? +values[key] : values[key];
-        acc[key] = {presence: required, ...ObjVal};
+        // acc[key] = {presence: required, ...ObjVal};
+        acc[key] = {
+          presence:
+            ObjVal.type === "number" ? required : {allowEmpty: !required},
+          ...ObjVal
+        };
         return acc;
       },
       {}
