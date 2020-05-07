@@ -20,7 +20,11 @@ export default class ValidatorJS {
         // acc[key] = {presence: required, ...ObjVal};
         acc[key] = {
           presence:
-            ObjVal.type === "number" ? required : {allowEmpty: !required},
+            ObjVal.type === "number"
+              ? required
+              : required
+              ? {allowEmpty: !required}
+              : required,
           ...ObjVal
         };
         return acc;

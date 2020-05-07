@@ -21,7 +21,7 @@ export class XForm extends Component {
   /**will add onParentChange hook and will trigger the function when _onSelectCore is activated */
   _initTriggers = (childKey, parentKey, onParentChange) => {
     /** if the there is no anything - initiate*/
-    if (this.triggers4ComboRemotes[parentKey]) {
+    if (!this.triggers4ComboRemotes[parentKey]) {
       this.triggers4ComboRemotes[parentKey] = [{childKey, onParentChange}];
     } else if (
       /** if not contains in array - push */
@@ -62,7 +62,10 @@ export class XForm extends Component {
             /** if executed is array than set the options */
             options[trigger.childKey] = result;
           } else {
-            console.error("onParentChange result is", result);
+            console.warn(
+              "it is goog to return [{value,text}] if you are changing options of the child input,onParentChange result is",
+              result
+            );
           }
         } else {
           console.error(
@@ -73,6 +76,17 @@ export class XForm extends Component {
         this.setState({options});
       });
     }
+  };
+  /**
+   * mostly used with parentKey: "parentKey", onParentChange: this.resetMe
+   * will reset curretn field if parent changes
+   */
+  _resetMe = (value, childKey, values) => {
+    values[childKey] = undefined;
+    this.setState({
+      values
+    });
+    return [];
   };
   /** used set default values */
   _setDefaultValues = (defaultValues = this.defaultValues) => {
@@ -85,6 +99,7 @@ export class XForm extends Component {
     let {values, errors} = this.state;
     values[inputName] = value;
     errors[inputName] = value ? undefined : errors[inputName]; //cleaup if edited
+    this._runTriggers(inputName, value);
     this.setState({values, errors});
   };
   /** used on selection change */
