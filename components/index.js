@@ -42,7 +42,7 @@ export {LanguageDropDownView} from "./LanguageDropDownView";
 /** Native Extend */
 export {TouchableOpacity} from "./TouchableOpacity";
 /** docs https://github.com/FullstackStation/react-native-svg-animated-linear-gradient */
-// export {SvgAnimatedLinearGradient as SvgAnimatedLinearGradiend} from "react-native-svg-animated-linear-gradient";
+export {SvgAnimatedLinearGradient} from "react-native-svg-animated-linear-gradient";
 /** docs: https://github.com/APSL/react-native-keyboard-aware-scroll-view */
 export {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
