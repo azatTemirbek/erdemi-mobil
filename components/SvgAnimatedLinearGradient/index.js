@@ -14,7 +14,7 @@ import Svg, {
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 const {interpolate} = require("d3-interpolate");
-export class SvgAnimatedLinearGradient extends Component {
+export class SvgAnimatedLinearGradient1 extends Component {
   constructor(props) {
     super(props);
 
@@ -152,9 +152,9 @@ export class SvgAnimatedLinearGradient extends Component {
     );
   }
 }
-export default SvgAnimatedLinearGradient;
+export default SvgAnimatedLinearGradient1;
 
-SvgAnimatedLinearGradient.propTypes = {
+SvgAnimatedLinearGradient1.propTypes = {
   primaryColor: PropTypes.string,
   secondaryColor: PropTypes.string,
   duration: PropTypes.number,
@@ -165,7 +165,7 @@ SvgAnimatedLinearGradient.propTypes = {
   x2: PropTypes.string,
   y2: PropTypes.string
 };
-SvgAnimatedLinearGradient.defaultProps = {
+SvgAnimatedLinearGradient1.defaultProps = {
   primaryColor: "#eeeeee",
   secondaryColor: "#dddddd",
   duration: 2000,
