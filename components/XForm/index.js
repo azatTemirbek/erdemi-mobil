@@ -20,22 +20,32 @@ export class XForm extends Component {
   }
   /**will add onParentChange hook and will trigger the function when _onSelectCore is activated */
   _initTriggers = (childKey, parentKey, onParentChange) => {
-    /** if the there is no anything - initiate*/
-    if (!this.triggers4ComboRemotes[parentKey]) {
-      this.triggers4ComboRemotes[parentKey] = [{childKey, onParentChange}];
-    } else if (
-      /** if not contains in array - push */
-      Array.isArray(this.triggers4ComboRemotes[parentKey]) &&
-      this.triggers4ComboRemotes[parentKey].filter(
-        (item) => item.childKey === childKey
-      ).length === 0
-    ) {
-      this.triggers4ComboRemotes[parentKey].push({
-        childKey,
-        onParentChange
+    if (Array.isArray(parentKey)) {
+      parentKey.map((pKey, index) => {
+        this._initTriggers(
+          childKey,
+          pKey,
+          Array.isArray(onParentChange) ? onParentChange[index] : onParentChange
+        );
       });
+    } else {
+      /** if the there is no anything - initiate*/
+      if (!this.triggers4ComboRemotes[parentKey]) {
+        this.triggers4ComboRemotes[parentKey] = [{childKey, onParentChange}];
+      } else if (
+        /** if not contains in array - push */
+        Array.isArray(this.triggers4ComboRemotes[parentKey]) &&
+        this.triggers4ComboRemotes[parentKey].filter(
+          (item) => item.childKey === childKey
+        ).length === 0
+      ) {
+        this.triggers4ComboRemotes[parentKey].push({
+          childKey,
+          onParentChange
+        });
+      }
+      /** else case is useless since we will not do anything */
     }
-    /** else case is useless since we will not do anything */
   };
   /** used to run triggers */
   _runTriggers = (inputName, value) => {
@@ -49,7 +59,8 @@ export class XForm extends Component {
           options[trigger.childKey] = trigger.onParentChange;
           /** if provided value is a function execute the function */
         } else if (typeof trigger.onParentChange === "function") {
-          let result = trigger.onParentChange(value, trigger.childKey, values);
+          let result =
+            trigger.onParentChange(value, trigger.childKey, values) || [];
           /** if executed is a promise then give callback*/
           if (result.then && typeof result.then === "function") {
             result.then((data) => {
@@ -62,10 +73,7 @@ export class XForm extends Component {
             /** if executed is array than set the options */
             options[trigger.childKey] = result;
           } else {
-            console.warn(
-              "it is goog to return [{value,text}] if you are changing options of the child input,onParentChange result is",
-              result
-            );
+            console.error("onParentChange result is", result);
           }
         } else {
           console.error(
@@ -80,13 +88,15 @@ export class XForm extends Component {
   /**
    * mostly used with parentKey: "parentKey", onParentChange: this.resetMe
    * will reset curretn field if parent changes
+   * optimized with if statement
    */
   _resetMe = (value, childKey, values) => {
-    values[childKey] = undefined;
-    this.setState({
-      values
-    });
-    return [];
+    if (values[childKey] !== undefined) {
+      values[childKey] = undefined;
+      this.setState({
+        values
+      });
+    }
   };
   /** used set default values */
   _setDefaultValues = (defaultValues = this.defaultValues) => {
