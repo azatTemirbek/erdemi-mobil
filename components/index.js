@@ -41,6 +41,10 @@ export {CompanyMenuView} from "./CompanyMenuView";
 export {LanguageDropDownView} from "./LanguageDropDownView";
 /** Native Extend */
 export {TouchableOpacity} from "./TouchableOpacity";
-/** used to sceletone */
+/** docs https://github.com/FullstackStation/react-native-svg-animated-linear-gradient */
+// export {SvgAnimatedLinearGradient} from "react-native-svg-animated-linear-gradient";
 export {SvgAnimatedLinearGradient} from "./SvgAnimatedLinearGradient";
+/** docs: https://github.com/APSL/react-native-keyboard-aware-scroll-view */
+export {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+
 export default {};

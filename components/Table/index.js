@@ -4,7 +4,7 @@ import {generateStyles} from "./styles";
 import {Text} from "../";
 import PropTypes from "prop-types";
 import {Rect} from "react-native-svg";
-import SvgAnimatedLinearGradient from "../SvgAnimatedLinearGradient";
+import SvgAnimatedLinearGradient from "react-native-svg-animated-linear-gradient";
 const CellSkeleton = ({
   loading = false,
   width = 100,

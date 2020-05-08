@@ -4345,7 +4345,7 @@ d3-color@1:
   resolved "https://registry.yarnpkg.com/d3-color/-/d3-color-1.4.0.tgz#89c45a995ed773b13314f06460df26d60ba0ecaf"
   integrity sha512-TzNPeJy2+iEepfiL92LAAB7fvnp/dV2YwANPVHdDWmYMm23qIJBYww3qT8I8C1wXrmrg4UWs7BKc2tKIgyjzHg==
 
-d3-interpolate@^1.4.0:
+d3-interpolate@^1.1.5, d3-interpolate@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/d3-interpolate/-/d3-interpolate-1.4.0.tgz#526e79e2d80daa383f9e0c1c1c7dcc0f0583e987"
   integrity sha512-V9znK0zc3jOPV4VD2zZn0sDhZU3WAE2bmlxdIwwQPPzPjvyLkd8B3JUVdS1IDUFDkWZ72c9qnv1GK2ZagTZ8EA==
@@ -10158,6 +10158,19 @@ react-native-image-crop-picker@^0.25.3:
   resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.25.3.tgz#46ee28b4a0a187240e388bd28a44cf8c274caec6"
   integrity sha512-jQ416WXEiEQ3w057QOYU++8/mDqYb2A/AGZY/NwR5eKda/z8a4wncWKj7oF9KBAHNKE1TmPrl9Rm0GZ0Jrzp6A==
 
+react-native-iphone-x-helper@^1.0.3:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
+  integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
+
+react-native-keyboard-aware-scroll-view@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.9.1.tgz#9e54b565a5f19b30bed12221d48921781f7630af"
+  integrity sha512-tBZ8rmjELN0F6t5UBp5CW3NYmZXgVnJSzVCssv/OqG2t6kiB+OUTqxNvUP24K+HARX4H+XaW0aEJSFQkQCv6KA==
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-iphone-x-helper "^1.0.3"
+
 react-native-modal@^11.4.0:
   version "11.5.6"
   resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-11.5.6.tgz#bb25a78c35a5e24f45de060e5f64284397d38a87"
@@ -10183,6 +10196,13 @@ react-native-storybook-loader@^1.8.1:
     findup "^0.1.5"
     glob "^7.1.1"
     yargs "^14.0.0"
+
+react-native-svg-animated-linear-gradient@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/react-native-svg-animated-linear-gradient/-/react-native-svg-animated-linear-gradient-0.3.4.tgz#a4cc43c49e9f0ae2d3764e9013aaf6a2e33e0603"
+  integrity sha512-WO+LInsXjSuNLFXoRG/hhfhT6ZYRHEgIrRVbz8XVShAZct6cs/1g6nOa6P0+NdxJVAKDvqTAtUT3dmA/pzrQ+A==
+  dependencies:
+    d3-interpolate "^1.1.5"
 
 react-native-svg@^12.1.0:
   version "12.1.0"
