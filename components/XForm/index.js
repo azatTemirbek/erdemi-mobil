@@ -59,21 +59,20 @@ export class XForm extends Component {
           options[trigger.childKey] = trigger.onParentChange;
           /** if provided value is a function execute the function */
         } else if (typeof trigger.onParentChange === "function") {
-          let result =
-            trigger.onParentChange(value, trigger.childKey, values) || [];
+          let result = trigger.onParentChange(value, trigger.childKey, values);
           /** if executed is a promise then give callback*/
-          if (result.then && typeof result.then === "function") {
+          if (result && result.then && typeof result.then === "function") {
             result.then((data) => {
               /** if callback result is array set the data */
               options[trigger.childKey] = Array.isArray(data) ? data : [];
               this.setState({options});
               return data;
             });
-          } else if (Array.isArray(result)) {
+          } else if (result && Array.isArray(result)) {
             /** if executed is array than set the options */
             options[trigger.childKey] = result;
           } else {
-            console.error("onParentChange result is", result);
+            console.warn("onParentChange result is", result);
           }
         } else {
           console.error(
