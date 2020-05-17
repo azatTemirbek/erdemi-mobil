@@ -241,7 +241,11 @@ export class Table extends React.Component {
         width={this.props.cellWidth}
         loading={this.props.loading || this.state.loading}
         key={item + index}
-        style={[this.styles.cellStyle, this.props.cellStyle]}>
+        style={[
+          this.styles.cellStyle,
+          this.props.cellStyle,
+          {backgroundColor: i % 2 ? this.props.oddColor : this.props.evenColor}
+        ]}>
         {this.props[keyVal] ? (
           this.renderer(
             {
@@ -374,6 +378,20 @@ export class Table extends React.Component {
       </View>
     );
   };
+  formatColumnRev = ({item, index}) => {
+    let key = JSON.stringify(item);
+    return (
+      <View key={"item" + key + index} style={this.styles.column}>
+        {item.columnData.map((value, i, array) =>
+          this.cell(
+            {keyVal: value.key, item: value.value, index: i + index + key},
+            array,
+            i
+          )
+        )}
+      </View>
+    );
+  };
   getKeys = (forHeader = false) => {
     let headerCells = [];
     let {data, fixedRowHeaderData} = this.props;
@@ -441,7 +459,10 @@ export class Table extends React.Component {
   renderRowRev = () => {
     let data = [];
     this.props.data.map((item) => {
-      let columnData = this.getKeys().map((key) => item[key]);
+      let columnData = this.getKeys().map((key) => ({
+        value: item[key],
+        key
+      }));
       data.push({
         key: "notsupported",
         columnData
@@ -460,7 +481,7 @@ export class Table extends React.Component {
             horizontal={true}
             data={data}
             keyExtractor={(item, index) => JSON.stringify(item) + index}
-            renderItem={this.formatColumn}
+            renderItem={this.formatColumnRev}
             stickyHeaderIndices={[0]}
             onScroll={this.scrollEvent}
             scrollEventThrottle={16}
@@ -568,7 +589,9 @@ Table.propTypes = {
     PropTypes.element,
     PropTypes.bool
   ]),
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  oddColor: PropTypes.string,
+  evenColor: PropTypes.string
 };
 
 Table.defaultProps = {
@@ -623,6 +646,8 @@ Table.defaultProps = {
   /** footer cells */
   footerCellTextProps: {},
   footerCell: false,
-  loading: false
+  loading: false,
+  oddColor: "#FFF8F8",
+  evenColor: "transparent"
 };
 export default Table;
