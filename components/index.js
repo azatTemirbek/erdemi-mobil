@@ -25,6 +25,7 @@ export {TextInput} from "./XForm/TextInput";
 export {DropDown} from "./XForm/DropDown";
 export {DropDownMulti} from "./XForm/DropDownMulti";
 export {DatePickerInput} from "./XForm/DatePickerInput";
+export {DateTimePickerInput} from "./XForm/DateTimePickerInput";
 export {Radio, RadioGroup} from "./XForm/RadioGroup";
 export {ImageInput} from "./XForm/ImageInput";
 /** need to merge */

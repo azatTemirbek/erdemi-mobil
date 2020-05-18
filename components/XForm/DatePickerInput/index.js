@@ -154,9 +154,9 @@ DatePickerInput.defaultProps = {
   renderRight: false,
   calendarProps: {},
   modalProps: {},
-  denyText: "Vazgeç",
-  translate: (key) => key,
-  confirmText: "Tamam"
+  denyText: "vazgec",
+  confirmText: "tamam",
+  translate: (key) => key
 };
 
 export default DatePickerInput;
