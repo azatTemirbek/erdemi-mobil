@@ -36,7 +36,7 @@ export class DateTimePickerInput extends Component {
       <>
         <TextInput editable={false} {...rest} renderRight={this.renderRight} />
         <DatePicker
-          style={{width: 200}}
+          style={{display: "none"}}
           ref={this.myRef}
           date={this.selected}
           mode={rest.mode || "date"}
