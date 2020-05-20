@@ -9,6 +9,6 @@ export default StyleSheet.create({
     borderRadius: 5,
     color: "#333333",
     paddingHorizontal: 10,
-    height: 48
+    minHeight: 48
   }
 });
