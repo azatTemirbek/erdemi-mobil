@@ -125,6 +125,9 @@ export class XForm extends Component {
       /** runs only once and only at start */
       this.elements[`${key}`] = extra;
       this.defaultValues = {...this.defaultValues, [key]: defaultValue};
+    } else {
+      /** runs on subsequent renders */
+      this.elements[`${key}`] = extra;
     }
   };
   /** core method */
