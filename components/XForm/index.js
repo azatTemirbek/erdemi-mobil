@@ -123,12 +123,9 @@ export class XForm extends Component {
   _initTrackingListAndDefaultValues = (key, extra, defaultValue) => {
     if (!Object.keys(this.elements).some((objkey) => objkey === key)) {
       /** runs only once and only at start */
-      this.elements[`${key}`] = extra;
       this.defaultValues = {...this.defaultValues, [key]: defaultValue};
-    } else {
-      /** runs on subsequent renders */
-      this.elements[`${key}`] = extra;
     }
+    this.elements[`${key}`] = extra;
   };
   /** core method */
   bindCoreDefaults = {
