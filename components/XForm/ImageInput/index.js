@@ -17,6 +17,7 @@ export class ImageInput extends Component {
     this.state = {
       modal: false
     };
+    this.options = {...this.options, ...props.options};
   }
   /** renders right side of the listItem */
   renderer = (
@@ -51,23 +52,29 @@ export class ImageInput extends Component {
       .filter((photo) => {
         return JSON.stringify(object) !== JSON.stringify(photo);
       });
-    onImageChange(photos);
+    /** will remove image if multiple is false */
+    onImageChange(this.options.multiple ? photos : undefined);
   };
+  /** return array of photos and also it is good for single amd multiple options */
   _addAndFilter = (newPhotos = []) => {
+    /** if single return last adding */
+    if (!this.options.multiple) {
+      return !!newPhotos.length ? newPhotos[0] : undefined;
+    }
+    /** if more than one  */
     let newArrayOfPhotos = [];
     let {value} = this.props;
     let photos = Array.isArray(value) ? value : value ? [value] : [];
     /** remove selected one if exists */
     newArrayOfPhotos = photos
       .map((item) => ({...item}))
-      .filter((photo) => {
-        return (
+      .filter(
+        (photo) =>
           newPhotos.findIndex((item) => {
             return photo.path === item.path;
           }) === -1
-        );
-      });
-    /** add the ne one */
+      );
+    /** add the new ones */
     newArrayOfPhotos = [...newArrayOfPhotos, ...newPhotos];
     return newArrayOfPhotos;
   };
@@ -77,7 +84,9 @@ export class ImageInput extends Component {
     this.setState({modal: false});
     ImagePicker.openPicker({...this.options, ...options}).then((images) => {
       let {onImageChange} = this.props;
-      onImageChange(this._addAndFilter(images));
+      onImageChange(
+        this._addAndFilter(Array.isArray(images) ? images : [images])
+      );
     });
   };
   /** opens Camera */
@@ -91,7 +100,6 @@ export class ImageInput extends Component {
       );
     });
   };
-
   /** opens selector */
   _openSelector = () => this.setState({modal: true});
   /** close selector */
@@ -146,6 +154,7 @@ export class ImageInput extends Component {
           <View
             style={[
               styles.ImageInputContainer,
+              !this.options.multiple && {flex: 1},
               renderRight && {width: "90%"},
               renderLeft && {width: "90%"},
               renderLeft && renderRight && {width: "80%"},
@@ -153,7 +162,13 @@ export class ImageInput extends Component {
             ]}>
             <MapArray
               {...rest}
-              array={photos}
+              array={
+                !!this.options.multiple
+                  ? photos
+                  : photos.length
+                  ? [photos[0]]
+                  : []
+              }
               fallback={
                 <View
                   key={"no-img"}
@@ -178,7 +193,10 @@ export class ImageInput extends Component {
                 return (
                   <Card
                     {...rest1}
-                    style={[styles.pillContainer]}
+                    style={[
+                      styles.pillContainer,
+                      !this.options.multiple && {flex: 1}
+                    ]}
                     onPress={this._onPillRemove(object)}
                     styleContent={[styles.styleContent, pillContainerStyle]}
                     image={{

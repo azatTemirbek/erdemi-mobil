@@ -16,7 +16,7 @@ export const Card = ({style, children, styleContent, image, onPress}) => {
 Card.propTypes = {
   image: PropTypes.any,
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  styleContent: PropTypes.object,
+  styleContent: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   children: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.arrayOf(PropTypes.element)

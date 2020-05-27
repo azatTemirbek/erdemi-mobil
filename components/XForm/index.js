@@ -290,8 +290,9 @@ export class XForm extends Component {
   _onImageChange = this._onChangeCore;
   /** image props handler */
   bindImageInputDefaults = {required: false};
-  bindImageInput = (key, extra = {}) => ({
+  bindImageInput = (key, {options, ...extra} = {}) => ({
     ...this.bindCore(key, {...this.bindImageInputDefaults, ...extra}),
+    options: options || {},
     onImageChange: this._onImageChange(key)
   });
   /** ####################################################################################  */
