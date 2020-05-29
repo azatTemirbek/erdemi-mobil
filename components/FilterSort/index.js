@@ -172,7 +172,7 @@ FilterSort.propTypes = {
   onChangeView: PropTypes.func,
   onFilter: PropTypes.func,
   translate: PropTypes.func,
-  filter: PropTypes.any
+  filters: PropTypes.any
 };
 
 FilterSort.defaultProps = {
@@ -209,7 +209,7 @@ FilterSort.defaultProps = {
   onChangeSort: () => {},
   onChangeView: () => {},
   onFilter: () => {},
-  filter: undefined,
+  filters: undefined,
   translate: (key) => key
 };
 

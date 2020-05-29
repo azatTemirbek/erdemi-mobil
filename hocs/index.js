@@ -1,5 +1,13 @@
 export {createElement} from "./utils/createElement";
-export {isClassComponent} from "./utils/isClassComponent";
+export {
+  isClassComponent,
+  isFunctionComponent,
+  isReactComponent,
+  isElement,
+  isDOMTypeElement,
+  isCompositeTypeElement,
+  renderer
+} from "./utils/isClassComponent";
 export {withColors} from "./withColors";
 export {withMarginPaddings} from "./withMarginPaddings";
 export {withShadows} from "./withShadows";
@@ -11,4 +19,5 @@ export {withHooksFactory} from "./withHooksFactory";
 export {withSkeletone} from "./withSkeletone";
 export {compose, curry} from "ramda";
 export {withLoadingScreen} from "./withLoadingScreen";
+export {withAlertModal} from "./withAlertModal";
 export default {};
