@@ -4,7 +4,8 @@ export const isClassComponent = (Component) =>
   Boolean(
     Component &&
       Component.prototype &&
-      typeof Component.prototype.render === "function"
+      typeof Component.prototype.render === "function" &&
+      !!Component.prototype.isReactComponent
   );
 
 export const isFunctionComponent = (component) =>

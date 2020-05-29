@@ -1,5 +1,5 @@
 import React, {createElement as CE} from "react";
-import isClassComponent from "./isClassComponent";
+import {isClassComponent} from "./isClassComponent";
 /**
  * used to merge the dom view
  * @param {Symbol} Component
