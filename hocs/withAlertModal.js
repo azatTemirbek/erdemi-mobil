@@ -1,9 +1,8 @@
 import React, {useState, useCallback, forwardRef} from "react";
 import hoistStatics from "hoist-non-react-statics";
-import {curry} from "ramda";
-import createElement from "./utils/createElement";
+import {curry, mergeAll} from "ramda";
 import {Block, Icon, Popup} from "../components";
-import {renderer, isCompositeTypeElement} from "./utils/isClassComponent";
+import {renderer} from "./utils/isClassComponent";
 
 export const withAlertModal = curry((Component) => {
   const displayName = `withAlertModal(${
@@ -86,23 +85,11 @@ export const withAlertModal = curry((Component) => {
         <Popup isVisible={isVisible} onCloseModal={closeModal} {...rest}>
           <Block center {...conatinerProps}>
             {renderer(icon, {})}
-            {/* {!!icon && (isCompositeTypeElement(icon)
-              ? icon
-              : createElement(icon, {}))} */}
-            {!!body &&
-              (isCompositeTypeElement(body) ? body : createElement(body, {}))}
-            {!!footer &&
-              (isCompositeTypeElement(footer)
-                ? footer
-                : createElement(footer, {}))}
+            {renderer(body, {})}
+            {renderer(footer, {})}
           </Block>
         </Popup>
-        <Component
-          ref={ref}
-          {...props}
-          {...screenProps}
-          screenProps={screenProps}
-        />
+        <Component {...mergeAll({ref, screenProps}, props, screenProps)} />
       </>
     );
   });
