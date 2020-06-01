@@ -59,7 +59,7 @@ export class ImageInput extends Component {
   _addAndFilter = (newPhotos = []) => {
     /** if single return last adding */
     if (!this.options.multiple) {
-      return !!newPhotos.length ? newPhotos[0] : undefined;
+      return newPhotos.length ? newPhotos[0] : undefined;
     }
     /** if more than one  */
     let newArrayOfPhotos = [];
@@ -163,7 +163,7 @@ export class ImageInput extends Component {
             <MapArray
               {...rest}
               array={
-                !!this.options.multiple
+                this.options.multiple
                   ? photos
                   : photos.length
                   ? [photos[0]]

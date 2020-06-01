@@ -29,6 +29,7 @@ export const withHooksFactory = (Hooks) => (key, args = {}) => (Component) => {
       if (error instanceof WithHooksError) {
         console.error(error);
       }
+      // eslint-disable-next-line no-alert
       alert(error);
       mergedProps = {...componentProps};
     } finally {
