@@ -6,6 +6,7 @@ import ValidatorJS from "./Validators/Validator";
 import ValidatorAdapter from "./Validators/ValidatorAdapter";
 const initalState = {values: {}, options: {}, errors: {}, isVisible: false};
 export class XForm extends Component {
+  initalState = initalState;
   elements = {};
   defaultValues = {};
   triggers4ComboRemotes = {};
