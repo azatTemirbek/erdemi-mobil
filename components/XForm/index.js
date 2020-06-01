@@ -329,7 +329,7 @@ export class XForm extends Component {
     });
   /** default _handleSubmit version */
   _handleReset = () => {
-    console.warning("implement function _handleReset on your Form component");
+    console.warn("implement function _handleReset on your Form component");
   };
   /** bind button to submit */
   bindOnResetButton = (key = "_handleReset") => {
