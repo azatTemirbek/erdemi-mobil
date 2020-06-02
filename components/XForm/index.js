@@ -91,10 +91,13 @@ export class XForm extends Component {
    * optimized with if statement
    */
   _resetMe = (value, childKey, values) => {
-    if (values[childKey] !== undefined) {
+    let {errors} = this.state;
+    if (values[childKey] !== undefined || errors[childKey] !== undefined) {
       values[childKey] = undefined;
+      errors[childKey] = undefined;
       this.setState({
-        values
+        values,
+        errors
       });
     }
   };
