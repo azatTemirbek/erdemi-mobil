@@ -43,9 +43,9 @@ export class TextInput extends Component {
       error,
       errorStyle,
       required,
+      shadow,
       ...rest
     } = this.props;
-
     return (
       <>
         <Label {...{labelStyle, label, required}} />
@@ -54,6 +54,7 @@ export class TextInput extends Component {
           row
           flex={false}
           smallCard
+          shadow={shadow}
           style={[styles.container, error && {borderColor: "red"}, style]}>
           {!!renderLeft && (
             <Block
