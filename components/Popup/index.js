@@ -27,7 +27,9 @@ export const Popup = ({
   withScroll = true,
   containerStyle,
   contentStyle,
-  children
+  children,
+  headerContainerStyle = {},
+  ...modalProps
 }) => {
   const _closeAndGoBack = useCallback(() => {
     onCloseModal();
@@ -40,7 +42,8 @@ export const Popup = ({
       onBackdropPress={_closeAndGoBack}
       onRequestClose={_closeAndGoBack}
       propagateSwipe
-      transparent>
+      transparent
+      {...modalProps}>
       <SafeAreaView style={[styles.container, containerStyle]}>
         {top && (
           <TouchableOpacity
@@ -61,7 +64,7 @@ export const Popup = ({
               borderTopLeftRadius: 0
             }
           ]}>
-          <View style={styles.header}>
+          <View style={[styles.header, headerContainerStyle]}>
             <Tag {...titleProps}>{title}</Tag>
             {!disableCloseBtn && (
               <TouchableOpacity onPress={_closeAndGoBack}>

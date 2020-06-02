@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import {BaseColor, FontFamily} from "../../../config";
 import PropTypes from "prop-types";
-import {Text, Icon, TextInput, TouchableOpacity, Block} from "../../";
-import Modal from "react-native-modal";
+import {Text, Icon, TextInput, TouchableOpacity, Block, Popup} from "../../";
 import {Calendar} from "react-native-calendars";
 /** calendar theme */
 const theme = {
@@ -19,7 +18,6 @@ const theme = {
   textDayFontFamily: FontFamily.default,
   textMonthFontFamily: FontFamily.default,
   textDayHeaderFontFamily: FontFamily.default,
-  textMonthFontWeight: "bold",
   textDayFontSize: 14,
   textMonthFontSize: 16,
   textDayHeaderFontSize: 14
@@ -51,16 +49,14 @@ export class DatePickerInput extends Component {
       </TouchableOpacity>
     );
   };
-  onCancel = (day) => {
+  onCancel = () => {
     this.selected = this.old;
     this.props.onChangeText(this.old);
     this.closeModal();
-    // this.forceUpdate();
   };
   onDayPress = (day) => {
     this.selected = day.dateString;
     this.props.onChangeText(this.selected);
-    // this.forceUpdate();
   };
   /** renders right side of the listItem */
   render() {
@@ -71,46 +67,38 @@ export class DatePickerInput extends Component {
     return (
       <>
         <TextInput editable={false} {...rest} renderRight={this.renderRight} />
-        <Modal
+        <Popup
           isVisible={modalVisible}
-          onRequestClose={this.onCancel}
-          backdropColor="rgba(0, 0, 0, 0.5)"
-          backdropOpacity={1}
-          animationIn="fadeIn"
-          animationInTiming={600}
-          animationOutTiming={600}
-          backdropTransitionInTiming={600}
-          backdropTransitionOutTiming={600}
+          headerContainerStyle={{display: "none"}}
+          onCloseModal={this.onCancel}
           {...this.props.modalProps}>
-          <Block card center middle flex={false}>
-            <Block whiteColor card flex={false} style={{width: "100%"}}>
-              <Calendar
-                style={{borderRadius: 8}}
-                monthFormat={"dd-MM-yyyy"}
-                theme={theme}
-                onDayPress={this.onDayPress}
-                markedDates={{
-                  [this.selected]: {
-                    selected: true,
-                    disableTouchEvent: true,
-                    selectedDotColor: "orange"
-                  }
-                }}
-                {...this.props.calendarProps}
-              />
-              <Block flex={false} row space="between" padding={15}>
-                <TouchableOpacity flex={false} onPress={this.onCancel}>
-                  <Text body1>{this.props.translate(this.props.denyText)}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity flex={false} onPress={this._applyPress}>
-                  <Text body1 primaryColor>
-                    {this.props.translate(this.props.confirmText)}
-                  </Text>
-                </TouchableOpacity>
-              </Block>
+          <Block card flex={false}>
+            <Calendar
+              style={{borderRadius: 8}}
+              monthFormat={"dd-MM-yyyy"}
+              theme={theme}
+              onDayPress={this.onDayPress}
+              markedDates={{
+                [this.selected]: {
+                  selected: true,
+                  disableTouchEvent: true,
+                  selectedDotColor: "orange"
+                }
+              }}
+              {...this.props.calendarProps}
+            />
+            <Block flex={false} row space="between" padding={15}>
+              <TouchableOpacity flex={false} onPress={this.onCancel}>
+                <Text body2>{this.props.translate(this.props.denyText)}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity flex={false} onPress={this._applyPress}>
+                <Text body2 primaryColor>
+                  {this.props.translate(this.props.confirmText)}
+                </Text>
+              </TouchableOpacity>
             </Block>
           </Block>
-        </Modal>
+        </Popup>
       </>
     );
   }
