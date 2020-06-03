@@ -1,10 +1,17 @@
 import React, {Children, cloneElement} from "react";
-import {Animated, FlatList, ScrollView, View} from "react-native";
+import {
+  Animated,
+  FlatList,
+  ScrollView,
+  View,
+  RefreshControl
+} from "react-native";
 import {generateStyles} from "./styles";
 import {Text} from "../";
 import PropTypes from "prop-types";
 import {Rect} from "react-native-svg";
 import SvgAnimatedLinearGradient from "react-native-svg-animated-linear-gradient";
+import {BaseColor} from "../../config";
 const CellSkeleton = ({
   loading = false,
   width = 100,
@@ -64,7 +71,10 @@ export class Table extends React.Component {
     let {fixedRowHeader} = this.props;
     if (fixedRowHeader) {
       this.listener = this.scrollPosition.addListener((position) => {
-        this.headerScrollView.scrollTo({x: position.value, animated: false});
+        this.headerScrollView.scrollTo({
+          x: position.value,
+          animated: false
+        });
         /** will only work with footer is enabled  */
         if (this.props.fixedRowFooter) {
           this.footerScrollView.scrollTo({
@@ -244,7 +254,9 @@ export class Table extends React.Component {
         style={[
           this.styles.cellStyle,
           this.props.cellStyle,
-          {backgroundColor: i % 2 ? this.props.oddColor : this.props.evenColor}
+          {
+            backgroundColor: i % 2 ? this.props.oddColor : this.props.evenColor
+          }
         ]}>
         {this.props[keyVal] ? (
           this.renderer(
@@ -384,7 +396,11 @@ export class Table extends React.Component {
       <View key={"item" + key + index} style={this.styles.column}>
         {item.columnData.map((value, i, array) =>
           this.cell(
-            {keyVal: value.key, item: value.value, index: i + index + key},
+            {
+              keyVal: value.key,
+              item: value.value,
+              index: i + index + key
+            },
             array,
             i
           )
@@ -492,16 +508,41 @@ export class Table extends React.Component {
       </View>
     );
   };
-
+  renderEmpty = () =>
+    this.props.renderEmpty ? (
+      this.renderer({hasRefresher: !!this.props.onRefresh}, "renderEmpty")
+    ) : (
+      <Text m4 p4 center middle>
+        {this.props.translate(
+          this.props.onRefresh ? "noData" : "pullToRefresh"
+        )}
+      </Text>
+    );
   render() {
     return (
       <FlatList
         style={[this.styles.container, this.props.style]}
+        refreshControl={
+          this.props.onRefresh && (
+            <RefreshControl
+              colors={[BaseColor.primaryColor]}
+              tintColor={BaseColor.primaryColor}
+              refreshing={this.props.loading}
+              onRefresh={() => this.props.onRefresh && this.props.onRefresh()}
+            />
+          )
+        }
         ListHeaderComponent={this.renderFixedRowHeader()}
         stickyHeaderIndices={[0]}
         keyExtractor={(item, index) => JSON.stringify(item) + index}
         data={[12]}
-        renderItem={this.props.reverse ? this.renderRowRev : this.renderRow}
+        renderItem={
+          !this.props.data.length
+            ? this.renderEmpty
+            : this.props.reverse
+            ? this.renderRowRev
+            : this.renderRow
+        }
         onEndReached={this.handleScrollEndReached}
         onEndReachedThreshold={0.005}
         ListFooterComponent={this.renderFixedRowFooter}
@@ -591,7 +632,14 @@ Table.propTypes = {
   ]),
   loading: PropTypes.bool,
   oddColor: PropTypes.string,
-  evenColor: PropTypes.string
+  evenColor: PropTypes.string,
+  onRefresh: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  renderEmpty: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.node,
+    PropTypes.element,
+    PropTypes.bool
+  ])
 };
 
 Table.defaultProps = {
@@ -648,6 +696,8 @@ Table.defaultProps = {
   footerCell: false,
   loading: false,
   oddColor: "#FFF8F8",
-  evenColor: "transparent"
+  evenColor: "transparent",
+  onRefresh: false,
+  renderEmpty: false
 };
 export default Table;

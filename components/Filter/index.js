@@ -6,26 +6,55 @@ import PropTypes from "prop-types";
 import {BaseColor} from "../../config";
 import Modal from "react-native-modal";
 
+const transForm = (options, value) =>
+  options.map((item) => ({
+    ...item,
+    checked: item.value === value
+  }));
 export class Filter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterOption: props.filterOption,
+      filterOption: transForm(props.filterOption, props.filterSelected),
+      // filterOption:  props.filterOption,
       filterSelected: props.filterSelected,
       modalVisible: false
     };
   }
 
-  componentDidMount() {
-    const {filterOption, filterSelected} = this.state;
-    this.setState({
-      filterOption: filterOption.map((item) => {
-        return {
+  // componentDidMount() {
+  //   const {filterOption, filterSelected} = this.state;
+  //   this.setState({
+  //     filterOption: filterOption.map((item) => {
+  //       return {
+  //         ...item,
+  //         checked: item.value === filterSelected.value
+  //       };
+  //     })
+  //   });
+  // }
+
+  static getDerivedStateFromProps(props, state) {
+    if (
+      (props.filterSelected !== "" &&
+        state.filterSelected !== props.filterSelected) ||
+      JSON.stringify(
+        state.filterOption.map((item) => {
+          let i = {...item};
+          delete i.checked;
+          return i;
+        })
+      ) !== JSON.stringify(props.filterOption.map((i) => ({...i})))
+    ) {
+      return {
+        filterOption: props.filterOption.map((item) => ({
           ...item,
-          checked: item.value === filterSelected.value
-        };
-      })
-    });
+          checked: item.value === state.filterSelected.value
+        })),
+        filterSelected: props.filterSelected
+      };
+    }
+    return null;
   }
 
   onSelectFilter(selected) {
