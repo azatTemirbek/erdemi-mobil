@@ -514,7 +514,7 @@ export class Table extends React.Component {
     ) : (
       <Text m4 p4 center middle>
         {this.props.translate(
-          this.props.onRefresh ? "noData" : "pullToRefresh"
+          !this.props.onRefresh ? "noData" : "pullToRefresh"
         )}
       </Text>
     );
