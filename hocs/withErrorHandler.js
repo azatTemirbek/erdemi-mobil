@@ -22,7 +22,7 @@ export const withErrorHandler = curry((Component) => {
         {!!error && (
           <Block flex={false} color="red" row p3>
             <Block flex={5} color="transparent">
-              <Text color="white">{"error"}</Text>
+              <Text color="white">{error}</Text>
             </Block>
             <TouchableOpacity
               flex={1}
