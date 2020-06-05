@@ -8,7 +8,7 @@ export const withErrorHandler = curry((Component) => {
   const displayName = `withErrorHandler(${
     Component.displayName || Component.name
   })`;
-  const C = forwardRef((props, ref) => {
+  const C = (props) => {
     let {error, dismissError} = props;
     !dismissError &&
       console.warn(
@@ -20,17 +20,24 @@ export const withErrorHandler = curry((Component) => {
     return (
       <>
         {!!error && (
-          <Block color="red" row space="between" p4>
-            <Text color="white">{error}</Text>
-            <TouchableOpacity onPress={dismiss}>
-              <Icon name="close" size={14} color="white" />
+          <Block flex={false} color="red" row p3>
+            <Block flex={5} color="transparent">
+              <Text color="white">{"error"}</Text>
+            </Block>
+            <TouchableOpacity
+              flex={1}
+              center
+              middle
+              color="transparent"
+              onPress={dismiss}>
+              <Icon name="close" color="white" type="font-awesome" size={20} />
             </TouchableOpacity>
           </Block>
         )}
-        <Component {...mergeAll({ref}, props)} />
+        <Component {...props} />
       </>
     );
-  });
+  };
   C.displayName = displayName;
   C.WrappedComponent = Component;
   return hoistStatics(C, Component);
