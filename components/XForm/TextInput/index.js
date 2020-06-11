@@ -6,6 +6,11 @@ import {Icon, Block, TouchableOpacity, Label, ErrorLabel} from "../..";
 import styles from "./styles";
 
 export class TextInput extends Component {
+  /** input ref methods */
+  focus = () => this._getRef().focus();
+  blur = () => this._getRef().blur();
+  clear = () => this._getRef().clear();
+  isFocused = () => this._getRef().isFocused();
   /** renders right side of the listItem */
   renderer = (
     keyVal = "",
@@ -72,6 +77,7 @@ export class TextInput extends Component {
               <Input
                 ref={(ref) => {
                   this.input = ref;
+                  this.props.ref && this.props.ref(ref);
                 }}
                 {...rest}
                 style={[
