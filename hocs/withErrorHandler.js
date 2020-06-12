@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import hoistStatics from "hoist-non-react-statics";
 import {curry} from "ramda";
 import {Block, Icon, Text, TouchableOpacity} from "../components";
@@ -16,6 +16,12 @@ export const withErrorHandler = curry((Component) => {
     const dismiss = useCallback(() => {
       dismissError && dismissError();
     }, [dismissError]);
+    /** will remove the error when navigated to another component */
+    useEffect(() => {
+      return () => {
+        dismiss();
+      };
+    }, [dismiss]);
     return (
       <>
         {!!error && (
