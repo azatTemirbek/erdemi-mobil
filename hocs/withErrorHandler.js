@@ -1,8 +1,7 @@
-import React, {useCallback, forwardRef} from "react";
+import React, {useCallback} from "react";
 import hoistStatics from "hoist-non-react-statics";
-import {curry, mergeAll} from "ramda";
+import {curry} from "ramda";
 import {Block, Icon, Text, TouchableOpacity} from "../components";
-import {renderer} from "./utils/isClassComponent";
 
 export const withErrorHandler = curry((Component) => {
   const displayName = `withErrorHandler(${

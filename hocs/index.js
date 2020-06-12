@@ -21,4 +21,5 @@ export {compose, curry} from "ramda";
 export {withLoadingScreen} from "./withLoadingScreen";
 export {withAlertModal} from "./withAlertModal";
 export {withErrorHandler} from "./withErrorHandler";
+export {withSecureText} from "./withSecureText";
 export default {};
