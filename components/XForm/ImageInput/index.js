@@ -26,7 +26,6 @@ export class ImageInput extends Component {
       openSelector: this._openSelector.bind(this),
       openGallery: this._openGallery.bind(this),
       openCamera: this._openCamera.bind(this),
-      parentRef: this._getRef.bind(this),
       name: this.props.name
     }
   ) => {
@@ -41,8 +40,6 @@ export class ImageInput extends Component {
       ? Children.map(component, (child) => cloneElement(child, {key, props}))
       : component;
   };
-  /**  used to get ref */
-  _getRef = (name = "input") => this[name];
   /** used to remove from the state */
   _onPillRemove = (object) => () => {
     let {value, onImageChange} = this.props;

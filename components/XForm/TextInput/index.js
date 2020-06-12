@@ -1,106 +1,188 @@
-import React, {Component, cloneElement, Children} from "react";
+import React, {cloneElement, Children} from "react";
 import {InteractionManager, TextInput as Input} from "react-native";
 import PropTypes from "prop-types";
 import {BaseColor} from "../../../config";
 import {Icon, Block, TouchableOpacity, Label, ErrorLabel} from "../..";
 import styles from "./styles";
-
-export class TextInput extends Component {
-  /** input ref methods */
-  focus = () => this._getRef().focus();
-  blur = () => this._getRef().blur();
-  clear = () => this._getRef().clear();
-  isFocused = () => this._getRef().isFocused();
-  /** renders right side of the listItem */
-  renderer = (
-    keyVal = "",
-    props = {
-      focusInput: this._focusInputWithKeyboard.bind(this),
-      parentRef: this._getRef.bind(this),
-      name: this.props.name
-    }
-  ) => {
-    let component = this.props[keyVal];
-    let key = JSON.stringify(props);
-    return typeof component === "function"
-      ? component({key, props})
-      : Children.map(component, (child) => cloneElement(child, {key, props}));
-  };
-  /**  used to get input ref */
-  _getRef = (name = "input") => this[name];
-  _focusInputWithKeyboard() {
+import {useCombinedRefs} from "../../../hooks";
+export const TextInput = React.forwardRef((props, ref) => {
+  const {
+    style,
+    inputStyle,
+    label,
+    labelStyle,
+    renderRightStyle,
+    renderLeftStyle,
+    renderLeft,
+    renderRight,
+    renderCenter,
+    renderCenterStyle,
+    error,
+    errorStyle,
+    required,
+    shadow,
+    ...rest
+  } = props;
+  const innerRef = React.useRef(null);
+  const combinedRef = useCombinedRefs(ref, innerRef);
+  const _focusInputWithKeyboard = () => {
     InteractionManager.runAfterInteractions(() => {
-      this._getRef().focus();
+      combinedRef.current.focus();
     });
-  }
-  render() {
-    const {
-      style,
-      inputStyle,
-      label,
-      labelStyle,
-      renderRightStyle,
-      renderLeftStyle,
-      renderLeft,
-      renderRight,
-      renderCenter,
-      renderCenterStyle,
-      error,
-      errorStyle,
-      required,
-      shadow,
-      ...rest
-    } = this.props;
-    return (
-      <>
-        <Label {...{labelStyle, label, required}} />
-        <Block
-          p1
-          row
-          flex={false}
-          smallCard
-          shadow={shadow}
-          style={[styles.container, error && {borderColor: "red"}, style]}>
-          {!!renderLeft && (
-            <Block
-              flex={150}
-              center
-              col
-              style={[renderLeftStyle, {justifySelf: "flex-start"}]}>
-              {this.renderer("renderLeft")}
-            </Block>
-          )}
-          <Block flex={900} style={renderCenterStyle}>
-            {renderCenter ? (
-              this.renderer("renderCenter")
-            ) : (
-              <Input
-                ref={(ref) => {
-                  this.input = ref;
-                  this.props.ref && this.props.ref(ref);
-                }}
-                {...rest}
-                style={[
-                  styles.baseInput,
-                  // {backgroundColor:"green"},
-                  inputStyle
-                ]}
-              />
-            )}
+  };
+  const defaultProps = {
+    focusInput: _focusInputWithKeyboard,
+    parentRef: combinedRef,
+    name: props.name
+  };
+  const renderer = (keyVal = "", rProps = defaultProps) => {
+    let component = props[keyVal];
+    let key = JSON.stringify(rProps);
+    return typeof component === "function"
+      ? component({key, props: rProps})
+      : Children.map(component, (child) =>
+          cloneElement(child, {key, props: rProps})
+        );
+  };
+
+  return (
+    <>
+      <Label {...{labelStyle, label, required}} />
+      <Block
+        p1
+        row
+        flex={false}
+        smallCard
+        shadow={shadow}
+        style={[styles.container, error && {borderColor: "red"}, style]}>
+        {!!renderLeft && (
+          <Block
+            flex={150}
+            center
+            col
+            style={[renderLeftStyle, {justifySelf: "flex-start"}]}>
+            {renderer("renderLeft", defaultProps)}
           </Block>
-          {!!renderRight && (
-            <Block
-              flex={150}
-              style={[renderRightStyle, {justifySelf: "flex-end"}]}>
-              {this.renderer("renderRight")}
-            </Block>
+        )}
+        <Block flex={900} style={renderCenterStyle}>
+          {renderCenter ? (
+            renderer("renderCenter", defaultProps)
+          ) : (
+            <Input
+              ref={combinedRef}
+              {...rest}
+              style={[styles.baseInput, inputStyle]}
+            />
           )}
         </Block>
-        <ErrorLabel {...{errorStyle, error}} />
-      </>
-    );
-  }
-}
+        {!!renderRight && (
+          <Block
+            flex={150}
+            style={[renderRightStyle, {justifySelf: "flex-end"}]}>
+            {renderer("renderRight", defaultProps)}
+          </Block>
+        )}
+      </Block>
+      <ErrorLabel {...{errorStyle, error}} />
+    </>
+  );
+});
+// class TextInput1 extends Component {
+//   /** input ref methods */
+//   focus = () => this._getRef().focus();
+//   blur = () => this._getRef().blur();
+//   clear = () => this._getRef().clear();
+//   isFocused = () => this._getRef().isFocused();
+//   /** renders right side of the listItem */
+//   renderer = (
+//     keyVal = "",
+//     props = {
+//       focusInput: this._focusInputWithKeyboard.bind(this),
+//       parentRef: this._getRef.bind(this),
+//       name: this.props.name
+//     }
+//   ) => {
+//     let component = this.props[keyVal];
+//     let key = JSON.stringify(props);
+//     return typeof component === "function"
+//       ? component({key, props})
+//       : Children.map(component, (child) => cloneElement(child, {key, props}));
+//   };
+//   /**  used to get input ref */
+//   _getRef = (name = "input") => this[name];
+//   _focusInputWithKeyboard() {
+//     InteractionManager.runAfterInteractions(() => {
+//       this._getRef().focus();
+//     });
+//   }
+//   render() {
+//     const {
+//       style,
+//       inputStyle,
+//       label,
+//       labelStyle,
+//       renderRightStyle,
+//       renderLeftStyle,
+//       renderLeft,
+//       renderRight,
+//       renderCenter,
+//       renderCenterStyle,
+//       error,
+//       errorStyle,
+//       required,
+//       shadow,
+//       ...rest
+//     } = this.props;
+//     return (
+//       <>
+//         <Label {...{labelStyle, label, required}} />
+//         <Block
+//           p1
+//           row
+//           flex={false}
+//           smallCard
+//           shadow={shadow}
+//           style={[styles.container, error && {borderColor: "red"}, style]}>
+//           {!!renderLeft && (
+//             <Block
+//               flex={150}
+//               center
+//               col
+//               style={[renderLeftStyle, {justifySelf: "flex-start"}]}>
+//               {this.renderer("renderLeft")}
+//             </Block>
+//           )}
+//           <Block flex={900} style={renderCenterStyle}>
+//             {renderCenter ? (
+//               this.renderer("renderCenter")
+//             ) : (
+//               <Input
+//                 ref={(ref) => {
+//                   this.input = ref;
+//                   this.props.ref && this.props.ref(ref);
+//                 }}
+//                 {...rest}
+//                 style={[
+//                   styles.baseInput,
+//                   // {backgroundColor:"green"},
+//                   inputStyle
+//                 ]}
+//               />
+//             )}
+//           </Block>
+//           {!!renderRight && (
+//             <Block
+//               flex={150}
+//               style={[renderRightStyle, {justifySelf: "flex-end"}]}>
+//               {this.renderer("renderRight")}
+//             </Block>
+//           )}
+//         </Block>
+//         <ErrorLabel {...{errorStyle, error}} />
+//       </>
+//     );
+//   }
+// }
 
 TextInput.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
