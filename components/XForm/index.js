@@ -4,15 +4,17 @@ import {Icon, TouchableOpacity} from "../";
 import PropTypes from "prop-types";
 import ValidatorJS from "./Validators/Validator";
 import ValidatorAdapter from "./Validators/ValidatorAdapter";
+import {clone} from "ramda";
 const initalState = {values: {}, options: {}, errors: {}, isVisible: false};
 export class XForm extends Component {
   initalState = initalState;
+  clone = clone;
   elements = {};
   defaultValues = {};
   triggers4ComboRemotes = {};
   constructor(props) {
     super(props);
-    this.state = {...initalState};
+    this.state = clone(initalState);
     this.validator = new ValidatorAdapter(
       this,
       props.validator,
@@ -328,7 +330,7 @@ export class XForm extends Component {
   /** ################################### RESET BUTTON ###################################  */
   /** will reset the form to be able to add new values */
   reset = (key = "_handleReset") =>
-    this.setState({...initalState}, () => {
+    this.setState(clone(initalState), () => {
       this[key]();
     });
   /** default _handleSubmit version */
