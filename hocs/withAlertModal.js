@@ -71,13 +71,13 @@ export const withAlertModal = curry((Component) => {
       }
       setConfig({isVisible: true, ...conf});
     }, []);
-    const openModalSucces = (conf) => openModal({...conf, type: "success"});
+    const openModalSuccess = (conf) => openModal({...conf, type: "success"});
     const openModalError = (conf) => openModal({...conf, type: "error"});
     let {body, footer, icon, isVisible, conatinerProps, ...rest} = config;
     const screenProps = {
       closeModal,
       openModal,
-      openModalSucces,
+      openModalSuccess,
       openModalError
     };
     return (
