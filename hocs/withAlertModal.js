@@ -9,6 +9,7 @@ export const withAlertModal = curry((Component) => {
     Component.displayName || Component.name
   })`;
   const C = forwardRef((props, ref) => {
+    /** modal props as a state config */
     const [config, setConfig] = useState({
       isVisible: false
     });
