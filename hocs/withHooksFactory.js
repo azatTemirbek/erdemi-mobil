@@ -9,32 +9,20 @@ class WithHooksError extends Error {
 export const withHooksFactory = (Hooks) => (key, args = {}) => (Component) => {
   const displayName = `withHooks(${Component.displayName || Component.name})`;
   const C = (componentProps = {}) => {
-    let mergedProps = {...componentProps};
-    try {
-      if (!Hooks[key]) {
-        throw new WithHooksError(key, "");
-      }
-      let fromHook = Hooks[key]({
-        ...Object.freeze({...componentProps}),
-        ...args
-      });
-      if (Array.isArray(fromHook)) {
-        throw new WithHooksError(
-          key,
-          "And Hooks Must returm Object not an Array"
-        );
-      }
-      mergedProps = {...mergedProps, ...fromHook};
-    } catch (error) {
-      if (error instanceof WithHooksError) {
-        console.error(error);
-      }
-      // eslint-disable-next-line no-alert
-      alert(error);
-      mergedProps = {...componentProps};
-    } finally {
-      return createElement(Component, {...mergedProps});
+    if (!Hooks[key]) {
+      throw new WithHooksError(key, "");
     }
+    const fromHook = Hooks[key]({
+      ...componentProps,
+      ...args
+    });
+    if (Array.isArray(fromHook)) {
+      throw new WithHooksError(
+        key,
+        "And Hooks Must returm Object not an Array"
+      );
+    }
+    return createElement(Component, {...componentProps, ...fromHook});
   };
   C.displayName = displayName;
   C.WrappedComponent = Component;
