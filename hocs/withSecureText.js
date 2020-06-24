@@ -40,31 +40,3 @@ export const withSecureText = (Component) => {
 };
 
 export default withSecureText;
-
-// const withSecureText1 = (TextInputComp) =>
-//   React.forwardRef((props, ref) => {
-//     const innerRef = React.useRef(null);
-//     const combinedRef = useCombinedRefs(ref, innerRef);
-//     const [secure, setSecure] = useState(true);
-//     return (
-//       <TextInputComp
-//         renderRight={({props}) => {
-//           return (
-//             <TouchableOpacity
-//               center
-//               middle
-//               onPress={() => setSecure((bool) => !bool)}>
-//               <Icon
-//                 name={secure ? "eye" : "eye-slash"}
-//                 size={22}
-//                 color={secure ? "#E5E5E5" : BaseColor.accentColor}
-//               />
-//             </TouchableOpacity>
-//           );
-//         }}
-//         secureTextEntry={secure}
-//         ref={combinedRef}
-//         {...props}
-//       />
-//     );
-//   });
