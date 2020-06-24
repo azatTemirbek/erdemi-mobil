@@ -8,7 +8,7 @@ class WithHooksError extends Error {
 /** used to add translate props with HOC */
 export const withHooksFactory = (Hooks) => (key, args = {}) => (Component) => {
   const displayName = `withHooks(${Component.displayName || Component.name})`;
-  const C = (componentProps = {}) => {
+  const C = ({error, dismissError, ...componentProps} = {}) => {
     if (!Hooks[key]) {
       throw new WithHooksError(key, "");
     }
