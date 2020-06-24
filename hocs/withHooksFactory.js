@@ -22,7 +22,7 @@ export const withHooksFactory = (Hooks) => (key, args = {}) => (Component) => {
         "And Hooks Must returm Object not an Array"
       );
     }
-    return createElement(Component, {...componentProps, ...fromHook});
+    return createElement(Component, {...componentProps, ...args, ...fromHook});
   };
   C.displayName = displayName;
   C.WrappedComponent = Component;
