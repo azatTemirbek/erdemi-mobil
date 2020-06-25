@@ -39,7 +39,7 @@ export const withErrorHandler = curry((Component) => {
             </TouchableOpacity>
           </Block>
         )}
-        <Component {...props} />
+        <Component {...props} dismiss={dismiss} />
       </>
     );
   };
