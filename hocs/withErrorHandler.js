@@ -24,24 +24,31 @@ export const withErrorHandler = curry((Component) => {
       };
     }, [dismiss]);
     return (
-      <SafeAreaView>
+      <>
         {!!error && (
-          <Block flex={false} color="red" row p3>
-            <Block flex={5} color="transparent">
-              <Text color="white">{error}</Text>
+          <SafeAreaView>
+            <Block flex={false} color="red" row p3>
+              <Block flex={5} color="transparent">
+                <Text color="white">{error}</Text>
+              </Block>
+              <TouchableOpacity
+                flex={1}
+                center
+                middle
+                color="transparent"
+                onPress={dismiss}>
+                <Icon
+                  name="close"
+                  color="white"
+                  type="font-awesome"
+                  size={20}
+                />
+              </TouchableOpacity>
             </Block>
-            <TouchableOpacity
-              flex={1}
-              center
-              middle
-              color="transparent"
-              onPress={dismiss}>
-              <Icon name="close" color="white" type="font-awesome" size={20} />
-            </TouchableOpacity>
-          </Block>
+          </SafeAreaView>
         )}
         <Component {...props} dismiss={dismiss} />
-      </SafeAreaView>
+      </>
     );
   };
   C.displayName = displayName;
