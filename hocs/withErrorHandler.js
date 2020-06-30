@@ -3,6 +3,7 @@ import hoistStatics from "hoist-non-react-statics";
 import {curry} from "ramda";
 import {Block, Icon, Text, TouchableOpacity} from "../components";
 import PropTypes from "prop-types";
+import {SafeAreaView} from "react-native";
 
 export const withErrorHandler = curry((Component) => {
   const displayName = `withErrorHandler(${
@@ -23,7 +24,7 @@ export const withErrorHandler = curry((Component) => {
       };
     }, [dismiss]);
     return (
-      <>
+      <SafeAreaView>
         {!!error && (
           <Block flex={false} color="red" row p3>
             <Block flex={5} color="transparent">
@@ -40,7 +41,7 @@ export const withErrorHandler = curry((Component) => {
           </Block>
         )}
         <Component {...props} dismiss={dismiss} />
-      </>
+      </SafeAreaView>
     );
   };
   C.displayName = displayName;
