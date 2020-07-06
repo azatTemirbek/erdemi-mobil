@@ -23,6 +23,15 @@ const transForm = (options, value) =>
 
 export class DropDown extends Component {
   static getDerivedStateFromProps(props, state) {
+    if (props.value === "" && state.value !== "") {
+      return {
+        options: props.options.map((item) => ({
+          ...item,
+          checked: item.value === props.value
+        })),
+        value: props.value
+      };
+    }
     if (
       (props.value !== "" && state.value !== props.value) ||
       JSON.stringify(
