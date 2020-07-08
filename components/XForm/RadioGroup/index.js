@@ -48,6 +48,7 @@ export class RadioGroup extends Component {
           {({key, object, ...rest}, index) => (
             <TouchableOpacity
               card
+              flex={false}
               disabled={object.inactive}
               style={[
                 styles.ItemContainer,
