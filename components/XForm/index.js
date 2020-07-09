@@ -340,7 +340,7 @@ export class XForm extends Component {
   /** bind button to submit */
   bindOnResetButton = (key = "_handleReset") => {
     return {
-      onPress: this.reset(key)
+      onPress: () => this.reset(key)
     };
   };
   /** ####################################################################################  */
