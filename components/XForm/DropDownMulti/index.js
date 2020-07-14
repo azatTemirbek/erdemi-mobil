@@ -13,8 +13,9 @@ import styles from "./styles";
 import Modal from "react-native-modal";
 import {BaseColor} from "../../../config";
 const {height} = Dimensions.get("screen");
+import {withHideFormElement, compose} from "../../../hocs";
 
-export class DropDownMulti extends Component {
+class DropDownMultiComp extends Component {
   /** add selected to the ordered list */
   orderedList = [];
   oldOrderedList = [];
@@ -323,7 +324,7 @@ export class DropDownMulti extends Component {
   }
 }
 
-DropDownMulti.propTypes = {
+DropDownMultiComp.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   renderPillIconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   modalStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
@@ -396,7 +397,7 @@ DropDownMulti.propTypes = {
   required: PropTypes.bool
 };
 
-DropDownMulti.defaultProps = {
+DropDownMultiComp.defaultProps = {
   style: {},
   renderPillIconStyle: {},
   modalStyle: {},
@@ -446,4 +447,5 @@ DropDownMulti.defaultProps = {
   translate: (key) => key,
   required: false
 };
+export const DropDownMulti = compose(withHideFormElement)(DropDownMultiComp);
 export default DropDownMulti;

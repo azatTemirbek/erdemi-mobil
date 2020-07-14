@@ -23,4 +23,5 @@ export {withAlertModal} from "./withAlertModal";
 export {withErrorHandler} from "./withErrorHandler";
 export {withSecureText} from "./withSecureText";
 export {withMask} from "./withMask";
+export {withHideFormElement} from "./withHideFormElement";
 export default {};

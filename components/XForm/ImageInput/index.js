@@ -5,8 +5,9 @@ import PropTypes from "prop-types";
 import {Text, Icon, Card, MapArray, Selector, ErrorLabel, Label} from "../../";
 import styles from "./styles";
 import ImagePicker from "react-native-image-crop-picker";
+import {withHideFormElement, compose} from "../../../hocs";
 
-export class ImageInput extends Component {
+class ImageInputComp extends Component {
   options = {
     mediaType: "photo",
     multiple: true,
@@ -220,7 +221,7 @@ export class ImageInput extends Component {
   }
 }
 
-ImageInput.propTypes = {
+ImageInputComp.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   renderLeftStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
@@ -252,7 +253,7 @@ ImageInput.propTypes = {
   translate: PropTypes.func
 };
 
-ImageInput.defaultProps = {
+ImageInputComp.defaultProps = {
   style: {},
   labelStyle: {},
   renderLeftStyle: {},
@@ -289,4 +290,5 @@ ImageInput.defaultProps = {
   translate: (key) => key
 };
 
+export const ImageInput = compose(withHideFormElement)(ImageInputComp);
 export default ImageInput;

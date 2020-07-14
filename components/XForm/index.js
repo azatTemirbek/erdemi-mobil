@@ -136,27 +136,33 @@ export class XForm extends Component {
   /** core method */
   bindCoreDefaults = {
     required: false,
+    hidden: false,
     parentKey: undefined,
     onParentChange: undefined,
     defaultValue: ""
   };
   bindCore = (key, extra = {}) => {
-    const {defaultValue, parentKey, onParentChange, ...rest} = {
+    const {hidden, defaultValue, parentKey, onParentChange, ...rest} = {
+      //hidden should be removed in order to validate properly
       ...this.bindCoreDefaults,
       ...extra
     };
     if (parentKey && onParentChange) {
       this._initTriggers(key, parentKey, onParentChange);
     }
-    /** will work only once  */
-    this._initTrackingListAndDefaultValues(key, rest, defaultValue);
+    /** default values will work only once but tracking is dynamic  */
+    this._initTrackingListAndDefaultValues(
+      key,
+      {...rest, required: hidden ? false : rest.required}, //if hidden then required should be disabled
+      defaultValue
+    );
     return {
       value: this.state.values[key] || defaultValue || "",
       error: this.state.errors[key],
       label: this.props.translate(key),
       translate: this.props.translate,
       name: key,
-      // onChangeText: this._onChangeCore(key),
+      onChangeText: this._onChangeCore(key),
       ...extra
     };
   };
@@ -165,7 +171,7 @@ export class XForm extends Component {
   /** used to dropDown change */
   _onRadioGroupChange = this._onSelectCore;
   /** RadioGroup with normal keyboard */
-  bindRadioGroupDefaults = {required: false};
+  bindRadioGroupDefaults = {};
   bindRadioGroup = (key, {options, ...extra} = {}) => ({
     ...this.bindCore(key, {...this.bindRadioGroupDefaults, ...extra}),
     options: this.state.options[key] || options || [],
@@ -176,21 +182,18 @@ export class XForm extends Component {
   /** used to dropDown change */
   _onDropDownChange = this._onSelectCore;
   /** binds the input to state */
-  bindDropDownDefaults = {
-    required: false
-  };
+  bindDropDownDefaults = {};
   bindDropDown = (key, {options, ...extra} = {}) => ({
     ...this.bindCore(key, {...this.bindDropDownDefaults, ...extra}),
     options: this.state.options[key] || options || [], //will be empty or will get from state
     onChange: this._onDropDownChange(key)
   });
-
   /** ####################################################################################  */
-  /** ################################### TEXT INPUT ###################################  */
+  /** ########################################## TEXT INPUT ###################################  */
   /** on text change */
   _onTextChange = this._onChangeCore;
   /** TextInput with normal keyboard */
-  bindTextInputDefaults = {required: false};
+  bindTextInputDefaults = {};
   bindTextInput = (key, extra) => ({
     ...this.bindCore(key, {...this.bindTextInputDefaults, ...extra}),
     onChangeText: this._onTextChange(key)
@@ -200,7 +203,7 @@ export class XForm extends Component {
   /** on text change */
   _onTextAreaChange = this._onChangeCore;
   /** TextInput with normal keyboard */
-  bindTextAreaDefaults = {required: false};
+  bindTextAreaDefaults = {};
   bindTextArea = (key, extra = {}) => ({
     ...this.bindCore(key, {...this.bindTextAreaDefaults, ...extra}),
     onChangeText: this._onTextAreaChange(key),
@@ -212,7 +215,7 @@ export class XForm extends Component {
   /** used on selection change */
   _onNumberChange = this._onChangeCore;
   /** binds textInput with state and number keypad*/
-  bindTextInputNumberDefaults = {required: false, type: "number"};
+  bindTextInputNumberDefaults = {type: "number"};
   bindTextInputNumber = (key, extra) => ({
     ...this.bindCore(key, {
       ...this.bindTextInputNumberDefaults,
@@ -226,7 +229,7 @@ export class XForm extends Component {
   /** ################################### Calendar INPUT ###################################  */
   _onChangeCalendarInput = this._onChangeCore;
   /** bindCalendarInput to XForm */
-  bindCalendarInputDefaults = {required: false};
+  bindCalendarInputDefaults = {};
   bindCalendarInput = (key, extra = {}) => ({
     ...this.bindCore(key, {...this.bindCalendarInputDefaults, ...extra}),
     onChangeText: this._onChangeCalendarInput(key)
@@ -260,7 +263,7 @@ export class XForm extends Component {
     }
   });
   /** binds text input with Barcode reader and sets value to state */
-  bindTextInputBarcodeDefaults = {required: false};
+  bindTextInputBarcodeDefaults = {};
   bindTextInputBarcode = (key, extra = {}) => ({
     ...this.bindTextInput(key, {
       ...this.bindTextInputBarcodeDefaults,
@@ -295,7 +298,7 @@ export class XForm extends Component {
   /** on image change */
   _onImageChange = this._onChangeCore;
   /** image props handler */
-  bindImageInputDefaults = {required: false};
+  bindImageInputDefaults = {};
   bindImageInput = (key, {options, ...extra} = {}) => ({
     ...this.bindCore(key, {...this.bindImageInputDefaults, ...extra}),
     options: options || {},

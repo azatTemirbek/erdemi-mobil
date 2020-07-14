@@ -9,6 +9,7 @@ import {
   TouchableOpacity
 } from "../../";
 import styles from "./styles";
+import {withHideFormElement, compose} from "../../../hocs";
 /**
  * transform array with checked
  * @param {Object[]} options
@@ -34,7 +35,7 @@ export const Radio = ({checked}) => {
   );
 };
 
-export class RadioGroup extends Component {
+class RadioGroupComp extends Component {
   _onSelect = (select) => {
     !select.inactive && this.props.onChange(select.value, select);
   };
@@ -92,7 +93,7 @@ export class RadioGroup extends Component {
     );
   }
 }
-RadioGroup.propTypes = {
+RadioGroupComp.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   errorStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   ItemsConatiner: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
@@ -127,7 +128,7 @@ RadioGroup.propTypes = {
   reverseLabel: PropTypes.bool,
   translate: PropTypes.func
 };
-RadioGroup.defaultProps = {
+RadioGroupComp.defaultProps = {
   style: {},
   error: "",
   errorStyle: {},
@@ -157,4 +158,5 @@ RadioGroup.defaultProps = {
   reverseLabel: false,
   translate: (key) => key
 };
+export const RadioGroup = compose(withHideFormElement)(RadioGroupComp);
 export default RadioGroup;
