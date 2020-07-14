@@ -78,23 +78,23 @@ export class ImageInput extends Component {
   /** opens gallery */
   _openGallery = () => {
     let {options} = this.props;
-    this.setState({modal: false});
     ImagePicker.openPicker({...this.options, ...options}).then((images) => {
       let {onImageChange} = this.props;
       onImageChange(
         this._addAndFilter(Array.isArray(images) ? images : [images])
       );
+      this.setState({modal: false});
     });
   };
   /** opens Camera */
   _openCamera = () => {
     let {options} = this.props;
-    this.setState({modal: false});
     ImagePicker.openCamera({...this.options, ...options}).then((images) => {
       let {onImageChange} = this.props;
       onImageChange(
         this._addAndFilter(Array.isArray(images) ? images : [images])
       );
+      this.setState({modal: false});
     });
   };
   /** opens selector */
