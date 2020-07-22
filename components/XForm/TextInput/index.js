@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import {BaseColor} from "../../../config";
 import {Icon, Block, TouchableOpacity, Label, ErrorLabel} from "../..";
 import styles from "./styles";
-export const TextInput = React.forwardRef((props, ref) => {
+import {withHideFormElement, compose} from "../../../hocs";
+const TextInputComp = React.forwardRef((props, ref) => {
   const {
     style,
     inputStyle,
@@ -93,6 +94,8 @@ export const TextInput = React.forwardRef((props, ref) => {
     </>
   );
 });
+export const TextInput = compose(withHideFormElement)(TextInputComp);
+
 TextInput.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),

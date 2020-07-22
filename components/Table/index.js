@@ -514,7 +514,7 @@ export class Table extends React.Component {
     ) : (
       <Text m4 p4 center middle>
         {this.props.translate(
-          !this.props.onRefresh ? "noData" : "pullToRefresh"
+          !this.props.onRefresh ? this.props.noData : this.props.pullToRefresh
         )}
       </Text>
     );
@@ -639,7 +639,9 @@ Table.propTypes = {
     PropTypes.node,
     PropTypes.element,
     PropTypes.bool
-  ])
+  ]),
+  noData: PropTypes.string,
+  pullToRefresh: PropTypes.string
 };
 
 Table.defaultProps = {
@@ -698,6 +700,8 @@ Table.defaultProps = {
   oddColor: "#FFF8F8",
   evenColor: "transparent",
   onRefresh: false,
-  renderEmpty: false
+  renderEmpty: false,
+  noData: "noData",
+  pullToRefresh: "pullToRefresh"
 };
 export default Table;

@@ -1,8 +1,15 @@
 import React, {Component, Children, cloneElement} from "react";
-import {View, TouchableOpacity} from "react-native";
 import PropTypes from "prop-types";
-import {Text, Block, MapArray, ErrorLabel, Label} from "../../";
+import {
+  Text,
+  Block,
+  MapArray,
+  ErrorLabel,
+  Label,
+  TouchableOpacity
+} from "../../";
 import styles from "./styles";
+import {withHideFormElement, compose} from "../../../hocs";
 /**
  * transform array with checked
  * @param {Object[]} options
@@ -23,59 +30,27 @@ export const Radio = ({checked}) => {
   }
   return (
     <Block style={styles.checked} margin={[0, 5]} flex={false}>
-      <View style={styles.checkedContent} />
+      <Block flex={false} style={styles.checkedContent} />
     </Block>
   );
 };
 
-export class RadioGroup extends Component {
-  static getDerivedStateFromProps(props, state) {
-    if (
-      (props.value !== "" && state.value !== props.value) ||
-      JSON.stringify(
-        state.options.map((item) => {
-          let i = {...item};
-          delete i.checked;
-          return i;
-        })
-      ) !== JSON.stringify(props.options.map((i) => ({...i})))
-    ) {
-      return {
-        options: props.options.map((item) => ({
-          ...item,
-          checked: item.value === state.value
-        })),
-        value: props.value
-      };
-    }
-    return null;
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      options: transForm(props.options, props.value),
-      value: props.value
-    };
-  }
-
+class RadioGroupComp extends Component {
   _onSelect = (select) => {
-    this.props.onChange(select.value, select);
-    this.setState({
-      value: select.value,
-      options: transForm(this.state.options, select.value)
-    });
+    !select.inactive && this.props.onChange(select.value, select);
   };
-
   /** renders Content */
   renderContent = () => {
-    const {options} = this.state;
+    const {options, value} = this.props;
     let {ItemsConatiner, ItemContainer} = this.props;
     return (
-      <View style={[styles.ItemsConatiner, ItemsConatiner]}>
-        <MapArray array={options}>
+      <Block row wrap style={ItemsConatiner}>
+        <MapArray array={transForm(options, value)}>
           {({key, object, ...rest}, index) => (
             <TouchableOpacity
+              card
+              flex={false}
+              disabled={object.inactive}
               style={[
                 styles.ItemContainer,
                 !this.props.reverseLabel && {
@@ -93,7 +68,7 @@ export class RadioGroup extends Component {
             </TouchableOpacity>
           )}
         </MapArray>
-      </View>
+      </Block>
     );
   };
 
@@ -109,17 +84,16 @@ export class RadioGroup extends Component {
 
   render() {
     const {style, error, errorStyle, labelStyle, required, label} = this.props;
-
     return (
-      <View style={style}>
+      <Block style={style}>
         <Label {...{labelStyle, required, label}} />
         {this.renderContent()}
         <ErrorLabel {...{errorStyle, error}} />
-      </View>
+      </Block>
     );
   }
 }
-RadioGroup.propTypes = {
+RadioGroupComp.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   errorStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   ItemsConatiner: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
@@ -146,14 +120,15 @@ RadioGroup.propTypes = {
   ]),
   options: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.string,
-      text: PropTypes.string
+      value: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+      inactive: PropTypes.bool
     })
   ),
   reverseLabel: PropTypes.bool,
   translate: PropTypes.func
 };
-RadioGroup.defaultProps = {
+RadioGroupComp.defaultProps = {
   style: {},
   error: "",
   errorStyle: {},
@@ -162,8 +137,14 @@ RadioGroup.defaultProps = {
   labelStyle: {},
   options: [
     {
-      value: "value",
-      text: "text"
+      value: "inactive",
+      text: "inactive",
+      inactive: false
+    },
+    {
+      value: "active",
+      text: "active",
+      inactive: false
     }
   ],
   onChange: () => {},
@@ -177,4 +158,5 @@ RadioGroup.defaultProps = {
   reverseLabel: false,
   translate: (key) => key
 };
+export const RadioGroup = compose(withHideFormElement)(RadioGroupComp);
 export default RadioGroup;

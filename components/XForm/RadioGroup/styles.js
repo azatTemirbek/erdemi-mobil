@@ -10,10 +10,6 @@ export default StyleSheet.create({
     width: "50%",
     paddingHorizontal: 10
   },
-  ItemsConatiner: {
-    flexDirection: "row",
-    flexWrap: "wrap"
-  },
   unchecked: {
     height: 26,
     width: 26,
