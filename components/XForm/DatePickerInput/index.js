@@ -1,8 +1,10 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
+import {TouchableOpacity, Icon, TextInput, Popup, Text} from "../../index";
 import {BaseColor, FontFamily} from "../../../config";
-import PropTypes from "prop-types";
-import {Text, Icon, TextInput, TouchableOpacity, Block, Popup} from "../../";
 import {Calendar} from "react-native-calendars";
+import moment from "moment";
+import PropTypes from "prop-types";
+
 /** calendar theme */
 const theme = {
   textSectionTitleColor: BaseColor.textPrimaryColor,
@@ -22,129 +24,82 @@ const theme = {
   textMonthFontSize: 16,
   textDayHeaderFontSize: 14
 };
-export class DatePickerInput extends Component {
-  selected = "";
-  constructor(props) {
-    super(props);
-    this.state = {modalVisible: false};
-  }
-  openModal = () => {
-    this.old = this.props.value;
-    this.setState({
-      modalVisible: true
-    });
+export const DatePickerInput = (
+  {onChangeText, format, displayFormat, calendarProps = {}, ...rest},
+  ref
+) => {
+  const innerRef = React.useRef(null);
+  const attachRef = (el) => {
+    innerRef.current = el;
+    if (typeof ref === "function") {
+      ref(el);
+    } else {
+      ref = el;
+    }
   };
-  closeModal = () => {
-    this.setState({
-      modalVisible: false
-    });
+  const [isOpen, toggleOpen] = useState(false);
+  const onDayPress = (date) => {
+    onChangeText(rest.moment(date.dateString, "YYYY-MM-DD").format(format));
+    toggleOpen(false);
   };
-  _applyPress = () => {
-    this.closeModal();
-  };
-  renderRight = ({props}) => {
-    return (
-      <TouchableOpacity center middle onPress={this.openModal}>
-        <Icon name="calendar" size={22} color={BaseColor.accentColor} />
-      </TouchableOpacity>
-    );
-  };
-  onCancel = () => {
-    this.selected = this.old;
-    this.props.onChangeText(this.old);
-    this.closeModal();
-  };
-  onDayPress = (day) => {
-    this.selected = day.dateString;
-    this.props.onChangeText(this.selected);
-  };
-  /** renders right side of the listItem */
-  render() {
-    const {...rest} = this.props;
-    const {modalVisible} = this.state;
-    this.selected =
-      !rest.value || rest.value === this.selected ? this.selected : rest.value;
-    return (
-      <>
-        <TextInput editable={false} {...rest} renderRight={this.renderRight} />
-        <Popup
-          isVisible={modalVisible}
-          headerContainerStyle={{display: "none"}}
-          onCloseModal={this.onCancel}
-          {...this.props.modalProps}>
-          <Block card flex={false}>
-            <Calendar
-              style={{borderRadius: 8}}
-              monthFormat={"dd-MM-yyyy"}
-              theme={theme}
-              onDayPress={this.onDayPress}
-              markedDates={{
-                [this.selected]: {
-                  selected: true,
-                  disableTouchEvent: true,
-                  selectedDotColor: "orange"
-                }
-              }}
-              {...this.props.calendarProps}
-            />
-            <Block flex={false} row space="between" padding={15}>
-              <TouchableOpacity flex={false} onPress={this.onCancel}>
-                <Text body2>{this.props.translate(this.props.denyText)}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity flex={false} onPress={this._applyPress}>
-                <Text body2 primaryColor>
-                  {this.props.translate(this.props.confirmText)}
-                </Text>
-              </TouchableOpacity>
-            </Block>
-          </Block>
-        </Popup>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <TextInput
+        editable={false}
+        {...rest}
+        value={rest.displayValue}
+        ref={attachRef}
+        renderRight={({props}) => {
+          return (
+            <TouchableOpacity center middle onPress={() => toggleOpen(true)}>
+              <Icon name="calendar" size={22} color={BaseColor.accentColor} />
+            </TouchableOpacity>
+          );
+        }}
+      />
+      <Popup
+        isVisible={isOpen}
+        onCloseModal={() => toggleOpen(false)}
+        titleProps={{center: true, middle: true}}>
+        <Calendar
+          style={{borderRadius: 8}}
+          monthFormat={"MMMM YYYY"}
+          renderHeader={(date) => (
+            <Text>
+              {rest
+                .moment(rest.value || new Date(), format)
+                .format(displayFormat)}
+              {/* {rest.value} */}
+            </Text>
+          )}
+          theme={theme}
+          onDayPress={onDayPress}
+          markedDates={{
+            [rest.moment(rest.value, format).format("YYYY-MM-DD")]: {
+              selected: true,
+              disableTouchEvent: true,
+              selectedDotColor: "orange"
+            }
+          }}
+          {...calendarProps}
+        />
+      </Popup>
+    </>
+  );
+};
 
 DatePickerInput.propTypes = {
-  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  renderLeftStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  inputStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  renderRightStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  error: PropTypes.string,
-  errorStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  label: PropTypes.string,
-  renderLeft: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.func,
-    PropTypes.node,
-    PropTypes.element
-  ]),
-  renderRight: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.func,
-    PropTypes.node,
-    PropTypes.element
-  ]),
   calendarProps: PropTypes.object,
-  modalProps: PropTypes.object
+  moment: PropTypes.any.isRequired,
+  format: PropTypes.string.isRequired,
+  displayformat: PropTypes.string.isRequired,
+  displayValue: PropTypes.string
 };
-
 DatePickerInput.defaultProps = {
-  style: {},
-  labelStyle: {},
-  renderLeftStyle: {},
-  inputStyle: {},
-  renderRightStyle: {},
-  error: "",
-  errorStyle: {},
-  label: "Label",
-  renderLeft: false,
-  renderRight: false,
   calendarProps: {},
-  modalProps: {},
-  denyText: "vazgec",
-  confirmText: "tamam",
-  translate: (key) => key
+  moment: moment,
+  format: "YYYY-MM-DD",
+  displayformat: "YYYY-MM-DD",
+  displayValue: ""
 };
-
 export default DatePickerInput;

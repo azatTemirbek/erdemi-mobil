@@ -1,6 +1,7 @@
 import hoistStatics from "hoist-non-react-statics";
 import createElement from "../utils/createElement";
 import {curry, merge} from "ramda";
+import React from "react";
 /**
  * @param {Object|Function} extraProps used to add extra props to compose
  */
@@ -8,16 +9,26 @@ import {curry, merge} from "ramda";
 export const withProps = curry((extraProps, Component) => {
   extraProps = extraProps || {};
   const displayName = `withProps(${Component.displayName || Component.name})`;
-  const C = (remainingProps) =>
-    createElement(
+  const C = React.forwardRef((remainingProps, ref) => {
+    const innerRef = React.useRef(null);
+    const attachRef = (el) => {
+      innerRef.current = el;
+      if (typeof ref === "function") {
+        ref(el);
+      } else {
+        ref = el;
+      }
+    };
+    return createElement(
       Component,
       merge(
-        remainingProps,
+        {...remainingProps, ref: attachRef},
         typeof extraProps === "function"
           ? extraProps(remainingProps)
           : extraProps
       )
     );
+  });
   C.displayName = displayName;
   C.WrappedComponent = Component;
   /** used to copy static methods */
