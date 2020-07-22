@@ -1,5 +1,4 @@
 import hoistStatics from "hoist-non-react-statics";
-import {useCombinedRefs} from "../hooks";
 import React from "react";
 import {Block} from "../components";
 /**
@@ -13,16 +12,23 @@ export const withHideFormElement = (Component) => {
   const C = React.forwardRef(
     ({hidden = false, disableHidden = false, ...props}, ref) => {
       const innerRef = React.useRef(null);
-      const combinedRef = useCombinedRefs(ref, innerRef);
+      const attachRef = (el) => {
+        innerRef.current = el;
+        if (typeof ref === "function") {
+          ref(el);
+        } else {
+          ref = el;
+        }
+      };
       return disableHidden ? (
-        <Component ref={combinedRef} {...props} />
+        <Component ref={attachRef} {...props} />
       ) : (
         <Block
           style={{
             display: hidden ? "none" : "flex"
           }}>
           <Component
-            ref={combinedRef}
+            ref={attachRef}
             {...props}
             required={hidden ? false : props.required}
           />
