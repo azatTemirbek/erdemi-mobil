@@ -1,6 +1,5 @@
 import hoistStatics from "hoist-non-react-statics";
 import {BaseColor} from "../config";
-import {useCombinedRefs} from "../hooks";
 import React, {useState} from "react";
 import {TouchableOpacity, Icon} from "../components";
 
@@ -10,7 +9,14 @@ export const withSecureText = (Component) => {
   })`;
   const C = React.forwardRef((props, ref) => {
     const innerRef = React.useRef(null);
-    const combinedRef = useCombinedRefs(ref, innerRef);
+    const attachRef = (el) => {
+      innerRef.current = el;
+      if (typeof ref === "function") {
+        ref(el);
+      } else {
+        ref = el;
+      }
+    };
     const [secure, setSecure] = useState(true);
     return (
       <Component
@@ -29,7 +35,7 @@ export const withSecureText = (Component) => {
           );
         }}
         secureTextEntry={secure}
-        ref={combinedRef}
+        ref={attachRef}
         {...props}
       />
     );

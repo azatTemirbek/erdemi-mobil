@@ -24,4 +24,5 @@ export {withErrorHandler} from "./withErrorHandler";
 export {withSecureText} from "./withSecureText";
 export {withMask} from "./withMask";
 export {withHideFormElement} from "./withHideFormElement";
+export {withDateFormatFormElement} from "./withDateFormatFormElement";
 export default {};

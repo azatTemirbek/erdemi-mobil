@@ -28,6 +28,7 @@ export {DatePickerInput} from "./XForm/DatePickerInput";
 export {DateTimePickerInput} from "./XForm/DateTimePickerInput";
 export {Radio, RadioGroup} from "./XForm/RadioGroup";
 export {ImageInput} from "./XForm/ImageInput";
+export {MonthPickerInput} from "./XForm/MonthPickerInput";
 /** need to merge */
 export {Filter} from "./Filter";
 export {FilterSort} from "./FilterSort";

@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import {BaseColor} from "../../../config";
 import {Icon, Block, TouchableOpacity, Label, ErrorLabel} from "../..";
 import styles from "./styles";
-import {useCombinedRefs} from "../../../hooks";
 import {withHideFormElement, compose} from "../../../hocs";
 const TextInputComp = React.forwardRef((props, ref) => {
   const {
@@ -25,15 +24,22 @@ const TextInputComp = React.forwardRef((props, ref) => {
     ...rest
   } = props;
   const innerRef = React.useRef(null);
-  const combinedRef = useCombinedRefs(ref, innerRef);
+  const attachRef = (el) => {
+    innerRef.current = el;
+    if (typeof ref === "function") {
+      ref(el);
+    } else {
+      ref = el;
+    }
+  };
   const _focusInputWithKeyboard = () => {
     InteractionManager.runAfterInteractions(() => {
-      combinedRef.current.focus();
+      innerRef.current.focus();
     });
   };
   const defaultProps = {
     focusInput: _focusInputWithKeyboard,
-    parentRef: combinedRef,
+    parentRef: innerRef,
     name: props.name
   };
   const renderer = (keyVal = "", rProps = defaultProps) => {
@@ -70,7 +76,7 @@ const TextInputComp = React.forwardRef((props, ref) => {
             renderer("renderCenter", defaultProps)
           ) : (
             <Input
-              ref={combinedRef}
+              ref={attachRef}
               {...rest}
               style={[styles.baseInput, inputStyle]}
             />

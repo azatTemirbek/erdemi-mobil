@@ -1,5 +1,4 @@
 import hoistStatics from "hoist-non-react-statics";
-import {useCombinedRefs} from "../hooks";
 import React, {useCallback} from "react";
 import PropTypes from "prop-types";
 /**
@@ -135,7 +134,14 @@ export const withMask = (Component) => {
       ref
     ) => {
       const innerRef = React.useRef(null);
-      const combinedRef = useCombinedRefs(ref, innerRef);
+      const attachRef = (el) => {
+        innerRef.current = el;
+        if (typeof ref === "function") {
+          ref(el);
+        } else {
+          ref = el;
+        }
+      };
       const msk = mask || DEFAULT_PHONE_INTERNATIONAL;
       const trns = {...DEFAULT_TRANSLATION, customTranslation};
       /** send clean value */
@@ -147,7 +153,7 @@ export const withMask = (Component) => {
       const innerValue = toPattern(value, msk, trns);
       return (
         <Component
-          ref={combinedRef}
+          ref={attachRef}
           {...props}
           value={innerValue}
           onChangeText={innerOnChangeText}
