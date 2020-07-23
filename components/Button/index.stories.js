@@ -25,4 +25,9 @@ storiesOf("Button", module)
     <Button onPress={action("tapped-outline")} full color="gray">
       Press Me
     </Button>
+  ))
+  .add("Disabled and Outlined", () => (
+    <Button onPress={action("tapped-outline")} outline disabled>
+      disabled
+    </Button>
   ));

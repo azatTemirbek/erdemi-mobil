@@ -18,6 +18,11 @@ export const Button = ({
   onPress,
   ...rest
 }) => {
+  let btnStyle = [styles.default];
+  !rest.disabled && full && btnStyle.push(styles.full);
+  !rest.disabled && outline && btnStyle.push(styles.outline);
+  rest.disabled && btnStyle.push(style.disabledTouch);
+  btnStyle.push(style);
   return (
     <TouchableOpacity
       smallCard={!round}
@@ -28,13 +33,7 @@ export const Button = ({
       padding={[0, 20]}
       onPress={rest.disabled ? () => {} : onPress}
       {...rest}
-      style={StyleSheet.flatten([
-        styles.default,
-        full && styles.full,
-        outline && styles.outline,
-        rest.disabled && style.disabledTouch,
-        style
-      ])}
+      style={btnStyle}
       activeOpacity={opacity}>
       {icon ? icon : null}
       <Text
