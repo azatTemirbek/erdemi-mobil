@@ -1,4 +1,4 @@
-(function () {
+(function() {
   "use strict";
   // Got this from MDN:
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString#Example:_Checking_for_support_for_locales_and_options_arguments
@@ -11,10 +11,10 @@
     }
     return false;
   }
-  var roundOff = function (number, precision) {
+  var roundOff = function(number, precision) {
     return +(+number).toFixed(precision);
   };
-  var replaceSeparators = function (sNum, separators) {
+  var replaceSeparators = function(sNum, separators) {
     sNum = "" + roundOff(sNum, 3);
     var sNumParts = sNum.split(".");
     if (separators && separators.thousands) {
@@ -31,7 +31,7 @@
     sNum = sNumParts.join(separators.decimal);
     return sNum;
   };
-  var getLast3Digits = function (sNum) {
+  var getLast3Digits = function(sNum) {
     sNum = "" + roundOff(sNum, 3);
     var sNumParts = sNum.split(".");
     switch (sNumParts[0].length) {
@@ -48,13 +48,13 @@
     sNum = sNumParts.join(".");
     return sNum;
   };
-  var renderFormat = function (template, props) {
+  var renderFormat = function(template, props) {
     for (var prop in props) {
       template = template.replace("{{" + prop + "}}", props[prop]);
     }
     return template;
   };
-  var mapMatch = function (map, locale) {
+  var mapMatch = function(map, locale) {
     var match = locale;
     var language = locale && locale.toLowerCase().match(/^\w+/);
     if (!map.hasOwnProperty(locale)) {
@@ -66,51 +66,51 @@
     }
     return map[match];
   };
-  var dotThousCommaDec = function (sNum) {
+  var dotThousCommaDec = function(sNum) {
     var separators = {
       decimal: ",",
-      thousands: "."
+      thousands: ".",
     };
     return replaceSeparators(sNum, separators);
   };
-  var commaThousDotDec = function (sNum) {
+  var commaThousDotDec = function(sNum) {
     var separators = {
       decimal: ".",
-      thousands: ","
+      thousands: ",",
     };
     return replaceSeparators(sNum, separators);
   };
-  var spaceThousCommaDec = function (sNum) {
+  var spaceThousCommaDec = function(sNum) {
     var seperators = {
       decimal: ".",
-      thousands: "\u00A0"
+      thousands: "\u00A0",
     };
     return replaceSeparators(sNum, seperators);
   };
-  var spaceHundredsCommaThousCommaDec = function (sNum) {
+  var spaceHundredsCommaThousCommaDec = function(sNum) {
     var hundredSeperators = {
         decimal: ".",
-        hundreds: ","
+        hundreds: ",",
       },
       thoudandSeperators = {
         decimal: ".",
-        thousands: ","
+        thousands: ",",
       };
     sNum = +sNum;
     if (sNum >= 1000) {
       return (
         replaceSeparators(Math.floor(sNum / 1000) + "", hundredSeperators) +
         "," +
-        getLast3Digits((sNum % 1000) + "")
+        getLast3Digits(sNum % 1000 + "")
       );
     } else {
       return replaceSeparators(sNum + "", thoudandSeperators);
     }
   };
-  var apostrophThousDotDec = function (sNum) {
+  var apostrophThousDotDec = function(sNum) {
     var seperators = {
       decimal: ".",
-      thousands: "\u0027"
+      thousands: "\u0027",
     };
     return replaceSeparators(sNum, seperators);
   };
@@ -133,7 +133,7 @@
     "da-DK": dotThousCommaDec,
     "nb-NO": spaceThousCommaDec,
     "sv-SE": spaceThousCommaDec,
-    tr: commaThousDotDec
+    tr: dotThousCommaDec,
   };
   var currencyFormatMap = {
     en: "pre",
@@ -151,7 +151,7 @@
     "hu-HU": "post",
     "da-DK": "post",
     "nb-NO": "post",
-    "sv-SE": "post"
+    "sv-SE": "post",
   };
   var currencySymbols = {
     afn: "؋",
@@ -268,15 +268,15 @@
     vef: "Bs",
     vnd: "₫",
     yer: "﷼",
-    zwd: "Z$"
+    zwd: "Z$",
   };
   var currencyFormats = {
     pre: "{{code}}{{num}}",
     post: "{{num}} {{code}}",
-    prespace: "{{code}} {{num}}"
+    prespace: "{{code}} {{num}}",
   };
   // eslint-disable-next-line no-extend-native
-  Number.prototype.toLocaleString = function (locale, options) {
+  Number.prototype.toLocaleString = function(locale, options) {
     if (locale && locale.length < 2)
       throw new RangeError("Invalid language tag: " + locale);
     var sNum;
@@ -291,12 +291,12 @@
       if (options.currencyDisplay === "code") {
         sNum = renderFormat(format, {
           num: sNum,
-          code: options.currency.toUpperCase()
+          code: options.currency.toUpperCase(),
         });
       } else {
         sNum = renderFormat(format, {
           num: sNum,
-          code: currencySymbols[options.currency.toLowerCase()]
+          code: currencySymbols[options.currency.toLowerCase()],
         });
       }
     }
