@@ -67,8 +67,8 @@ export const DatePickerInput = (
           renderHeader={(date) => (
             <Text>
               {rest
-                .moment(rest.value || new Date(), format)
-                .format(displayFormat)}
+                .moment((date.getMonth()+1)+"-"+date.getFullYear(), "MM-YYYY")
+                .format("MMMM YYYY")}
               {/* {rest.value} */}
             </Text>
           )}
