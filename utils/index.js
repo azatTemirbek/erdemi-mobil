@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import DeviceInfo from "react-native-device-info";
 const scaleValue = PixelRatio.get() / 2;
+// toLocaleString polyFill
+import "./number-polyfill";
 
 export const pick = (obj = {}, blacklisted = []) =>
   Object.entries(obj).reduce((acc, [key, val]) => {
