@@ -88,18 +88,18 @@ export const DatePickerInput = (
   );
 };
 
-DatePickerInput.propTypes = {
-  calendarProps: PropTypes.object,
-  moment: PropTypes.any.isRequired,
-  format: PropTypes.string.isRequired,
-  displayformat: PropTypes.string.isRequired,
-  displayValue: PropTypes.string
-};
-DatePickerInput.defaultProps = {
-  calendarProps: {},
-  moment: moment,
-  format: "YYYY-MM-DD",
-  displayformat: "YYYY-MM-DD",
-  displayValue: ""
-};
+// DatePickerInput.propTypes = {
+//   calendarProps: PropTypes.object,
+//   moment: PropTypes.any.isRequired,
+//   format: PropTypes.string.isRequired,
+//   displayformat: PropTypes.string.isRequired,
+//   displayValue: PropTypes.string
+// };
+// DatePickerInput.defaultProps = {
+//   calendarProps: {},
+//   moment: moment,
+//   format: "YYYY-MM-DD",
+//   displayformat: "YYYY-MM-DD",
+//   displayValue: ""
+// };
 export default DatePickerInput;

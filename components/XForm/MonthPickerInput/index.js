@@ -62,18 +62,18 @@ export const MonthPickerInput = (
   );
 };
 
-MonthPickerInput.propTypes = {
-  calendarProps: PropTypes.object,
-  moment: PropTypes.any.isRequired,
-  format: PropTypes.string.isRequired,
-  displayformat: PropTypes.string.isRequired,
-  displayValue: PropTypes.string
-};
-MonthPickerInput.defaultProps = {
-  calendarProps: {},
-  moment: moment,
-  format: "YYYY-MM-DD",
-  displayformat: "YYYY-MM-DD",
-  displayValue: ""
-};
+// MonthPickerInput.propTypes = {
+//   calendarProps: PropTypes.object,
+//   moment: PropTypes.any.isRequired,
+//   format: PropTypes.string.isRequired,
+//   displayformat: PropTypes.string.isRequired,
+//   displayValue: PropTypes.string
+// };
+// MonthPickerInput.defaultProps = {
+//   calendarProps: {},
+//   moment: moment,
+//   format: "YYYY-MM-DD",
+//   displayformat: "YYYY-MM-DD",
+//   displayValue: ""
+// };
 export default MonthPickerInput;
