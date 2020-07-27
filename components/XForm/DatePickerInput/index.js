@@ -67,8 +67,8 @@ export const DatePickerInput = (
           renderHeader={(date) => (
             <Text>
               {rest
-                .moment(rest.value || new Date(), format)
-                .format(displayFormat)}
+                .moment((date.getMonth()+1)+"-"+date.getFullYear(), "MM-YYYY")
+                .format("MMMM YYYY")}
               {/* {rest.value} */}
             </Text>
           )}
@@ -88,18 +88,18 @@ export const DatePickerInput = (
   );
 };
 
-DatePickerInput.propTypes = {
-  calendarProps: PropTypes.object,
-  moment: PropTypes.any.isRequired,
-  format: PropTypes.string.isRequired,
-  displayformat: PropTypes.string.isRequired,
-  displayValue: PropTypes.string
-};
-DatePickerInput.defaultProps = {
-  calendarProps: {},
-  moment: moment,
-  format: "YYYY-MM-DD",
-  displayformat: "YYYY-MM-DD",
-  displayValue: ""
-};
+// DatePickerInput.propTypes = {
+//   calendarProps: PropTypes.object,
+//   moment: PropTypes.any.isRequired,
+//   format: PropTypes.string.isRequired,
+//   displayformat: PropTypes.string.isRequired,
+//   displayValue: PropTypes.string
+// };
+// DatePickerInput.defaultProps = {
+//   calendarProps: {},
+//   moment: moment,
+//   format: "YYYY-MM-DD",
+//   displayformat: "YYYY-MM-DD",
+//   displayValue: ""
+// };
 export default DatePickerInput;
