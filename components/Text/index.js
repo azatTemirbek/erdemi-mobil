@@ -2,11 +2,29 @@ import {Text as Txt} from "react-native";
 import PropTypes from "prop-types";
 import {withFont, compose, withMarginPaddings, withColors} from "../../hocs";
 import {BaseColor} from "../../config";
+import createElement from "../../hocs/utils/createElement";
+import React from "react";
 export const Text = compose(
   withFont(),
   withMarginPaddings,
   withColors("color", BaseColor.textPrimaryColor)
-)(Txt);
+)(
+  React.forwardRef((props, ref) => {
+    const innerRef = React.useRef(null);
+    const attachRef = (el) => {
+      innerRef.current = el;
+      if (typeof ref === "function") {
+        ref(el);
+      } else {
+        ref = el;
+      }
+    };
+    return createElement(Txt, {
+      ...props,
+      ref: attachRef
+    });
+  })
+);
 export default Text;
 // Define typechecking
 Text.propTypes = {

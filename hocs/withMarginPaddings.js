@@ -1,12 +1,22 @@
 import {handleMargins, handlePaddings} from "../utils";
 import hoistStatics from "hoist-non-react-statics";
 import {createElement} from "./";
+import React from "react";
 /** generates margin and paddings */
 export function withMarginPaddings(Component) {
   const displayName = `withMarginPaddings(${
     Component.displayName || Component.name
   })`;
-  const C = ({padding, margin, style, ...rest}) => {
+  const C = React.forwardRef(({padding, margin, style, ...rest}, ref) => {
+    const innerRef = React.useRef(null);
+    const attachRef = (el) => {
+      innerRef.current = el;
+      if (typeof ref === "function") {
+        ref(el);
+      } else {
+        ref = el;
+      }
+    };
     const $spacer = 10;
     const [c0, c1, c2, c3, c4] = [
       $spacer * 0,
@@ -106,10 +116,11 @@ export function withMarginPaddings(Component) {
       style
     ];
     return createElement(Component, {
+      ...rest,
       style: blockStyle,
-      ...rest
+      ref: attachRef
     });
-  };
+  });
   C.displayName = displayName;
   C.WrappedComponent = Component;
   /** used to copy static methods */
