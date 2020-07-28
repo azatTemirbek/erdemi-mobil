@@ -135,7 +135,7 @@ export const DropDown = ({
               <TextInput
                 hidden={!isSearchible()}
                 value={searchedText}
-                autoFocus
+                autoFocus={isSearchible()}
                 onChangeText={onChangeText}
                 label=""
               />

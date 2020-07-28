@@ -2,9 +2,6 @@ import React, {useState} from "react";
 import {TouchableOpacity, Icon, TextInput, Popup, Text} from "../../index";
 import {BaseColor, FontFamily} from "../../../config";
 import {Calendar} from "react-native-calendars";
-import moment from "moment";
-import PropTypes from "prop-types";
-
 /** calendar theme */
 const theme = {
   textSectionTitleColor: BaseColor.textPrimaryColor,
@@ -67,9 +64,11 @@ export const DatePickerInput = (
           renderHeader={(date) => (
             <Text>
               {rest
-                .moment((date.getMonth()+1)+"-"+date.getFullYear(), "MM-YYYY")
+                .moment(
+                  date.getMonth() + 1 + "-" + date.getFullYear(),
+                  "MM-YYYY"
+                )
                 .format("MMMM YYYY")}
-              {/* {rest.value} */}
             </Text>
           )}
           theme={theme}

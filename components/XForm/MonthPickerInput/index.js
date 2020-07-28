@@ -2,8 +2,6 @@ import React, {useState} from "react";
 import {TouchableOpacity, Icon, TextInput, Popup} from "../../index";
 import {BaseColor} from "../../../config";
 import MonthPicker from "react-native-month-picker";
-import moment from "moment";
-import PropTypes from "prop-types";
 
 export const MonthPickerInput = (
   {onChangeText, format, displayFormat, MonthPickerProps = {}, ...rest},
@@ -48,10 +46,20 @@ export const MonthPickerInput = (
           onMonthChange={onMonthChange}
           maxDate={rest.moment("2060", "YYYY")}
           nextIcon={
-            <Icon name="caret-right" size={15} color={BaseColor.primaryColor} />
+            <Icon
+              name="caret-right"
+              size={15}
+              color={BaseColor.primaryColor}
+              style={{padding: 10}}
+            />
           }
           prevIcon={
-            <Icon name="caret-left" size={15} color={BaseColor.primaryColor} />
+            <Icon
+              name="caret-left"
+              size={15}
+              color={BaseColor.primaryColor}
+              style={{padding: 10}}
+            />
           }
           selectedBackgroundColor={BaseColor.primaryColor}
           currentMonthTextStyle={{color: BaseColor.primaryColor}}
