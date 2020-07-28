@@ -136,7 +136,6 @@ export const DropDown = ({
                 hidden={!isSearchible()}
                 value={searchedText}
                 autoFocus
-                style={{height: 47}}
                 onChangeText={onChangeText}
                 label=""
               />
