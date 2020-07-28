@@ -1,6 +1,4 @@
-import hoistStatics from "hoist-non-react-statics";
-import React, {useCallback} from "react";
-import PropTypes from "prop-types";
+import withProps from "./withProps";
 /**
  * used to mask the value
  * @param {string} value value of the component
@@ -119,61 +117,23 @@ const DEFAULT_TRANSLATION = {
  * used to enhance TextInput with making ability
  * @param {Input} Component
  */
-export const withMask = (Component) => {
-  const displayName = `withMask(${Component.displayName || Component.name})`;
-  const C = React.forwardRef(
-    (
-      {
-        onChangeText,
-        mask,
-        getFormattedValue,
-        value,
-        customTranslation,
-        ...props
-      },
-      ref
-    ) => {
-      const innerRef = React.useRef(null);
-      const attachRef = (el) => {
-        innerRef.current = el;
-        if (typeof ref === "function") {
-          ref(el);
-        } else {
-          ref = el;
-        }
-      };
-      const msk = mask || DEFAULT_PHONE_INTERNATIONAL;
-      const trns = {...DEFAULT_TRANSLATION, customTranslation};
-      /** send clean value */
-      const innerOnChangeText = useCallback(
-        (val) => onChangeText(getFormattedValue ? val : unMask(val, msk, trns)),
-        [getFormattedValue, msk, onChangeText, trns]
-      );
-      /** recalculates applyse musk */
-      const innerValue = toPattern(value, msk, trns);
-      return (
-        <Component
-          ref={attachRef}
-          {...props}
-          value={innerValue}
-          onChangeText={innerOnChangeText}
-        />
-      );
-    }
-  );
-  C.displayName = displayName;
-  C.WrappedComponent = Component;
-  C.propTypes = {
-    mask: PropTypes.string,
-    customTranslation: PropTypes.object,
-    getFormattedValue: PropTypes.bool
-  };
-  C.defaultProps = {
-    mask: undefined,
-    customTranslation: {},
-    getFormattedValue: false
-  };
-  return hoistStatics(C, Component);
-};
+export const withMask = withProps(
+  ({
+    onChangeText,
+    mask = undefined,
+    getFormattedValue = false,
+    value,
+    customTranslation = {},
+    ...props
+  }) => {
+    const msk = mask || DEFAULT_PHONE_INTERNATIONAL;
+    const trns = {...DEFAULT_TRANSLATION, customTranslation};
+    return {
+      value: toPattern(value, msk, trns),
+      onChangeText: (val) =>
+        onChangeText(getFormattedValue ? val : unMask(val, msk, trns))
+    };
+  }
+);
 
 export default withMask;

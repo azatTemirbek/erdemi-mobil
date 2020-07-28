@@ -9,6 +9,15 @@ export const withAlertModal = curry((Component) => {
     Component.displayName || Component.name
   })`;
   const C = forwardRef((props, ref) => {
+    const innerRef = React.useRef(null);
+    const attachRef = (el) => {
+      innerRef.current = el;
+      if (typeof ref === "function") {
+        ref(el);
+      } else {
+        ref = el;
+      }
+    };
     /** modal props as a state config */
     const [config, setConfig] = useState({
       isVisible: false
@@ -90,7 +99,9 @@ export const withAlertModal = curry((Component) => {
             {renderer(footer, {})}
           </Block>
         </Popup>
-        <Component {...mergeAll({ref, screenProps}, props, screenProps)} />
+        <Component
+          {...mergeAll({ref: attachRef, screenProps}, props, screenProps)}
+        />
       </>
     );
   });
