@@ -55,17 +55,6 @@ export class Table extends React.Component {
     /** used to generate style for usage */
     this.styles = generateStyles(cellWidth, cellHeight, borderWidth);
   }
-  /**
-   * will handle data load when reached to the end of the list
-   */
-  handleScrollEndReached = () => {
-    /** //TODO: need to be implemented */
-    if (this.state.loading) {
-      this.setState({loading: false}, () =>
-        setTimeout(this.props.scrollLoad.bind(this), 500)
-      );
-    }
-  };
 
   componentDidMount() {
     let {fixedRowHeader} = this.props;
@@ -543,8 +532,8 @@ export class Table extends React.Component {
             ? this.renderRowRev
             : this.renderRow
         }
-        onEndReached={this.handleScrollEndReached}
-        onEndReachedThreshold={0.005}
+        onEndReached={this.props.scrollLoad}
+        onEndReachedThreshold={1}
         ListFooterComponent={this.renderFixedRowFooter}
       />
     );
