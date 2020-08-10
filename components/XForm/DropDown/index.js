@@ -124,7 +124,7 @@ export const DropDown = ({
           left
           style={[styles.modalContentContainer, modalContentContainerStyle]}>
           <Block pt2 center flex={false} style={contentSwipeDownStyle}>
-            {props.label && (
+            {!!props.label && (
               <Text style={[styles.modalLabelStyle, modalLabelStyle]}>
                 {props.label}
               </Text>
