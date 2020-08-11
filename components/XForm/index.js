@@ -237,7 +237,7 @@ export class XForm extends Component {
   /** ####################################################################################  */
   /** ################################### QR/BARCODE INPUT ###################################  */
   /** binds text input with QRCode reader and sets value to state */
-  bindTextInputQRDefaults = {required: true};
+  bindTextInputQRDefaults = {required: false};
   bindTextInputQR = (key, extra = {}) => ({
     ...this.bindTextInput(key, {
       ...this.bindTextInputQRDefaults,
