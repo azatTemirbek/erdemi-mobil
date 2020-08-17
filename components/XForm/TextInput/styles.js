@@ -1,4 +1,6 @@
-import {StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
+import { BaseColor } from "../../../config";
+
 
 export default StyleSheet.create({
   container: {
@@ -10,5 +12,8 @@ export default StyleSheet.create({
     color: "#333333",
     paddingHorizontal: 10,
     minHeight: 48
+  },
+  disabledInput: {
+    backgroundColor: BaseColor.fieldColor
   }
 });
