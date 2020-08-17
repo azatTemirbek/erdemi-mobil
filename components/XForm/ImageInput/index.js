@@ -141,6 +141,7 @@ class ImageInputComp extends Component {
           title={translate("selectImage")}
           isVisible={this.state.modal}
           list={list}
+          translate={translate}
         />
         <Label {...{label, labelStyle, required}} />
         <View style={[styles.container, style]}>
