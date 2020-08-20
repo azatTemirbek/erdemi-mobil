@@ -1,10 +1,10 @@
-import React, { cloneElement, Children } from "react";
-import { InteractionManager, TextInput as Input } from "react-native";
+import React, {cloneElement, Children} from "react";
+import {InteractionManager, TextInput as Input} from "react-native";
 import PropTypes from "prop-types";
-import { BaseColor } from "../../../config";
-import { Icon, Block, TouchableOpacity, Label, ErrorLabel } from "../..";
+import {BaseColor} from "../../../config";
+import {Icon, Block, TouchableOpacity, Label, ErrorLabel} from "../..";
 import styles from "./styles";
-import { withHideFormElement, compose } from "../../../hocs";
+import {withHideFormElement, compose} from "../../../hocs";
 const TextInputComp = React.forwardRef((props, ref) => {
   const {
     style,
@@ -46,28 +46,28 @@ const TextInputComp = React.forwardRef((props, ref) => {
     let component = props[keyVal];
     let key = JSON.stringify(rProps);
     return typeof component === "function"
-      ? component({ key, props: rProps })
+      ? component({key, props: rProps})
       : Children.map(component, (child) =>
-        cloneElement(child, { key, props: rProps })
-      );
+          cloneElement(child, {key, props: rProps})
+        );
   };
 
   return (
     <>
-      <Label {...{ labelStyle, label, required }} />
+      <Label {...{labelStyle, label, required}} />
       <Block
         p1
         row
         flex={false}
         smallCard
         shadow={shadow}
-        style={[styles.container, error && { borderColor: "red" }, style]}>
+        style={[styles.container, error && {borderColor: "red"}, style]}>
         {!!renderLeft && (
           <Block
             flex={150}
             center
             col
-            style={[renderLeftStyle, { justifySelf: "flex-start" }]}>
+            style={[renderLeftStyle, {justifySelf: "flex-start"}]}>
             {renderer("renderLeft", defaultProps)}
           </Block>
         )}
@@ -75,23 +75,31 @@ const TextInputComp = React.forwardRef((props, ref) => {
           {renderCenter ? (
             renderer("renderCenter", defaultProps)
           ) : (
-              <Input
-                ref={attachRef}
-                {...rest}
-                editable={!rest.disabled}
-                style={[styles.baseInput, inputStyle, rest.disabled && styles.disabledInput]}
-              />
-            )}
+            <Input
+              ref={attachRef}
+              {...rest}
+              editable={rest.disabled ? false : rest.editable}
+              style={[
+                styles.baseInput,
+                inputStyle,
+                rest.disabled && styles.disabledInput
+              ]}
+            />
+          )}
         </Block>
         {!!renderRight && (
           <Block
             flex={150}
-            style={[renderRightStyle, { justifySelf: "flex-end" }, , rest.disabled && styles.disabledInput]}>
+            style={[
+              renderRightStyle,
+              {justifySelf: "flex-end"},
+              rest.disabled && styles.disabledInput
+            ]}>
             {renderer("renderRight", defaultProps)}
           </Block>
         )}
       </Block>
-      <ErrorLabel {...{ errorStyle, error }} />
+      <ErrorLabel {...{errorStyle, error}} />
     </>
   );
 });
@@ -141,7 +149,7 @@ TextInput.defaultProps = {
   renderLeft: false,
   renderCenter: false,
   renderCenterStyle: {},
-  renderRight: ({ props }) => {
+  renderRight: ({props}) => {
     return (
       <TouchableOpacity center middle onPress={() => props.focusInput()}>
         <Icon name="edit" size={22} color={BaseColor.accentColor} />

@@ -157,6 +157,7 @@ export const DropDown = ({
                   style={[styles.ModalContentAction, modalContentActionStyle]}
                   row
                   px4
+                  py3
                   mx4
                   pb2
                   space="between"

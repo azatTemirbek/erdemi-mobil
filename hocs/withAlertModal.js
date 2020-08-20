@@ -100,7 +100,7 @@ export const withAlertModal = curry((Component) => {
           </Block>
         </Popup>
         <Component
-          {...mergeAll({ref: attachRef, screenProps}, props, screenProps)}
+          {...mergeAll([{ref: attachRef, screenProps}, props, screenProps])}
         />
       </>
     );
