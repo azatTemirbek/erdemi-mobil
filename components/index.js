@@ -38,6 +38,7 @@ export {Header} from "./Header";
 export {PdfModal} from "./PdfModal";
 export {MenuItem} from "./MenuItem";
 export {Tag} from "./Tag";
+export {Sort} from "./Sort";
 /** common views */
 export {CompanyMenuView} from "./CompanyMenuView";
 export {LanguageDropDownView} from "./LanguageDropDownView";
