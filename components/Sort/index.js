@@ -6,7 +6,7 @@ import {Icon, Text, Button} from "../../components";
 import {BaseColor} from "../../config";
 import {compose, withProps} from "../../hocs";
 import {useSelection} from "../../hooks";
-import {last, prop, propOr, find, propEq, pick, head} from "ramda";
+import {last, is} from "ramda";
 import styles from "./styles";
 
 export const Sort = compose(
@@ -22,6 +22,7 @@ export const Sort = compose(
     toggleSelection,
     isSelected,
     setSelected,
+    getCompare,
     CompareKeys,
     options,
     value,
@@ -31,13 +32,9 @@ export const Sort = compose(
   }) => {
     const [modalVisible, setModalVisible] = useState(false);
     useEffect(() => {
-      setSelected([value]);
+      setSelected([is(Object, value) ? value : {value}]);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
-    const selected = find(
-      propEq(head(CompareKeys), head(pick(head(CompareKeys), selectedlist))),
-      options
-    );
     return (
       <>
         <Modal
@@ -78,7 +75,7 @@ export const Sort = compose(
                 marginBottom: 20
               }}
               onPress={() => {
-                onChange(last(selectedlist));
+                onChange(getCompare(last(selectedlist)));
                 setModalVisible(false);
               }}>
               {translate(uygulaTxt)}
@@ -91,15 +88,8 @@ export const Sort = compose(
             alignItems: "center"
           }}
           onPress={() => setModalVisible(true)}>
-          <Icon
-            name1={propOr(prop("icon", last(selectedlist)), "icon", value)}
-            name={prop("icon", selected)}
-            size={16}
-            color={BaseColor.grayColor}
-            solid
-          />
-          <Text headline grayColor style={{marginLeft: 5}}>
-            {translate(prop("text", selected))}
+          <Text headline primaryColor style={{marginLeft: 5}}>
+            Sort
           </Text>
         </TouchableOpacity>
       </>
@@ -110,7 +100,7 @@ export const Sort = compose(
 Sort.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   options: PropTypes.array,
-  value: PropTypes.object,
+  value: PropTypes.any,
   onChange: PropTypes.func,
   transalate: PropTypes.func,
   uygulaTxt: PropTypes.string

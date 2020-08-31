@@ -9,7 +9,8 @@ import {
   always,
   pick,
   map,
-  is
+  is,
+  includes
 } from "ramda";
 
 export const useSelection = (data, CompareKeys = ["value", "text"]) => {
@@ -31,7 +32,9 @@ export const useSelection = (data, CompareKeys = ["value", "text"]) => {
     [getCompare]
   );
   const setSelected = useCallback(
-    (values) => setSelectedList(getCompare(values)),
+    (values) => {
+      setSelectedList(getCompare(values));
+    },
     [getCompare]
   );
   /** hepsinin sechilmish oldugu hakkinda bir bilgi */
@@ -46,7 +49,10 @@ export const useSelection = (data, CompareKeys = ["value", "text"]) => {
   }, [isAllSelected, getCompare, data]);
   // isSelected :: {*} → Boolean
   const isSelected = useCallback(
-    (value) => contains(getCompare(value), getCompare(selectedlist)),
+    (value) => {
+      let res = includes(getCompare(value), getCompare(selectedlist));
+      return res;
+    },
     [getCompare, selectedlist]
   );
   return {
