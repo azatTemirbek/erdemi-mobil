@@ -41,8 +41,10 @@ export class PolicyButton extends Component {
                 <Text title3>{this.state.current.title}</Text>
               </View>
               <Pdf
-                source={{uri: this.state.current.baseData || ""}}
-                headers={this.props.headers || {}}
+                source={{
+                  uri: this.state.current.baseData || "",
+                  headers: this.props.headers || {}
+                }}
                 activityIndicator={
                   <ActivityIndicator
                     size="large"
