@@ -533,7 +533,7 @@ export class Table extends React.Component {
             : this.renderRow
         }
         onEndReached={this.props.scrollLoad}
-        onEndReachedThreshold={1}
+        onEndReachedThreshold={0.3}
         ListFooterComponent={this.renderFixedRowFooter}
       />
     );
