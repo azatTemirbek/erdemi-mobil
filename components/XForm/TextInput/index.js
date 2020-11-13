@@ -44,7 +44,7 @@ const TextInputComp = React.forwardRef((props, ref) => {
   };
   const renderer = (keyVal = "", rProps = defaultProps) => {
     let component = props[keyVal];
-    let key = JSON.stringify(rProps);
+    let key = component.toString();
     return typeof component === "function"
       ? component({key, props: rProps})
       : Children.map(component, (child) =>
