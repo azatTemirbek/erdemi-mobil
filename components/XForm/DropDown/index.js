@@ -138,6 +138,7 @@ export const DropDown = ({
                 autoFocus={isSearchible()}
                 onChangeText={onChangeText}
                 label=""
+                placeholder={props.translate("secimYapmakIcinIlkHarfiniYaz")}
               />
             </Block>
           </Block>
