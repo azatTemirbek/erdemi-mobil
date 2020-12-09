@@ -19,7 +19,7 @@ export const withProps = curry((extraProps, Component) => {
         ref = el;
       }
     };
-    return createElement(
+    return React.createElement(
       Component,
       merge(
         {...remainingProps, ref: attachRef},
