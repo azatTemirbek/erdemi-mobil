@@ -108,6 +108,12 @@ export class Filter extends Component {
               filterOption: this.props.filterOption
             });
           }}
+          onBackdropPress={() => {
+            this.setState({
+              modalVisible: false,
+              filterOption: this.props.filterOption
+            });
+          }}
           onRequestClose={() => {
             this.setState({
               modalVisible: false,
