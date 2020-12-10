@@ -1,8 +1,8 @@
 import React from "react";
-import {StyleSheet, ActivityIndicator} from "react-native";
-import {BaseColor} from "../../config";
+import { StyleSheet, ActivityIndicator } from "react-native";
+import { BaseColor } from "../../config";
 import PropTypes from "prop-types";
-import {Text, TouchableOpacity} from "../";
+import { Text, TouchableOpacity } from "../";
 import styles from "./styles";
 
 export const Button = ({
@@ -34,7 +34,8 @@ export const Button = ({
       onPress={rest.disabled ? () => {} : onPress}
       {...rest}
       style={btnStyle}
-      activeOpacity={opacity}>
+      activeOpacity={opacity}
+    >
       {icon ? icon : null}
       <Text
         headline
@@ -43,14 +44,15 @@ export const Button = ({
         bold
         disabled={rest.disabled}
         style={styleText}
-        numberOfLines={1}>
+        numberOfLines={1}
+      >
         {children || "Button"}
       </Text>
       {loading ? (
         <ActivityIndicator
           size="small"
           color={outline ? BaseColor.primaryColor : BaseColor.whiteColor}
-          style={{paddingLeft: 5}}
+          style={{ paddingLeft: 5 }}
         />
       ) : null}
     </TouchableOpacity>
@@ -69,7 +71,7 @@ Button.propTypes = {
   shadow: PropTypes.bool,
   opacity: PropTypes.any,
   color: PropTypes.string,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -84,6 +86,6 @@ Button.defaultProps = {
   shadow: false,
   opacity: 0.8,
   color: BaseColor.primaryColor,
-  disabled: false
+  disabled: false,
 };
 export default Button;
