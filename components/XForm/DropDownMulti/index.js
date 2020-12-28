@@ -250,6 +250,7 @@ class DropDownMultiComp extends Component {
     return (
       <TouchableOpacity
         style={[styles.renderDropDownIcon, this.props.renderDropDownIconStyle]}
+        disabled={this.props.disabled}
         onPress={this._openModal}>
         {this.props.loading ? (
           <ActivityIndicator

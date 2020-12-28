@@ -48,7 +48,7 @@ export const DatePickerInput = (
         ref={attachRef}
         renderRight={({props}) => {
           return (
-            <TouchableOpacity center middle onPress={() => toggleOpen(true)}>
+            <TouchableOpacity center disabled={rest.disabled} middle onPress={() => toggleOpen(true)}>
               <Icon name="calendar" size={22} color={BaseColor.accentColor} />
             </TouchableOpacity>
           );

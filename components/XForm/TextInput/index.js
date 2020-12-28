@@ -40,7 +40,8 @@ const TextInputComp = React.forwardRef((props, ref) => {
   const defaultProps = {
     focusInput: _focusInputWithKeyboard,
     parentRef: innerRef,
-    name: props.name
+    name: props.name,
+    disabled: rest.disabled
   };
   const renderer = (keyVal = "", rProps = defaultProps) => {
     let component = props[keyVal];
@@ -151,7 +152,11 @@ TextInput.defaultProps = {
   renderCenterStyle: {},
   renderRight: ({props}) => {
     return (
-      <TouchableOpacity center middle onPress={() => props.focusInput()}>
+      <TouchableOpacity
+        center
+        disabled={props.disabled}
+        middle
+        onPress={() => props.focusInput()}>
         <Icon name="edit" size={22} color={BaseColor.accentColor} />
       </TouchableOpacity>
     );

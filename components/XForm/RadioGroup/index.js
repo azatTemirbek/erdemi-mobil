@@ -50,7 +50,7 @@ class RadioGroupComp extends Component {
             <TouchableOpacity
               card
               flex={false}
-              disabled={object.inactive}
+              disabled={this.props.disabled || object.inactive}
               style={[
                 styles.ItemContainer,
                 !this.props.reverseLabel && {

@@ -6,6 +6,7 @@ import {Text, Icon, Card, MapArray, Selector, ErrorLabel, Label} from "../../";
 import styles from "./styles";
 import ImagePicker from "react-native-image-crop-picker";
 import {withHideFormElement, compose} from "../../../hocs";
+import { propEq } from "ramda";
 
 class ImageInputComp extends Component {
   options = {
@@ -27,7 +28,8 @@ class ImageInputComp extends Component {
       openSelector: this._openSelector.bind(this),
       openGallery: this._openGallery.bind(this),
       openCamera: this._openCamera.bind(this),
-      name: this.props.name
+      name: this.props.name,
+      disabled: this.props.disabled
     }
   ) => {
     let component = this.props[keyVal];
@@ -278,7 +280,7 @@ ImageInputComp.defaultProps = {
   renderLeft: false,
   renderRight: ({props}) => {
     return (
-      <TouchableOpacity onPress={() => props.openSelector()}>
+      <TouchableOpacity disabled={props.disabled} onPress={() => props.openSelector()}>
         <Icon
           name="image-plus"
           type="material-community"

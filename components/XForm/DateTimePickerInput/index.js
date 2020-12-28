@@ -12,7 +12,7 @@ export class DateTimePickerInput extends Component {
   selected = "";
   renderRight = ({props}) => {
     return (
-      <TouchableOpacity center middle onPress={this.openDatePicker}>
+      <TouchableOpacity center disabled={this.props.disabled} middle onPress={this.openDatePicker}>
         <Icon name="calendar" size={22} color={BaseColor.accentColor} />
       </TouchableOpacity>
     );

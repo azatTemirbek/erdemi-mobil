@@ -85,6 +85,7 @@ export const DropDown = ({
         renderRight={
           <TouchableOpacity
             p4
+            disabled={props.disabled}
             flex={1}
             middle
             center
